@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
 
-
 @Component({
-  selector: 'app-leer',
-  templateUrl: './leer.component.html',
-  styleUrls: ['./leer.component.css']
+  selector: 'app-leer-estudiante',
+  templateUrl: './leer-estudiante.component.html',
+  styleUrls: ['./leer-estudiante.component.css']
 })
-export class LeerComponent implements OnInit {
+export class LeerEstudianteComponent implements OnInit {
 
   constructor(private servise:ApiserviceService) { 
 
@@ -26,11 +26,11 @@ export class LeerComponent implements OnInit {
   deleteID(id:any)
   {
     console.log(id,'deleteid==');
-    this.servise.deleteData(id).subscribe((res)=>{
+    this.servise.deleteDataEstudiante(id).subscribe((res)=>{
       console.log(res,'deleted');
         this.succesmsg=res.message;
         
-        this.servise.getAllData().subscribe((res)=>{
+        this.servise.getAllDataEstudiante().subscribe((res)=>{
           console.log(res,'res==>');
           this.readData =res.data;
           this.getAllData();
@@ -40,9 +40,10 @@ export class LeerComponent implements OnInit {
 
   getAllData()
   {
-    this.servise.getAllData().subscribe((res)=>{
+    this.servise.getAllDataEstudiante().subscribe((res)=>{
       console.log(res,'res==>');
       this.readData =res.data;
     })
   }
 }
+

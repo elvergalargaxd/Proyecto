@@ -117,6 +117,304 @@ app.delete('/user/:id',(req,res)=>{
     });
 })
 
+//Obter todo los datos de estudiante////////////////////////////////////////
+app.get('/estudiante',(req,res)=>{
+    let qr= 'select * from estudiante';
+    db.query(qr,(err,result)=>{
+        if(err)
+        {
+            console.log(err,'errs');
+        }
+        if(result.length>0)
+        {
+            res.send({
+                message:'todo el dato del estudiante',
+                data:result
+            });
+        }
+    });
+});
+
+// select de latabla
+app.get('/estudiante/:id',(req,res)=>{
+    let gID=req.params.id;  
+
+    let qr=`select * from estudiante where idEstudiante= ${gID}`;
+
+    db.query(qr,(err,result)=>{
+        if(err)
+        {
+            console.log(err);
+        }
+        if(result.length>0)
+        {
+            res.send({
+                message:'obteniendo simples datos',
+                data:result
+            });
+        }
+        else{
+            res.send({
+                message:'datos no encontrados'
+            });
+        }
+    })
+});
+
+
+//crear usuario
+app.post('/estudiante',(req,res)=>{
+    console.log(req.body,'crear');
+
+    let nombre =req.body.nombre;
+    let apPaterno=req.body.apPaterno;
+    let apMaterno=req.body.apMaterno;
+    let correo=req.body.correo;
+    let contrasena=req.body.contrasena;
+
+    let qr=`insert into estudiante (nombre,apPaterno,apMaterno,correo,contrasena)
+             values('${nombre}','${apPaterno}','${apMaterno}','${correo}','${contrasena}')`;
+
+    db.query(qr,(err,result)=>{
+        if(err){console.log(err);}
+        res.send({message:'datos insertados'});
+         
+    })
+});
+
+app.put ('/estudiante/:id',(req,res)=>{
+    console.log(req.body,'modificar');
+    
+    
+    let gID=req.params.id;
+    let nombre =req.body.nombre;
+    let apPaterno=req.body.apPaterno;
+    let apMaterno=req.body.apMaterno;
+    let correo=req.body.correo;
+    let contrasena=req.body.contrasena;
+
+    let qr=`update estudiante set nombre='${nombre}',apPaterno='${apPaterno}',apMaterno='${apMaterno}',correo='${correo}',contrasena='${contrasena}'
+            where idEstudiante='${gID}'`;
+    db.query(qr,(err,result)=>{
+        if(err){console.log(err);}
+        res.send({
+            message:'datos modificados'
+        });
+    })
+})
+
+app.delete('/estudiante/:id',(req,res)=>{
+    let qID=req.params.id;
+
+    let qr =`delete from estudiante where idEstudiante= '${qID}'`;
+    db.query(qr,(err,result)=>{
+        if(err){console.log(err); }
+        res.send({
+            message:'eliminado'
+        })
+    });
+})
+
+//Obter todo los datos de curso////////////////////////////////////////
+app.get('/curso',(req,res)=>{
+    let qr= 'select * from curso';
+    db.query(qr,(err,result)=>{
+        if(err)
+        {
+            console.log(err,'errs');
+        }
+        if(result.length>0)
+        {
+            res.send({
+                message:'todo el dato del curso',
+                data:result
+            });
+        }
+    });
+});
+
+// select de latabla
+app.get('/curso/:id',(req,res)=>{
+    let gID=req.params.id;  
+
+    let qr=`select * from curso where idCurso= ${gID}`;
+
+    db.query(qr,(err,result)=>{
+        if(err)
+        {
+            console.log(err);
+        }
+        if(result.length>0)
+        {
+            res.send({
+                message:'obteniendo simples datos',
+                data:result
+            });
+        }
+        else{
+            res.send({
+                message:'datos no encontrados'
+            });
+        }
+    })
+});
+
+
+//crear usuario
+app.post('/curso',(req,res)=>{
+    console.log(req.body,'crear');
+
+    let nombre =req.body.nombre;
+    let descripcion=req.body.descripcion;
+    let imagen=req.body.imagen;
+    let idDocente=req.body.idDocente;
+    
+
+    let qr=`insert into curso (nombre,descripcion,imagen,idDocente)
+             values('${nombre}','${descripcion}','${imagen}','${idDocente}')`;
+
+    db.query(qr,(err,result)=>{
+        if(err){console.log(err);}
+        res.send({message:'datos insertados'});
+         
+    })
+});
+
+app.put ('/curso/:id',(req,res)=>{
+    console.log(req.body,'modificar');
+    
+    
+    let gID=req.params.id;
+    let nombre =req.body.nombre;
+    let descripcion=req.body.descripcion;
+    let imagen=req.body.imagen;
+    let idDocente=req.body.idDocente;
+    
+    let qr=`update curso set nombre='${nombre}',descripcion='${descripcion}',imagen='${imagen}',idDocente='${idDocente}'
+            where idCurso='${gID}'`;
+    db.query(qr,(err,result)=>{
+        if(err){console.log(err);}
+        res.send({
+            message:'datos modificados'
+        });
+    })
+})
+
+app.delete('/curso/:id',(req,res)=>{
+    let qID=req.params.id;
+
+    let qr =`delete from curso where idCurso= '${qID}'`;
+    db.query(qr,(err,result)=>{
+        if(err){console.log(err); }
+        res.send({
+            message:'eliminado'
+        })
+    });
+})
+
+
+
+//Obter todo los datos de estudiante////////////////////////////////////////
+app.get('/docente',(req,res)=>{
+    let qr= 'select * from docente';
+    db.query(qr,(err,result)=>{
+        if(err)
+        {
+            console.log(err,'errs');
+        }
+        if(result.length>0)
+        {
+            res.send({
+                message:'todo el dato del docente',
+                data:result
+            });
+        }
+    });
+});
+
+// select de latabla
+app.get('/docente/:id',(req,res)=>{
+    let gID=req.params.id;  
+
+    let qr=`select * from docente where idDocente= ${gID}`;
+
+    db.query(qr,(err,result)=>{
+        if(err)
+        {
+            console.log(err);
+        }
+        if(result.length>0)
+        {
+            res.send({
+                message:'obteniendo simples datos',
+                data:result
+            });
+        }
+        else{
+            res.send({
+                message:'datos no encontrados'
+            });
+        }
+    })
+});
+
+
+//crear usuario
+app.post('/docente',(req,res)=>{
+    console.log(req.body,'crear');
+
+    let nombre =req.body.nombre;
+    let apPaterno=req.body.apPaterno;
+    let apMaterno=req.body.apMaterno;
+    let correo=req.body.correo;
+    let contrasena=req.body.contrasena;
+
+    let qr=`insert into docente (nombre,apPaterno,apMaterno,correo,contrasena)
+             values('${nombre}','${apPaterno}','${apMaterno}','${correo}','${contrasena}')`;
+
+    db.query(qr,(err,result)=>{
+        if(err){console.log(err);}
+        res.send({message:'datos insertados'});
+         
+    })
+});
+
+app.put ('/docente/:id',(req,res)=>{
+    console.log(req.body,'modificar');
+    
+    
+    let gID=req.params.id;
+    let nombre =req.body.nombre;
+    let apPaterno=req.body.apPaterno;
+    let apMaterno=req.body.apMaterno;
+    let correo=req.body.correo;
+    let contrasena=req.body.contrasena;
+
+    let qr=`update docente set nombre='${nombre}',apPaterno='${apPaterno}',apMaterno='${apMaterno}',correo='${correo}',contrasena='${contrasena}'
+            where idDocente='${gID}'`;
+    db.query(qr,(err,result)=>{
+        if(err){console.log(err);}
+        res.send({
+            message:'datos modificados'
+        });
+    })
+})
+
+app.delete('/docente/:id',(req,res)=>{
+    let qID=req.params.id;
+
+    let qr =`delete from docente where idDocente= '${qID}'`;
+    db.query(qr,(err,result)=>{
+        if(err){console.log(err); }
+        res.send({
+            message:'eliminado'
+        })
+    });
+})
+
+
+
+
 app.listen(3000,()=>{
     console.log('servidor corriendooo');
 });

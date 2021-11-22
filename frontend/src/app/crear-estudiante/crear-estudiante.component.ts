@@ -1,18 +1,22 @@
+
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
 
 
+
 @Component({
-  selector: 'app-crear',
-  templateUrl: './crear.component.html',
-  styleUrls: ['./crear.component.css']
+  selector: 'app-crear-estudiante',
+  templateUrl: './crear-estudiante.component.html',
+  styleUrls: ['./crear-estudiante.component.css']
 })
-export class CrearComponent implements OnInit {
+export class CrearEstudianteComponent implements OnInit {
 
   constructor(private service:ApiserviceService, private  router:ActivatedRoute) { }
 
+
+  
   errormsg:any;
   successmsg:any;
   getparamid:any;
@@ -23,11 +27,15 @@ export class CrearComponent implements OnInit {
       if(this.getparamid)
       {
 
-      this.service.getSingleData(this.getparamid).subscribe((res)=>{
+      this.service.getSingleDataEstudiante(this.getparamid).subscribe((res)=>{
         console.log(res,'res==>');
         this.userForm.patchValue({
             nombre:res.data[0].nombre,
-            descripcion:res.data[0].descripcion
+            apPaterno:res.data[0].apPaterno,
+            apMaterno:res.data[0].apMaterno,
+            correo:res.data[0].correo,
+            contrasena:res.data[0].contrasena,
+            
         });
       });
 
@@ -36,7 +44,11 @@ export class CrearComponent implements OnInit {
   }
   userForm =new FormGroup({
       'nombre':new FormControl('',Validators.required),
-      'descripcion':new FormControl('',Validators.required)
+      'apPaterno':new FormControl('',Validators.required),
+      'apMaterno':new FormControl('',Validators.required),
+      'correo':new FormControl('',Validators.required),
+      'contrasena':new FormControl('',Validators.required),
+      
   });
   
 
@@ -45,7 +57,7 @@ export class CrearComponent implements OnInit {
       if(this.userForm.valid)
       {
         console.log(this.userForm.value);
-        this.service.createData(this.userForm.value).subscribe((res)=>{
+        this.service.createDataEstudiante(this.userForm.value).subscribe((res)=>{
           console.log(res,'res++=+');
           this.userForm.reset();
           this.successmsg=res.message;
@@ -62,7 +74,7 @@ export class CrearComponent implements OnInit {
       console.log(this.userForm.value,'updatedform');
       if(this.userForm  .valid  )
       {
-          this.service.updateData(this.userForm.value,this.getparamid).subscribe((res)=>{
+          this.service.updateDataEstudiante(this.userForm.value,this.getparamid).subscribe((res)=>{
                 console.log(res,'modificado');
 
                 this.successmsg=res.message;
