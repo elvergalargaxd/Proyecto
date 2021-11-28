@@ -72,7 +72,7 @@ export class CrearEstudianteComponent implements OnInit {
   userUpdate()
   {
       console.log(this.userForm.value,'updatedform');
-      if(this.userForm  .valid  )
+      if(this.userForm.valid  )
       {
           this.service.updateDataEstudiante(this.userForm.value,this.getparamid).subscribe((res)=>{
                 console.log(res,'modificado');

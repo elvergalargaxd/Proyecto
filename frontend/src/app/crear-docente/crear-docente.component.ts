@@ -18,8 +18,11 @@ export class CrearDocenteComponent implements OnInit {
   errormsg:any;
   successmsg:any;
   getparamid:any;
+  readDataCurso:any;
 
   ngOnInit(): void {
+
+      this.getAllData();
     
       this.getparamid =this.router.snapshot.paramMap.get('id');
       if(this.getparamid)
@@ -33,7 +36,7 @@ export class CrearDocenteComponent implements OnInit {
             apMaterno:res.data[0].apMaterno,
             correo:res.data[0].correo,
             contrasena:res.data[0].contrasena,
-            
+            idCurso:res.data[0].idCurso,
         });
       });
 
@@ -46,6 +49,7 @@ export class CrearDocenteComponent implements OnInit {
       'apMaterno':new FormControl('',Validators.required),
       'correo':new FormControl('',Validators.required),
       'contrasena':new FormControl('',Validators.required),
+      'idCurso':new FormControl('',Validators.required)
       
   });
   
@@ -66,11 +70,17 @@ export class CrearDocenteComponent implements OnInit {
         this.errormsg='todos los datos son requeridos';
       }
   }
+  getAllData(){
+    this.service.getAllDataCurso().subscribe((res)=>{
+      console.log(res,'res==>');
+      this.readDataCurso=res.data;
+    })
+  }
 
   userUpdate()
   {
       console.log(this.userForm.value,'updatedform');
-      if(this.userForm  .valid  )
+      if(this.userForm.valid  )
       {
           this.service.updateDataDocente(this.userForm.value,this.getparamid).subscribe((res)=>{
                 console.log(res,'modificado');

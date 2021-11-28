@@ -14,8 +14,10 @@ export class ApiserviceService {
 
       apiUrl='http://localhost:3000/user';
       apiUrlEstudiante='http://localhost:3000/estudiante';
+      apiUrlEstudianteBuscar='http://localhost:3000/estudiante/buscar';
       apiUrlDocente='http://localhost:3000/docente';
       apiUrlCurso='http://localhost:3000/curso';
+      apiUrlInscripcion='http://localhost:3000/inscripcion';
 
       //obtener todo los datos
 
@@ -54,6 +56,12 @@ export class ApiserviceService {
       }
 
 // SERVICIOS DE ESTUDIANTES//////////////////////////////////////////////
+      searchDataEstudiante(nombre:any ):Observable<any>
+      {
+        let ids=nombre;
+        return this._http.get(`${this.apiUrlEstudianteBuscar}/${ids}`);
+      }
+
       getAllDataEstudiante():Observable<any>
       {
           return this._http.get (`${this.apiUrlEstudiante}`);
@@ -159,6 +167,11 @@ getSingleDataCurso(id:any):Observable<any>
   return this._http.get(`${this.apiUrlCurso}/${ids}`);
 
 }
-
+// SERVICIOS DE CURSO//////////////////////////////////////////////
+createInscripcion(data:any):Observable<any>
+{
+  console.log(data,'crearpi');
+  return this._http.post(`${this.apiUrlInscripcion}`,data);
+}
 
 }

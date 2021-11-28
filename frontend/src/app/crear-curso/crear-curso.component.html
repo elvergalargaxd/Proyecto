@@ -1,150 +1,10 @@
 
-    <div class="d-flex" id="wrapper">
-      <!-- Sidebar-->
-      <div class="border-end bg-white" id="sidebar-wrapper">
-        <div class="container-fluid sidebar-heading text-primary border-bottom bg-light p-3" >
-          <a class="navbar-brand px-2" href="#">
-              <span class="text-danger fs-1 fw-bold">I</span>
-              <span class="text-primary fs-1 fw-bold">n</span>
-              <span class="text-primary fs-1 fw-bold">n</span>
-              <span class="text-success fs-1 fw-bold">o</span>
-              <span class="text-danger fs-1 fw-bold">v</span>
-              <span class="text-primary fs-1 fw-bold">a-</span>
-              <span class="text-warning fs-1 fw-bold">T</span>
-          </a>
-      </div>
-          
-          <div class="list-group list-group-flush">
-              <a class="list-group-item list-group-item-action list-group-item-light fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" routerLink="../crearEstudiante" >Gestion de Estudiantes</a>
-              <a class="list-group-item list-group-item-action list-group-item-light fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" routerLink="crearDocente">Gestion de Docentes</a> 
-              <a class="list-group-item list-group-item-action list-group-item-light fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" href="http://localhost:4200/crearCurso">Gestion de Cursos</a>
-              <a class="list-group-item list-group-item-action list-group-item-light fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" href="http://localhost:4200/leerCurso">Inscripciones</a>
-              <a class="list-group-item list-group-item-action list-group-item-light fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" href="#!">Evaluacioness</a>
-              <a class="list-group-item list-group-item-action list-group-item-light fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" href="#!">Cursos Externos</a>
-              <a class="list-group-item list-group-item-action list-group-item-light fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" href="#!">Reportes</a>
-              <a class="list-group-item list-group-item-action fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" href="#!"></a>
-          </div>
-      </div>
-      <!-- Page content wrapper-->
-      <div id="page-content-wrapper">
-          <!-- Top navigation-->
-          <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-              <div class="container-fluid">
-                  
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                      <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                          <li class="nav-item active"><a class="nav-link" href="#!">Home</a></li>
-                          <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
-                          <li class="nav-item dropdown">
-                              <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                  <a class="dropdown-item" href="#!">Action</a>
-                                  <a class="dropdown-item" href="#!">Another action</a>
-                                  <div class="dropdown-divider"></div>
-                                  <a class="dropdown-item" href="#!">Something else here</a>
-                              </div>
-                          </li>
-                          <button class="btn btn-primary" id="sidebarToggle">Cerrar Sesion</button>
-                      </ul>
-                  </div>
-              </div>
-          </nav>
-          <!-- Page content-->
-          <div class="container-fluid">
-              <h1 class="mt-4">Simple Sidebar</h1>
-              <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
-              <p>
-                
-      <router-outlet></router-outlet>
-                  Make sure to keep all page content within the
-                  <code>#page-content-wrapper</code>
-                  . The top navbar is optional, and just for demonstration. Just create an element with the
-                  <code>#sidebarToggle</code>
-                  ID which will toggle the menu when clicked.
-              </p>
-          </div>
-      </div>
-  </div>
-    
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class=" container-fluid justify-content-center border-top">
-            <nav class="navbar navbar-light bg-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand px-2" href="#">
-                        <span class="text-danger fs-1 fw-bold" routerLink="home">I</span>
-                        <span class="text-primary fs-1 fw-bold">n</span>
-                        <span class="text-primary fs-1 fw-bold">n</span>
-                        <span class="text-success fs-1 fw-bold">o</span>
-                        <span class="text-danger fs-1 fw-bold">v</span>
-                        <span class="text-primary fs-1 fw-bold">a-</span>
-                        <span class="text-warning fs-1 fw-bold">T</span>
-                    </a>
-                </div>
-                
-              </nav>
-    
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              
-              
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-primary fs-4 px-4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Estudiantes
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="http://localhost:4200/crearEstudiante">Crear Estudiante</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="http://localhost:4200/leerEstudiante">Lista de Estudiantes</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      
-                    </ul>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-primary fs-4 px-4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Docentes
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="http://localhost:4200/crearDocente">Crear Docentes</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="http://localhost:4200/leerDocente">Lista de Docentes</a></li>
-                    </ul>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-primary fs-4 px-4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Cursos
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="http://localhost:4200/crearCurso">Crear Curso</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="http://localhost:4200/leerCurso">Lista de Curso</a></li>
-                    </ul>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active text-primary fs-4 px-3" aria-current="page" href="#">Disabled</a>
-                  </li>
-              <div class="btn-group px-5" >
-                
-                
-              </div>
-            
-            </ul>
-            
-          </div>
-        </div>
-      </nav>
 
 <div class="container mt-5">
-    <h1>Administrar Cursos</h1>
-    <a href="http://localhost:4200/crearCurso" class="btn btn-success">crear</a>
-   &nbsp;   
-    <a href="http://localhost:4200/leerCurso" class="btn btn-primary" >Leer</a>
+    <h1>Crear Curso</h1>
     &nbsp;   
-       
+    
   
     
   </div>
@@ -172,9 +32,18 @@
         <div class="col-lg-4 mt-2">
             <input type="text" class="form-control" formControlName="imagen"  placeholder="imagen">
         </div>
-        <div class="col-lg-4 mt-2">
-            <input type="text"class="form-control" formControlName="idDocente" placeholder="Ingrese Docente">
-        </div>
+        <div class="input-group mb-6">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01">Cursos</label>
+            </div>
+            <select class="custom-select col-6" id="id" formControlName="idDocente">
+              <option  value="" selected disabled hidden>Seleccione Docente</option>
+              <option *ngFor ='let us of readDataDocente' [ngValue]="us.idDocente" >{{us.nombre}} {{us.apPaterno}} {{us.apMaterno}}</option>
+              
+            </select>
+        
+          </div>
+        
         <div class="col-lg-4 mt-2" *ngIf="!getparamid" (click)="userSubmit()">
             <button class="btn btn-primary">Crear</button>
         </div>

@@ -9,6 +9,7 @@ import { LeerDocenteComponent } from './leer-docente/leer-docente.component';
 import { CrearCursoComponent } from './crear-curso/crear-curso.component';
 import { LeerCursoComponent } from './leer-curso/leer-curso.component';
 import { AdministrarComponent } from './administrar/administrar.component';
+import { AsignarEstudianteCursoComponent } from './asignar-estudiante-curso/asignar-estudiante-curso.component';
 
 
 const routes: Routes = [
@@ -24,7 +25,24 @@ const routes: Routes = [
   {path:'crearCurso',component:CrearCursoComponent},
   {path:'crearCurso/:id',component:CrearCursoComponent},
   {path:'leerCurso',component:LeerCursoComponent},
-  {path:'administrar',component:AdministrarComponent},
+  {path:'administrar',component:AdministrarComponent,
+    children:[
+     
+      {path:'leerEstudiante',component:LeerEstudianteComponent},
+      {path:'crearEstudiante',component:CrearEstudianteComponent},
+      {path:'crearEstudiante/:id', component:CrearEstudianteComponent},
+      {path:'leerEstudiante',component:LeerEstudianteComponent},
+      {path:'crearDocente',component:CrearDocenteComponent},
+      {path:'leerDocente',component:LeerDocenteComponent},
+      {path:'crearDocente/:id',component:CrearDocenteComponent},
+      {path:'crearCurso',component:CrearCursoComponent},
+      {path:'crearCurso/:id',component:CrearCursoComponent},
+      {path:'leerCurso',component:LeerCursoComponent},
+      {path:'asignarEstudianteCurso',component:AsignarEstudianteCursoComponent },
+      {path:'asignarEstudianteCurso/:id',component:AsignarEstudianteCursoComponent},
+      {path:'asignarEstudianteCurso',component:AsignarEstudianteCursoComponent},
+    ]
+},
   
 ];
 

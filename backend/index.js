@@ -137,28 +137,25 @@ app.get('/estudiante',(req,res)=>{
 
 // select de latabla
 app.get('/estudiante/:id',(req,res)=>{
+    
     let gID=req.params.id;  
-
+    
     let qr=`select * from estudiante where idEstudiante= ${gID}`;
 
-    db.query(qr,(err,result)=>{
-        if(err)
-        {
-            console.log(err);
-        }
-        if(result.length>0)
-        {
-            res.send({
-                message:'obteniendo simples datos',
-                data:result
-            });
-        }
-        else{
-            res.send({
-                message:'datos no encontrados'
-            });
-        }
-    })
+        db.query(qr,(err,result)=>{
+            if(err)
+            { 
+                console.log(err);
+            }
+            if(result.length>0)
+            {  
+                res.send({
+                    message:'obteniendo simples datos',
+                    data:result
+                });
+            }
+        })
+    
 });
 
 
@@ -203,6 +200,33 @@ app.put ('/estudiante/:id',(req,res)=>{
     })
 })
 
+app.get('/estudiante/buscar/:nombre',(req,res)=>{
+    let qID=req.params.nombre;
+
+    let qr =`SELECT * FROM estudiante WHERE nombre LIKE '%${qID}%'`;
+
+    
+    db.query(qr,(err,result)=>{
+                if(err)
+        {
+            console.log(err,'errs');
+            
+        }
+        if(result.length>=0)
+        {
+            res.send({
+                message:'todo el dato del estudiante',
+                data:result
+            });
+        }
+        else{
+            res.send({
+                message:'datos no encontrados'
+            });
+        }
+    });
+})
+
 app.delete('/estudiante/:id',(req,res)=>{
     let qID=req.params.id;
 
@@ -214,6 +238,25 @@ app.delete('/estudiante/:id',(req,res)=>{
         })
     });
 })
+
+app.post('/estudiante',(req,res)=>{
+    console.log(req.body,'crear');
+
+    let nombre =req.body.nombre;
+    let apPaterno=req.body.apPaterno;
+    let apMaterno=req.body.apMaterno;
+    let correo=req.body.correo;
+    let contrasena=req.body.contrasena;
+
+    let qr=`insert into estudiante (nombre,apPaterno,apMaterno,correo,contrasena)
+             values('${nombre}','${apPaterno}','${apMaterno}','${correo}','${contrasena}')`;
+
+    db.query(qr,(err,result)=>{
+        if(err){console.log(err);}
+        res.send({message:'datos insertados'});
+         
+    })
+});
 
 //Obter todo los datos de curso////////////////////////////////////////
 app.get('/curso',(req,res)=>{
@@ -314,7 +357,7 @@ app.delete('/curso/:id',(req,res)=>{
 
 
 
-//Obter todo los datos de estudiante////////////////////////////////////////
+//Obter todo los datos de docente////////////////////////////////////////
 app.get('/docente',(req,res)=>{
     let qr= 'select * from docente';
     db.query(qr,(err,result)=>{
@@ -368,9 +411,10 @@ app.post('/docente',(req,res)=>{
     let apMaterno=req.body.apMaterno;
     let correo=req.body.correo;
     let contrasena=req.body.contrasena;
+    let idCurso=req.body.idCurso;
 
-    let qr=`insert into docente (nombre,apPaterno,apMaterno,correo,contrasena)
-             values('${nombre}','${apPaterno}','${apMaterno}','${correo}','${contrasena}')`;
+    let qr=`insert into docente (nombre,apPaterno,apMaterno,correo,contrasena,idCurso)
+             values('${nombre}','${apPaterno}','${apMaterno}','${correo}','${contrasena}','${idCurso}')`;
 
     db.query(qr,(err,result)=>{
         if(err){console.log(err);}
@@ -389,8 +433,9 @@ app.put ('/docente/:id',(req,res)=>{
     let apMaterno=req.body.apMaterno;
     let correo=req.body.correo;
     let contrasena=req.body.contrasena;
+    let idCurso=req.body.idCurso;
 
-    let qr=`update docente set nombre='${nombre}',apPaterno='${apPaterno}',apMaterno='${apMaterno}',correo='${correo}',contrasena='${contrasena}'
+    let qr=`update docente set nombre='${nombre}',apPaterno='${apPaterno}',apMaterno='${apMaterno}',correo='${correo}',contrasena='${contrasena}',contrasena='${idCurso}'
             where idDocente='${gID}'`;
     db.query(qr,(err,result)=>{
         if(err){console.log(err);}
@@ -411,6 +456,26 @@ app.delete('/docente/:id',(req,res)=>{
         })
     });
 })
+//Inscripciones////////////////////////////////////////
+
+app.post('/inscripcion',(req,res)=>{
+    console.log(req.body,'crear');
+
+    let idCurso =req.body.idCurso;
+    let idEstudiante=req.body.idEstudiante;
+    let costo=req.body.costo;
+    let fecha=req.body.fecha;
+    
+
+    let qr=`insert into inscripcion (idCurso,idEstudiante,costo,fecha)
+             values('${idCurso}','${idEstudiante}','${costo}','${fecha}')`;
+
+    db.query(qr,(err,result)=>{
+        if(err){console.log(err);}
+        res.send({message:'datos insertados'});
+         
+    })
+});
 
 
 

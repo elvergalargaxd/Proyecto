@@ -17,6 +17,7 @@ export class CrearCursoComponent implements OnInit {
   errormsg:any;
   successmsg:any;
   getparamid:any;
+  readDataDocente:any;
 
   ngOnInit(): void {
     
@@ -36,17 +37,24 @@ export class CrearCursoComponent implements OnInit {
       });
 
       }
+      this.getAllData();
       
   }
   userForm =new FormGroup({
       'nombre':new FormControl('',Validators.required),
       'descripcion':new FormControl('',Validators.required),
       'imagen':new FormControl('',Validators.required),
-      'idDocente':new FormControl('',Validators.required)
+      'idDocente':new FormControl('',Validators.required),
+      
       
   });
   
-
+  getAllData()
+  {
+    this.service.getAllDataDocente().subscribe((res)=>{
+      this.readDataDocente=res.data;
+    })
+  }
 
   userSubmit(){
       if(this.userForm.valid)

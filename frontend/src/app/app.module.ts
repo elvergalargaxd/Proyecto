@@ -15,6 +15,7 @@ import { LeerDocenteComponent } from './leer-docente/leer-docente.component';
 import { LeerCursoComponent } from './leer-curso/leer-curso.component';
 import { CrearCursoComponent } from './crear-curso/crear-curso.component';
 import { AdministrarComponent } from './administrar/administrar.component';
+import { AsignarEstudianteCursoComponent } from './asignar-estudiante-curso/asignar-estudiante-curso.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { AdministrarComponent } from './administrar/administrar.component';
     LeerDocenteComponent,
     LeerCursoComponent,
     CrearCursoComponent,
-    AdministrarComponent
+    AdministrarComponent,
+    AsignarEstudianteCursoComponent
   ],
   imports: [
     BrowserModule,

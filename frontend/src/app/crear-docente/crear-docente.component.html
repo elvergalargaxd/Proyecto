@@ -1,80 +1,9 @@
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class=" container-fluid justify-content-center border-top">
-            <nav class="navbar navbar-light bg-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand px-2" href="#">
-                        <span class="text-danger fs-1 fw-bold" routerLink="home">I</span>
-                        <span class="text-primary fs-1 fw-bold">n</span>
-                        <span class="text-primary fs-1 fw-bold">n</span>
-                        <span class="text-success fs-1 fw-bold">o</span>
-                        <span class="text-danger fs-1 fw-bold">v</span>
-                        <span class="text-primary fs-1 fw-bold">a-</span>
-                        <span class="text-warning fs-1 fw-bold">T</span>
-                    </a>
-                </div>
-                
-              </nav>
-    
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              
-              
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-primary fs-4 px-4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Estudiantes
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="http://localhost:4200/crearEstudiante">Crear Estudiante</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="http://localhost:4200/leerEstudiante">Lista de Estudiantes</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      
-                    </ul>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-primary fs-4 px-4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Docentes
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="http://localhost:4200/crearDocente">Crear Docentes</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="http://localhost:4200/leerDocente">Lista de Docentes</a></li>
-                    </ul>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-primary fs-4 px-4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Cursos
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="http://localhost:4200/crearCurso">Crear Curso</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="http://localhost:4200/leerCurso">Lista de Curso</a></li>
-                    </ul>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active text-primary fs-4 px-3" aria-current="page" href="#">Disabled</a>
-                  </li>
-              <div class="btn-group px-5" >
-                
-                
-              </div>
-            
-            </ul>
-            
-          </div>
-        </div>
-      </nav>
 
 <div class="container mt-5">
-    <h1>Administrar Docentes</h1>
-    <a href="http://localhost:4200/crearDocente" class="btn btn-success">crear</a>
-   &nbsp;   
-    <a href="http://localhost:4200/leerDocente" class="btn btn-primary" >Leer</a>
-    &nbsp;   
+    <h1>Crear Docente</h1>
+    
+     
        
   
     
@@ -94,7 +23,7 @@
 
 
     <form [formGroup]="userForm"  >
-        <div class="col-lg-4 mt-2">
+        <div class="col-lg-4 mt-4">
             <input type="text" class="form-control" formControlName="nombre"  placeholder="Ingrese Nombre">
         </div>
         <div class="col-lg-4 mt-2">
@@ -109,6 +38,7 @@
         <div class="col-lg-4 mt-2">
             <input type="text" class="form-control" formControlName="contrasena"  placeholder="Ingrese Contrasena">
         </div>
+        
                <div class="col-lg-4 mt-2" *ngIf="!getparamid" (click)="userSubmit()">
             <button class="btn btn-primary">Crear</button>
         </div>
