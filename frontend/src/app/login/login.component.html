@@ -1,0 +1,39 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+ <body>
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <div class="login-main-text">
+      <a class="navbar-brand" href="#">
+         <span class="text-danger fs-1 fw-bold">I</span>
+         <span class="text-primary fs-1 fw-bold">N</span>
+         <span class="text-primary fs-1 fw-bold">N</span>
+         <span class="text-success fs-1 fw-bold">O</span>
+         <span class="text-danger fs-1 fw-bold">V</span>
+         <span class="text-primary fs-1 fw-bold">A-</span>
+         <span class="text-warning fs-1 fw-bold">T</span>
+     </a>
+    <!-- Icon -->
+    
+
+    <!-- Login Form -->
+    <form>
+      
+      
+      <input  [(ngModel)]="user.userName" type="text"class="fadeIn third" name="login" placeholder="usuario">
+      <input  [(ngModel)]="user.pass" type="text"class="fadeIn third" name="idDocente" placeholder="password">
+      <input  type="submit" class="fadeIn fourth" (click)="logIn()" value="Log In">
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" routerLink="/register">Crear Cuenta</a>
+    </div>
+
+  </div>
+</div>
+</div>
+ </body>

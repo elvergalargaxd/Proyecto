@@ -13,11 +13,12 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nombre</th>
-                <th scope="col">Paterno</th>
-                <th scope="col">Materno</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">userName</th>
+                <th scope="col">roleID</th>
                 <th scope="col">correo</th>
-                <th scope="col">contrasena</th>
-                
+                <th scope="col">telefono</th>
+                <th scope="col">pass</th>
                 <th scope="col">Editar</th>
                 
                 
@@ -25,17 +26,19 @@
             </thead>
             <tbody>
               <tr *ngFor ='let us of readData'>
-                <th scope="row">{{us.idDocente}}</th>
+                <th scope="row">{{us.id}}</th>
                 <td>{{us.nombre}}</td>
-                <td>{{us.apPaterno}}</td>
-                <td>{{us.apMaterno}}</td>
+                <td>{{us.apellido}}</td>
+                <td>{{us.userName}}</td>
+                <td>{{us.roleId}}</td>
                 <td>{{us.correo}}</td>
-                <td>{{us.contrasena}}</td>
+                <td>{{us.telefono}}</td>
+                <td>{{us.pass}}</td>
                 
 
-                <td><button class="btn btn-sm btn-danger" (click)="deleteID(us.idDocente)" >Eliminar</button>
+                <td><button class="btn btn-sm btn-danger" (click)="deleteID(us.id)" >Eliminar</button>
                    &nbsp;
-                   <a [routerLink]="['/administrar/crearDocente',us.idDocente]" class="btn btn-sm btn-success" >Modificar</a>
+                   <a [routerLink]="['/administrar/crearDocente',us.id]" class="btn btn-sm btn-success" >Modificar</a>
                 </td>
                 
               </tr>

@@ -1,0 +1,73 @@
+
+    
+    <h1>Cursos asignados</h1>
+    &nbsp;
+
+        <body>
+  
+          
+            
+              <div class="wrap-table100">
+                <div class="table100 ver1 m-b-110">
+                  <div class="table100-head">
+                    <table>
+                      <thead>
+                        <tr class="row100 head"  >
+                          <th class="cell100 column0 " style="text-align:center">Nombre</th>
+                          <th class="cell100 column1" >Apellido</th>
+                          <th class="cell100 column3">Correo</th>
+                          <th class="cell100 column1">Telefono</th>
+                          <th class="cell100 column1">Curso</th>
+                          
+                          
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+        
+                  <div class="table100-body js-pscroll">
+                    <table>
+                      <tbody>
+                        <tr class="row100 body" *ngFor ='let us of readData'>
+                          <td class="cell100 column0 "style="text-align:center">{{us.estudiante}}</td>
+                          <td class="cell100 column1">{{us.apellido}}</td>
+                          <td class="cell100 column3">{{us.correo}}</td>
+                          <td class="cell100 column1">{{us.telefono}}</td>
+                          <td class="cell100 column0"style="text-align:center">{{us.nombre}}</td>
+                          
+                          
+                        </tr>
+        
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+               </div>
+            
+         
+        
+        
+        <!--===============================================================================================-->	
+          <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+        <!--===============================================================================================-->
+          <script src="vendor/bootstrap/js/popper.js"></script>
+          <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!--===============================================================================================-->
+          <script src="vendor/select2/select2.min.js"></script>
+        <!--===============================================================================================-->
+          <script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+          <script>
+            $('.js-pscroll').each(function(){
+              var ps = new PerfectScrollbar(this);
+        
+              $(window).on('resize', function(){
+                ps.update();
+              })
+            });
+              
+            
+          </script>
+        <!--===============================================================================================-->
+          <script src="js/main.js"></script>
+        
+        </body> 

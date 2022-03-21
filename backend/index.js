@@ -3,10 +3,15 @@ const bodyParser = require('body-parser');
 
 const cors = require ('cors');
 const mysql= require('mysql2');
+const { Router } = require('express');
+
+const jwt = require('jsonwebtoken');
+const e = require('express');
 
 const app= express();
 
 app.use(cors());
+app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
 
@@ -27,12 +32,79 @@ db.connect(err=>{
 })
 
 
+ app.post ('/user/singin',(req,res)=>{
+     
+     const {userName,pass}=req.body;
+     db.query('select id, userName, roleId from user where userName=? and pass=?',
+     [userName,pass],
+     (err,rows,)=>{
+        if(!err){
+            if(rows.length>0){
+                let data =JSON.stringify(rows[0]);
+                const token = jwt.sign(data,'still');
+                res.json({token});
+                console.log(data);
+            }else{
+                res.json('Usuario incorrecto');
+            }
+        }else{
+            console.log(err);
+        }
+     }
+     )
+ }); 
+ app.post ('/user/singin2',(req,res)=>{
+     
+    const {userName,pass}=req.body;
+    db.query('select id, userName, roleId from user where userName=? and pass=?',
+    [userName,pass],
+    (err,rows,)=>{
+       if(!err){
+           if(rows.length>0){
+            res.send({
+                message:'todo el dato del usuario',
+                data:rows
+            });
+            
+           }else{
+               res.json('Usuario incorrecto');
+           }
+       }else{
+           console.log(err);
+       }
+    }
+    )
+});
+
+ app.post('/user/test',verifyToken,(req,res)=>{
+    console.log(req.data);
+    
+    res.json('Informacion secreta');
+
+ })
+function verifyToken(req,res,next){
+    if(!req.headers.authorization) return res.status(401).json('No autorizado');
+
+    const token = req.headers.authorization.substr(7);
+    
+    
+    if(token!==''){
+    const content=jwt.verify(token, 'still');
+        console.log(content);
+        req.data =content;
+        next();
+    }else{
+        res.status(401).json("token vacio")
+    }
+}
+  
 //get all data
 app.get('/user',(req,res)=>{
-    let qr= 'select *from user';
+    let qr= `select * from user where roleId    ='user'    `;
     db.query(qr,(err,result)=>{
         if(err)
         {
+            
             console.log(err,'errs');
         }
         if(result.length>0)
@@ -47,55 +119,45 @@ app.get('/user',(req,res)=>{
 
 // select de latabla
 app.get('/user/:id',(req,res)=>{
+    
     let gID=req.params.id;  
-
+    
     let qr=`select * from user where id= ${gID}`;
 
-    db.query(qr,(err,result)=>{
-        if(err)
-        {
-            console.log(err);
-        }
-        if(result.length>0)
-        {
-            res.send({
-                message:'obteniendo simples datos',
-                data:result
-            });
-        }
-        else{
-            res.send({
-                message:'datos no encontrados'
-            });
-        }
-    })
+        db.query(qr,(err,result)=>{
+            if(err)
+            { 
+                console.log(err);
+            }
+            if(result.length>0)
+            {  
+                res.send({
+                    message:'obteniendo simples datos',
+                    data:result
+                });
+            }
+        })
+    
 });
 
 
 //crear usuario
-app.post('/user',(req,res)=>{
-    console.log(req.body,'crear');
-    let nombre =req.body.nombre;
-    let descripcion=req.body.descripcion;
 
-    let qr=`insert into user (nombre,descripcion)
-             values('${nombre}','${descripcion}')`;
-
-    db.query(qr,(err,result)=>{
-        if(err){console.log(err);}
-        res.send({message:'datos insertados'});
-         
-    })
-});
 
 app.put ('/user/:id',(req,res)=>{
     console.log(req.body,'modificar');
-
-    let gID=req.params.id;
+    let gID=req.params.id;  
     let nombre =req.body.nombre;
-    let descripcion=req.body.descripcion;
+    let apellido=req.body.apellido;
+    
+    let userName=req.body.userName;
+    let correo=req.body.correo;
+    let roleID=req.body.roleID;
+    let contrasena=req.body.contrasena;
+    let telefono=req.body.telefono;
+    
 
-    let qr=`update user set nombre='${nombre}',descripcion='${descripcion}'
+    let qr=`update user set nombre='${nombre}',apellido='${apellido}',userName='${userName}',correo='${correo}',pass='${contrasena}',roleID='${roleID}',telefono='${telefono}'
             where id='${gID}'`;
     db.query(qr,(err,result)=>{
         if(err){console.log(err);}
@@ -116,6 +178,27 @@ app.delete('/user/:id',(req,res)=>{
         })
     });
 })
+app.post('/user',(req,res)=>{
+    console.log(req.body,'crear');
+
+    let nombre =req.body.nombre;
+    let apellido=req.body.apellido;
+    
+    let userName=req.body.userName;
+    let correo=req.body.correo;
+    let roleID=req.body.roleID;
+    let contrasena=req.body.contrasena;
+    let telefono=req.body.telefono;
+
+    let qr=`insert into user (nombre,apellido,correo,pass,userName,roleID,telefono)
+             values('${nombre}','${apellido}','${correo}','${contrasena}','${userName}','${roleID}','${telefono}')`;
+
+    db.query(qr,(err,result)=>{
+        if(err){console.log(err);}
+        res.send({message:'datos insertados'});
+         
+    })
+});
 
 //Obter todo los datos de estudiante////////////////////////////////////////
 app.get('/estudiante',(req,res)=>{
@@ -199,11 +282,35 @@ app.put ('/estudiante/:id',(req,res)=>{
         });
     })
 })
+app.get('/estudiante/curso',(req,res)=>{
+    let gID=req.params.id;  
 
+    let qr=`SELECT c.nombre as nombreCurso,c.idDocente,u.nombre,u.apellido,c.descripcion
+    FROM inscripcion as i , user as u , curso as c WHERE i.idEstudiante=u.id AND i.idCurso=c.idCurso AND u.id=${gID}`
+
+    db.query(qr,(err,result)=>{
+        if(err)
+        {
+            console.log(err);
+        }
+        if(result.length>0)
+        {
+            res.send({
+                message:'obteniendo simples datos',
+                data:result
+            });
+        }
+        else{
+            res.send({
+                message:'datos no encontrados'
+            });
+        }
+    })
+});
 app.get('/estudiante/buscar/:nombre',(req,res)=>{
     let qID=req.params.nombre;
 
-    let qr =`SELECT * FROM estudiante WHERE nombre LIKE '%${qID}%'`;
+    let qr =`SELECT * FROM user WHERE nombre LIKE '%${qID}%'`;
 
     
     db.query(qr,(err,result)=>{
@@ -353,13 +460,32 @@ app.delete('/curso/:id',(req,res)=>{
             message:'eliminado'
         })
     });
-})
+}) 
 
+app.get('/curso/docente/:id',(req,res)=>{
+    let qID=req.params.id;
+
+    let qr= `select * from curso where idDocente='${qID}'`;
+    db.query(qr,(err,result)=>{
+        if(err)
+        {
+             
+            console.log(err,'errs');
+        }
+        if(result.length>0)
+        {
+            res.send({
+                message:'todo el dato del los cursos',
+                data:result
+            });
+        }
+    });
+});
 
 
 //Obter todo los datos de docente////////////////////////////////////////
 app.get('/docente',(req,res)=>{
-    let qr= 'select * from docente';
+    let qr= 'select * from user where roleId="docente"';
     db.query(qr,(err,result)=>{
         if(err)
         {
@@ -462,7 +588,7 @@ app.post('/inscripcion',(req,res)=>{
     console.log(req.body,'crear');
 
     let idCurso =req.body.idCurso;
-    let idEstudiante=req.body.idEstudiante;
+    let idEstudiante=req.body.id;
     let costo=req.body.costo;
     let fecha=req.body.fecha;
     
@@ -477,7 +603,95 @@ app.post('/inscripcion',(req,res)=>{
     })
 });
 
+//crear usuario
+app.post('/video',(req,res)=>{
+    console.log(req.body,'crear');
 
+    let nombre =req.body.nombre;
+    let video=req.body.video;
+    let descripcion=req.body.descripcion;
+    let idCurso=req.body.idCurso;
+    
+
+    let qr=`insert into video (nombre,video,descripcion,idCurso)
+             values('${nombre}','${video}','${descripcion}','${idCurso}')`;
+
+    db.query(qr,(err,result)=>{
+        if(err){console.log(err);}
+        res.send({message:'datos insertados'});
+         
+    })
+});
+
+app.get('/video',(req,res)=>{
+    let qr= 'select * from video';
+    db.query(qr,(err,result)=>{
+        if(err)
+        {
+            console.log(err,'errs');
+        }
+        if(result.length>0)
+        {
+            res.send({
+                message:'todo el dato del docente',
+                data:result
+            });
+        }
+    });
+});
+
+// select de latabla
+app.get('/video/:id',(req,res)=>{
+    let gID=req.params.id;  
+
+    let qr=`select * from video where idCurso= ${gID}`;
+
+    db.query(qr,(err,result)=>{
+        if(err)
+        {
+            console.log(err);
+        }
+        if(result.length>0)
+        {
+            res.send({
+                message:'obteniendo simples datos',
+                data:result
+            });
+        }
+        else{
+            res.send({
+                message:'datos no encontrados'
+            });
+        }
+    })
+});
+
+app.get('/inscripcion/:id',(req,res)=>{
+    let gID=req.params.id;  
+
+    let qr=`SELECT u.nombre as estudiante, u.apellido, u.correo, u.telefono,c.nombre,c.idDocente
+             FROM inscripcion as i , user as u , curso as c WHERE i.idEstudiante=u.id 
+             AND i.idCurso=c.idCurso and c.idDocente=${gID}`
+
+    db.query(qr,(err,result)=>{
+        if(err)
+        {
+            console.log(err);
+        }
+        if(result.length>0)
+        {
+            res.send({
+                message:'obteniendo simples datos',
+                data:result
+            });
+        }
+        else{
+            res.send({
+                message:'datos no encontrados'
+            });
+        }
+    })
+});
 
 
 app.listen(3000,()=>{

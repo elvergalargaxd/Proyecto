@@ -70,19 +70,19 @@ export class AsignarEstudianteCursoComponent implements OnInit {
   obtenerID(id:any)
   {
     console.log(id,'deleteid==');
-    this.service.getSingleDataEstudiante(id).subscribe((res)=>{
+    this.service.getSingleData(id).subscribe((res)=>{
       console.log(res,'deleted');
         this.readDataEstudiante=(res.data);
         this.useForm.patchValue({
-          idEstudiante:res.data[0].idEstudiante,
+          id:res.data[0].id,
           nombre:res.data[0].nombre,
-          apPaterno:res.data[0].apPaterno,
-          apMaterno:res.data[0].apMaterno,
+          apellido:res.data[0].apellido,
           correo:res.data[0].correo,
+          telefono:res.data[0].telefono,
           
         })
       });
-      this.idEstudiante=id;
+      
   } 
  
   
@@ -110,10 +110,10 @@ export class AsignarEstudianteCursoComponent implements OnInit {
       
   });
   useForm =new FormGroup({
-    'idEstudiante':new FormControl('',Validators.required),
+    'id':new FormControl('',Validators.required),
     'nombre':new FormControl('',Validators.required),
-    'apPaterno':new FormControl('',Validators.required),
-    'apMaterno':new FormControl('',Validators.required),
+    'apellido':new FormControl('',Validators.required),
+    'telefono':new FormControl('',Validators.required),
     'correo':new FormControl('',Validators.required),
     'idCurso':new FormControl('',Validators.required),
     'costo':new FormControl('',Validators.required),

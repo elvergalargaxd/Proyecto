@@ -22,21 +22,22 @@ export class CrearDocenteComponent implements OnInit {
 
   ngOnInit(): void {
 
-      this.getAllData();
+      
     
       this.getparamid =this.router.snapshot.paramMap.get('id');
       if(this.getparamid)
       {
 
-      this.service.getSingleDataDocente(this.getparamid).subscribe((res)=>{
+      this.service.getSingleData(this.getparamid).subscribe((res)=>{
         console.log(res,'res==>');
         this.userForm.patchValue({
-            nombre:res.data[0].nombre,
-            apPaterno:res.data[0].apPaterno,
-            apMaterno:res.data[0].apMaterno,
-            correo:res.data[0].correo,
-            contrasena:res.data[0].contrasena,
-            idCurso:res.data[0].idCurso,
+          nombre:res.data[0].nombre,
+          apellido:res.data[0].apellido,
+          userName:res.data[0].userName,
+          roleID:res.data[0].roleId,
+          correo:res.data[0].correo,
+          telefono:res.data[0].telefono,
+          contrasena:res.data[0].pass,
         });
       });
 
@@ -44,12 +45,13 @@ export class CrearDocenteComponent implements OnInit {
       
   }
   userForm =new FormGroup({
-      'nombre':new FormControl('',Validators.required),
-      'apPaterno':new FormControl('',Validators.required),
-      'apMaterno':new FormControl('',Validators.required),
-      'correo':new FormControl('',Validators.required),
-      'contrasena':new FormControl('',Validators.required),
-      'idCurso':new FormControl('',Validators.required)
+    'nombre':new FormControl('',Validators.required),
+    'apellido':new FormControl('',Validators.required),
+    'userName':new FormControl('',Validators.required),
+    'roleID':new FormControl('docente'),
+    'correo':new FormControl('',Validators.required),
+    'telefono':new FormControl('',[Validators.required,Validators.minLength(6)]),
+    'contrasena':new FormControl('',Validators.required),
       
   });
   
@@ -59,7 +61,7 @@ export class CrearDocenteComponent implements OnInit {
       if(this.userForm.valid)
       {
         console.log(this.userForm.value);
-        this.service.createDataDocente(this.userForm.value).subscribe((res)=>{
+        this.service.createData(this.userForm.value).subscribe((res)=>{
           console.log(res,'res++=+');
           this.userForm.reset();
           this.successmsg=res.message;
@@ -82,7 +84,7 @@ export class CrearDocenteComponent implements OnInit {
       console.log(this.userForm.value,'updatedform');
       if(this.userForm.valid  )
       {
-          this.service.updateDataDocente(this.userForm.value,this.getparamid).subscribe((res)=>{
+          this.service.updateData(this.userForm.value,this.getparamid).subscribe((res)=>{
                 console.log(res,'modificado');
 
                 this.successmsg=res.message;

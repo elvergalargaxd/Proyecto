@@ -26,11 +26,11 @@ export class LeerEstudianteComponent implements OnInit {
   deleteID(id:any)
   {
     console.log(id,'deleteid==');
-    this.servise.deleteDataEstudiante(id).subscribe((res)=>{
+    this.servise.deleteData(id).subscribe((res)=>{
       console.log(res,'deleted');
         this.succesmsg=res.message;
         
-        this.servise.getAllDataEstudiante().subscribe((res)=>{
+        this.servise.getAllData().subscribe((res)=>{
           console.log(res,'res==>');
           this.readData =res.data;
           this.getAllData();
@@ -40,7 +40,7 @@ export class LeerEstudianteComponent implements OnInit {
 
   getAllData()
   {
-    this.servise.getAllDataEstudiante().subscribe((res)=>{
+    this.servise.getAllData().subscribe((res)=>{
       console.log(res,'res==>');
       this.readData =res.data;
     })

@@ -1,49 +1,85 @@
 
-
-<div class="container mt-5">
-    <h1>Crear Docente</h1>
-    
-     
-       
-  
-    
-  </div>
-<div class="container mt-5"> 
-    
-    <div *ngIf="errormsg"  class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>{{errormsg}}</strong>.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div class="container bootstrap snippets bootdey">
+    <h1 class="text-primary">Editar Docente</h1>
+      <hr>
+	<div class="row">
+      <!-- left column -->
+      <div class="col-md-3">
+        <div class="text-center">
+          <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="avatar img-circle img-thumbnail" alt="avatar">
+          <h6>Upload a different photo...</h6>
+          
+          <input type="file" class="form-control">
+        </div>
       </div>
-
-
-      <div *ngIf="successmsg"  class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>{{successmsg}}</strong>.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-
-
-    <form [formGroup]="userForm"  >
-        <div class="col-lg-4 mt-4">
-            <input type="text" class="form-control" formControlName="nombre"  placeholder="Ingrese Nombre">
-        </div>
-        <div class="col-lg-4 mt-2">
-            <input type="text"class="form-control" formControlName="apPaterno" placeholder="Ingrese Apellido Paterno">
-        </div>
-        <div class="col-lg-4 mt-2">
-            <input type="text" class="form-control" formControlName="apMaterno"  placeholder="Ingrese Apellido Materno">
-        </div>
-        <div class="col-lg-4 mt-2">
-            <input type="text"class="form-control" formControlName="correo" placeholder="Ingrese Correo">
-        </div>
-        <div class="col-lg-4 mt-2">
-            <input type="text" class="form-control" formControlName="contrasena"  placeholder="Ingrese Contrasena">
-        </div>
+      
+      <!-- edit form column -->
+      <div class="col-md-9 personal-info">
         
-               <div class="col-lg-4 mt-2" *ngIf="!getparamid" (click)="userSubmit()">
-            <button class="btn btn-primary">Crear</button>
+        <h3>Personal informacion</h3>
+        
+        <form  [formGroup]="userForm"  class="form-horizontal" >
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Nombre:</label>
+            <div class="col-lg-8">
+                <input type="text" class="form-control" formControlName="nombre"  placeholder="Ingrese Nombre">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Apellido:</label>
+            <div class="col-lg-8">
+                <input type="text"class="form-control" formControlName="apellido" placeholder="Ingrese Apellido Paterno">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Usuario:</label>
+            <div class="col-lg-8">
+                <input type="text" class="form-control" formControlName="userName"  placeholder="Ingrese Usuario">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Email:</label>
+            <div class="col-lg-8">
+                <input type="text"class="form-control" formControlName="correo" placeholder="Ingrese Correo">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Telefono:</label>
+            <div class="col-lg-8">
+                <input type="text"class="form-control" formControlName="telefono" placeholder="Ingrese Correo">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-lg-8">
+                <input type="hidden"class="form-control" formControlName="roleID" placeholder="Ingrese Correo">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Contrasena:</label>
+            <div class="col-lg-8">
+                <input type="text" class="form-control" formControlName="contrasena"  placeholder="Ingrese Contrasena">
+            </div>
+          </div>
+          
+         
+          <div class="col-lg-4 mt-2 " *ngIf="!getparamid" (click)="userSubmit()">
+            <button class="btn btn-success">Crear</button>
         </div>
         <div class="col-lg-4 mt-2" *ngIf="getparamid">
-            <button class="btn btn-dark ntm-sm" (click)="userUpdate()">Modificar</button>
+            <button class="btn btn-success ntm-sm" (click)="userUpdate()">Modificar</button>
         </div>
-    </form>
+        </form>
+        <div *ngIf="errormsg"  class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{errormsg}}</strong>.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+    
+    
+          <div *ngIf="successmsg"  class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{successmsg}}</strong>.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      </div>
+  </div>
 </div>
+<hr>

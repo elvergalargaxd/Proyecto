@@ -25,7 +25,7 @@ export class LeerDocenteComponent implements OnInit {
   deleteID(id:any)
   {
     console.log(id,'deleteid==');
-    this.servise.deleteDataDocente(id).subscribe((res)=>{
+    this.servise.deleteData(id).subscribe((res)=>{
       console.log(res,'deleted');
         this.succesmsg=res.message;
         

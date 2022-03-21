@@ -3,9 +3,9 @@
   <div class="container mt-5">
     <h1>Incripcion de Estudiantes</h1>
       <div class="row" p-2>
-        <p>{{values}}</p>
+        
         <div class="col-9">
-          <p >Editar Estudiante</p>
+          <p >Buscar Estudiante</p>
           <input [formControl]="search" aria-label="Search" type="text" placeholder="Buscar Estudiante" class="form-control" (keyup)="onKey($event)" >
         </div>
       </div>
@@ -17,9 +17,9 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nombre</th>
-                <th scope="col">Paterno</th>
-                <th scope="col">Materno</th>
-                <th scope="col">correo</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Telefono</th>
                 
                 <th scope="col">Editar</th>
                 
@@ -27,13 +27,13 @@
             </thead>
             <tbody>
               <tr *ngFor ='let us of buscar'>
-                <th scope="row">{{us.idEstudiante}}</th>
+                <th scope="row">{{us.id}}</th>
                 <td>{{us.nombre}}</td>
-                <td>{{us.apPaterno}}</td>
-                <td>{{us.apMaterno}}</td>
+                <td>{{us.apellido}}</td>
                 <td>{{us.correo}}</td>
+                <td>{{us.telefono}}</td>
                 
-                <td><button class="btn btn-sm btn-danger" (click)="obtenerID(us.idEstudiante)" >Asignar</button>
+                <td><button class="btn btn-sm btn-danger" (click)="obtenerID(us.id)" >Asignar</button>
                    &nbsp;
 
                 </td>
@@ -49,7 +49,7 @@
       <div class="form-row">
         <div class="form-group col">
           
-          <input type="hidden" class="form-control"formControlName="idEstudiante" placeholder="cod">
+          <input type="hidden" class="form-control"formControlName="id" placeholder="cod">
         </div>
         <div class="form-group col">
           <label for="inputEmail4">Nombre</label>
@@ -58,13 +58,13 @@
         &nbsp;
         <div class="form-group col">
           <label for="inputPassword4">Apellido Paterno</label>
-          <input type="text" class="form-control" formControlName="apPaterno" placeholder="Apellido Paterno">
+          <input type="text" class="form-control" formControlName="apellido" placeholder="Apellido Paterno">
         </div>
       </div>
       &nbsp;
       <div class="form-group">
         <label for="inputAddress">Apellido Materno</label>
-        <input type="text" class="form-control" formControlName="apMaterno" placeholder="Apellido Materno">
+        <input type="text" class="form-control" formControlName="telefono" placeholder="Apellido Materno">
       </div>&nbsp;
     </fieldset>
       <div class="form-group">

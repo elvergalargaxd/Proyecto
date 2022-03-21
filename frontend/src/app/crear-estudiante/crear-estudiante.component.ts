@@ -27,14 +27,16 @@ export class CrearEstudianteComponent implements OnInit {
       if(this.getparamid)
       {
 
-      this.service.getSingleDataEstudiante(this.getparamid).subscribe((res)=>{
+      this.service.getSingleData(this.getparamid).subscribe((res)=>{
         console.log(res,'res==>');
         this.userForm.patchValue({
             nombre:res.data[0].nombre,
-            apPaterno:res.data[0].apPaterno,
-            apMaterno:res.data[0].apMaterno,
+            apellido:res.data[0].apellido,
+            userName:res.data[0].userName,
+            roleID:res.data[0].roleId,
             correo:res.data[0].correo,
-            contrasena:res.data[0].contrasena,
+            telefono:res.data[0].telefono,
+            contrasena:res.data[0].pass,
             
         });
       });
@@ -44,9 +46,11 @@ export class CrearEstudianteComponent implements OnInit {
   }
   userForm =new FormGroup({
       'nombre':new FormControl('',Validators.required),
-      'apPaterno':new FormControl('',Validators.required),
-      'apMaterno':new FormControl('',Validators.required),
+      'apellido':new FormControl('',Validators.required),
+      'userName':new FormControl('',Validators.required),
+      'roleID':new FormControl('user'),
       'correo':new FormControl('',Validators.required),
+      'telefono':new FormControl('',[Validators.required,Validators.minLength(6)]),
       'contrasena':new FormControl('',Validators.required),
       
   });
@@ -57,7 +61,7 @@ export class CrearEstudianteComponent implements OnInit {
       if(this.userForm.valid)
       {
         console.log(this.userForm.value);
-        this.service.createDataEstudiante(this.userForm.value).subscribe((res)=>{
+        this.service.createData(this.userForm.value).subscribe((res)=>{
           console.log(res,'res++=+');
           this.userForm.reset();
           this.successmsg=res.message;
@@ -74,7 +78,7 @@ export class CrearEstudianteComponent implements OnInit {
       console.log(this.userForm.value,'updatedform');
       if(this.userForm.valid  )
       {
-          this.service.updateDataEstudiante(this.userForm.value,this.getparamid).subscribe((res)=>{
+          this.service.updateData(this.userForm.value,this.getparamid).subscribe((res)=>{
                 console.log(res,'modificado');
 
                 this.successmsg=res.message;

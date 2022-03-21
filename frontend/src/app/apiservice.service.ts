@@ -1,31 +1,79 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { Observable, ObservableLike } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiserviceService {
 
-  constructor(private _http:HttpClient) { }
+  constructor(
+  private _http:HttpClient,
+  private jwtHelper: JwtHelperService){ }
 
 
       //conectar frotend con backend
-
+      private URL='http://localhost:3000';
       apiUrl='http://localhost:3000/user';
       apiUrlEstudiante='http://localhost:3000/estudiante';
       apiUrlEstudianteBuscar='http://localhost:3000/estudiante/buscar';
       apiUrlDocente='http://localhost:3000/docente';
       apiUrlCurso='http://localhost:3000/curso';
       apiUrlInscripcion='http://localhost:3000/inscripcion';
+      apiUrlVideo='http://localhost:3000/video';
+      //estudiante/curso
+
+
+      getDataInscripcion(id:any):Observable<any>{
+        let ids=id;
+        return this._http.get(`${this.apiUrlInscripcion}/${ids}`);
+      }
+
+      getSingleDataVideo(id:any):Observable<any>{
+        let ids =id;
+        return this._http.get(`${this.apiUrlVideo}/${ids}`);
+      }
+      getAllDataVideo():Observable<any>{
+        return this._http.get (`${this.apiUrlVideo}`);
+      }
+      createVideo(data:any):Observable<any>
+      {
+        console.log(data,'crearpi');
+          return this._http.post(`${this.apiUrlVideo}`,data);
+      }
 
       //obtener todo los datos
+      singin2(user:any){
+        return this._http.post(`${this.URL}/user/singin2`,user)
+      }
+      singin(user:any){
+        return this._http.post(`${this.URL}/user/singin`,user)
+      }
+      isAuth():boolean{
 
+        const token = localStorage.getItem('token');
+
+        //this.jwtHelper.isTokenExpired(token) ||
+        if( !localStorage.getItem('token')){
+          return false;
+         }
+        
+        return true;
+      }
+     
       getAllData():Observable<any>
       {
           return this._http.get (`${this.apiUrl}`);
       }
 
+      cursosDocente(id:any):Observable<any>
+      {
+        let ids =id; 
+        return this._http.get(`${this.apiUrlCurso}/docente/${ids}`);
+
+      }
       //crear usuario
 
       createData(data:any):Observable<any>
@@ -56,6 +104,12 @@ export class ApiserviceService {
       }
 
 // SERVICIOS DE ESTUDIANTES//////////////////////////////////////////////
+        DataEstudianteCurso(id:any):Observable <any>
+        {
+          let ids=id;
+          return  this._http.get(`${this.apiUrlEstudiante}/curso/${ids}`);
+        }
+
       searchDataEstudiante(nombre:any ):Observable<any>
       {
         let ids=nombre;
@@ -80,7 +134,7 @@ export class ApiserviceService {
       deleteDataEstudiante(id:any):Observable<any>
       {
         let ids=id;
-        return this._http.delete(`${this.apiUrlEstudiante}/${ids}`);
+        return this._http.delete(`${this.apiUrlEstudiante}/curso/${ids}`);
       }
       //modificar
       updateDataEstudiante(data:any,id:any):Observable <any>
