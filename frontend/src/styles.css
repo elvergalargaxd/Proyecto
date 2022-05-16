@@ -5,6 +5,7 @@
 body {
     font-family: 'Montserrat', sans-serif;
     overflow-x: hidden;
+    background-color: #f8f9fa;
 }
 
 
@@ -24,6 +25,9 @@ body {
 
 .carousel-inner {
     max-height:39rem !important;
+}
+.row2{
+    background-color: #f2f2f2;
 }
 
 /*===================SECCION NUESTRO EQUIPO IMAGEN==========================*/

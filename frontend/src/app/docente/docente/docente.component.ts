@@ -1,4 +1,5 @@
 import { Component, OnInit, } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-docente',
@@ -7,9 +8,12 @@ import { Component, OnInit, } from '@angular/core';
 })
 export class DocenteComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service:Router) { }
 
   ngOnInit(): void {
   }
-  
+  onLogout(){
+    localStorage.clear();
+    this.service.navigate(['login']);
+  }
 }

@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
 
@@ -13,7 +13,7 @@ import { ApiserviceService } from '../apiservice.service';
 })
 export class CrearEstudianteComponent implements OnInit {
 
-  constructor(private service:ApiserviceService, private  router:ActivatedRoute) { }
+  constructor(private service:ApiserviceService, private  router:ActivatedRoute, private formBuilder:FormBuilder) { }
 
 
   
@@ -45,11 +45,11 @@ export class CrearEstudianteComponent implements OnInit {
       
   }
   userForm =new FormGroup({
-      'nombre':new FormControl('',Validators.required),
+      'nombre':new FormControl('',Validators.required,),
       'apellido':new FormControl('',Validators.required),
       'userName':new FormControl('',Validators.required),
       'roleID':new FormControl('user'),
-      'correo':new FormControl('',Validators.required),
+      'correo':new FormControl('',[Validators.required, Validators.email ]),
       'telefono':new FormControl('',[Validators.required,Validators.minLength(6)]),
       'contrasena':new FormControl('',Validators.required),
       
@@ -58,7 +58,7 @@ export class CrearEstudianteComponent implements OnInit {
 
 
   userSubmit(){
-      if(this.userForm.valid)
+      if(this.userForm)
       {
         console.log(this.userForm.value);
         this.service.createData(this.userForm.value).subscribe((res)=>{

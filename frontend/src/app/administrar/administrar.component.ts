@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
+
 
 @Component({
   selector: 'app-administrar',
@@ -10,7 +11,7 @@ import { ApiserviceService } from '../apiservice.service';
 })
 export class AdministrarComponent implements OnInit {
 
-  constructor(private service:ApiserviceService, private  router:ActivatedRoute) { }
+  constructor(private service:ApiserviceService, private  router:ActivatedRoute, private routernav:Router) { }
 
 
   
@@ -46,7 +47,10 @@ export class AdministrarComponent implements OnInit {
       
   });
   
-
+  onLogout(){
+      localStorage.clear();
+      this.routernav.navigate(['login']);
+  }
 
   userSubmit(){
       if(this.userForm.valid)

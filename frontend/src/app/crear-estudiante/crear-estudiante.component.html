@@ -24,7 +24,7 @@
           <div class="form-group">
             <label class="col-lg-3 control-label">Nombre:</label>
             <div class="col-lg-8">
-                <input type="text" class="form-control" formControlName="nombre"  placeholder="Ingrese Nombre">
+                <input type="text" class="form-control" formControlName="nombre"  placeholder="Ingrese Nombre" ngModel required>
             </div>
           </div>
           <div class="form-group">
@@ -65,8 +65,35 @@
           </div>
           
           
-          <div class="col-lg-4 mt-2 " *ngIf="!getparamid" (click)="userSubmit()">
+          <div class="col-lg-4 mt-2 " *ngIf="!getparamid" data-bs-toggle="modal" data-bs-target="#exampleModal" >
             <button class="btn btn-success">Crear</button>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Agregar Datos</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+              <div *ngIf="errormsg"  class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>{{errormsg}}</strong>.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              <div *ngIf="successmsg"  class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{successmsg}}</strong>.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="userSubmit()" >Save changes</button>
+            </div>
+          </div>
+        </div>
         </div>
         <div class="col-lg-4 mt-2" *ngIf="getparamid">
             <button class="btn btn-success ntm-sm" (click)="userUpdate()">Modificar</button>

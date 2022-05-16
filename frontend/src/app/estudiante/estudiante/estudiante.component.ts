@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-estudiante',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EstudianteComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service:Router) { }
 
   ngOnInit(): void {
   }
 
+  onLogout(){
+    localStorage.removeItem('token');
+    this.service.navigate(['login']);
+  }
 }
