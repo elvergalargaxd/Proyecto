@@ -1,7 +1,7 @@
 /*===============Propiedades Globales================*/
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-
+@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
 body {
     font-family: 'Montserrat', sans-serif;
     overflow-x: hidden;

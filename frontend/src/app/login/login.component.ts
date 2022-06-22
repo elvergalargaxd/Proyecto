@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       }
       if(decodetoken.roleId=="admin")
       {
-        this.router.navigate(['administrar']);
+        this.router.navigate(['administrar/crearEstudiante']);
       }
       if(decodetoken.roleId=="docente")
       {

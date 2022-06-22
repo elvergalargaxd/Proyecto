@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
+import Swal from 'sweetalert2'
 
 
 @Component({
@@ -13,7 +14,7 @@ export class AsignarEstudianteCursoComponent implements OnInit {
 
   constructor(private service:ApiserviceService, private  router:ActivatedRoute) { }
 
-
+ 
   values='';
   errormsg:any;
   successmsg:any; 
@@ -22,26 +23,23 @@ export class AsignarEstudianteCursoComponent implements OnInit {
   readDataCurso:any;
   buscar:any;
   idEstudiante:any;
- 
+  public curso=[];
+  public cursoNombre=[];
 
   onKey(event:any){
-    
-    if(this.values='')
-    {
-      this.service.searchDataEstudiante("").subscribe((res)=>{
-        console.log(res,'buscando');
-        this.buscar=res.data;
-      })
-    }
-    else{
-    this.values += event.target.value+' ~ ';
+    console.log(event.target.value);
+    if(event.target.value !=''){
+      this.values += event.target.value+' ~ ';
     this.service.searchDataEstudiante(event.target.value).subscribe((res)=>{
       console.log(res,'buscando');
       this.buscar=res.data;
     })
+    }
+    else{
+      
+    }
   }
-  }
-
+ 
   ngOnInit(): void {
     
       
@@ -67,8 +65,39 @@ export class AsignarEstudianteCursoComponent implements OnInit {
   today = Date.now();
     fixedTimezone = this.today;
   
-  obtenerID(id:any)
+  async obtenerID(id:any)
   {
+    this.curso.forEach(data => {
+      
+      this.cursoNombre.push(data['nombre']);
+      console.log('aaaaaaa'+this.cursoNombre);
+    });
+    console.log(this.cursoNombre);
+   console.log(this.curso);
+    const { value: fruit } = await Swal.fire({
+      title: 'Select field validation',
+      input: 'select',
+      inputPlaceholder: 'Select a fruit',
+      inputOptions: this.cursoNombre,
+      
+      showCancelButton: true,
+      inputValidator: (value) => {
+        return new Promise((resolve) => {
+          
+        })
+      }
+    })
+    
+    if (fruit) {
+      Swal.fire(`You selected: ${fruit}`)
+    }
+
+    
+    this.curso.forEach(data => {
+      console.log(data['nombre']);
+    });
+    
+
     console.log(id,'deleteid==');
     this.service.getSingleData(id).subscribe((res)=>{
       console.log(res,'deleted');
@@ -98,7 +127,10 @@ export class AsignarEstudianteCursoComponent implements OnInit {
     this.service.getAllDataCurso().subscribe((res)=>{
       console.log(res,'res==>');
       this.readDataCurso =res.data;
-    })
+      this.curso=res.data;
+      
+    });
+    
   }
 
   userForm =new FormGroup({

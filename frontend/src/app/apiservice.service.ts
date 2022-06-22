@@ -17,6 +17,8 @@ export class ApiserviceService {
       //conectar frotend con backend
       private URL='http://localhost:3000';
       apiUrl='http://localhost:3000/user';
+      apiUrlImagen='http://localhost:3000/userImagen';
+      apiUrlEstado='http://localhost:3000/userEstado'
       apiUrlEstudiante='http://localhost:3000/estudiante';
       apiUrlEstudianteBuscar='http://localhost:3000/estudiante/buscar';
       apiUrlDocente='http://localhost:3000/docente';
@@ -94,6 +96,17 @@ export class ApiserviceService {
       {
         let ids=id;
         return  this._http.put  (`${this.apiUrl}/${ids}`,data);
+      }
+      
+      updatePhoto(data:any,id:any):Observable <any>
+      {
+        let ids=id;
+        return  this._http.put  (`${this.apiUrlImagen}/${ids}`,data);
+      }
+      updateEstado(data:any,id:any):Observable <any>
+      {
+        let ids=id;
+        return  this._http.put  (`${this.apiUrlEstado}/${ids}`,data);
       }
 
       getSingleData(id:any):Observable<any>

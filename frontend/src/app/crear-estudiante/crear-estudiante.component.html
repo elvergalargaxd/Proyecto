@@ -1,103 +1,60 @@
-
-
-
 <div class="container bootstrap snippets bootdey">
-    <h1 class="text-primary">Editar Estudiante</h1>
-      <hr>
-	<div class="row">
-      <!-- left column -->
-      <div class="col-md-3">
-        <div class="text-center">
-          <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="avatar img-circle img-thumbnail" alt="avatar">
-          <h6>Upload a different photo...</h6>
-          
-          <input type="file" class="form-control">
-        </div>
-      </div>
+    <h1 class="text-primary p-3">Editar Estudiante</h1>
+	<div class="row container border border-5 rounded-3 p-4 border-black">
+      <!-- left column -->    
+
       
       <!-- edit form column -->
-      <div class="col-md-9 personal-info">
+      <div class="col-md-7 p-3 px-4 personal-info" >
+         
+        <h3>Datos personales</h3>
         
-        <h3>Personal informacion</h3>
-        
-        <form  [formGroup]="userForm"  class="form-horizontal" >
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Nombre:</label>
-            <div class="col-lg-8">
-                <input type="text" class="form-control" formControlName="nombre"  placeholder="Ingrese Nombre" ngModel required>
-            </div>
+        <form  [formGroup]="userForm"  class=" form-horizontal container border border-2 rounded-3 p-3 border-black" >
+          <div class="row p-3">
+          <div class="form-group col-md-5 ">
+            <label class="control-label ">Nombres:</label>
+                <input type="text" class="form-control" formControlName="nombre"  placeholder="" >
           </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Apellido:</label>
-            <div class="col-lg-8">
-                <input type="text"class="form-control" formControlName="apellido" placeholder="Ingrese Apellido Paterno">
-            </div>
+          <div class="form-group col-md-7">
+            <label class="control-label">Apellidos:</label>
+                <input type="text"class="form-control" formControlName="apellido" placeholder="">
           </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Usuario:</label>
-            <div class="col-lg-8">
-                <input type="text" class="form-control" formControlName="userName"  placeholder="Ingrese Usuario">
-            </div>
+        </div>
+        <div class="row p-3">
+          
+          <div class="form-group col-md-5">
+            <label class="control-label">Usuario:</label>
+                <input type="text" class="form-control" formControlName="userName"  placeholder="Ej:pepe123">
           </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Email:</label>
-            <div class="col-lg-8">
-                <input type="text"class="form-control" formControlName="correo" placeholder="Ingrese Correo">
-            </div>
+          <div class="form-group col-md-7">
+            <label class="control-label">Email:</label>
+                <input type="text"class="form-control" formControlName="correo" placeholder="Ej:pepe123@gmail.com">
           </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Telefono:</label>
-            <div class="col-lg-8">
-                <input type="text"class="form-control" formControlName="telefono" placeholder="Ingrese Correo">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">.:</label>
-            <div class="col-lg-8">
-                <input type="hidden"class="form-control" formControlName="roleID" placeholder="Ingrese Correo">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Contrasena:</label>
-            <div class="col-lg-8">
-                <input type="text" class="form-control" formControlName="contrasena"  placeholder="Ingrese Contrasena">
-            </div>
+        </div>
+        <div class="row p-3">
+          <div class="form-group col-md-5">
+            <label class="control-label">Telefono:</label>
+                <input type="text"class="form-control" formControlName="telefono" placeholder="">
           </div>
           
-          
-          <div class="col-lg-4 mt-2 " *ngIf="!getparamid" data-bs-toggle="modal" data-bs-target="#exampleModal" >
-            <button class="btn btn-success">Crear</button>
+          <div class="form-group col-md-5">
+            <label class="control-label">Contrasena:</label>
+                <input type="text" class="form-control" formControlName="contrasena"  placeholder="">
+          </div>
+          <div class="form-group">
+            <label class="control-label" hidden="false"></label>
+                <input type="hidden"class="form-control" formControlName="roleID" placeholder="">
+          </div>
+        </div>
+          <div class="col-4 mt-2 p-3 " *ngIf="!getparamid">
+            <button class=" btn btn-outline-primary" (click)="userSubmit()">Crear Estudiante</button>
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Agregar Datos</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-
-              <div *ngIf="errormsg"  class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>{{errormsg}}</strong>.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-              <div *ngIf="successmsg"  class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>{{successmsg}}</strong>.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" (click)="userSubmit()" >Save changes</button>
-            </div>
-          </div>
+       
+        <div class="col-4 mt-2" *ngIf="getparamid">
+            <button class="btn btn-outline-primary" (click)="userUpdate()">Modificar</button>
         </div>
-        </div>
-        <div class="col-lg-4 mt-2" *ngIf="getparamid">
-            <button class="btn btn-success ntm-sm" (click)="userUpdate()">Modificar</button>
-        </div>
+        
         </form>
         <div *ngIf="errormsg"  class="alert alert-warning alert-dismissible fade show" role="alert">
             <strong>{{errormsg}}</strong>.
@@ -110,6 +67,20 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
       </div>
+      <div class="col-md-3 p-3 "*ngIf="getparamid">
+        <div class="text-center container border border-2 rounded-3 p-3 border-black" [hidden]="!edited" >
+          <img [src]="imgUrl" class="card-img-top" alt="avatar">
+          <h6>Upload a different photo...{{image}}</h6>
+          
+          <input type="file" class="form-control" accept="image/*" (change)="selectImage($event)">
+          <hr>
+          <button class="btn btn-outline-primary" type="submit" (click)="onSubmit()" [disabled]="desact =='1'" >Subir Imagen</button>
+          
+          
+          
+        </div>
+      
+    </div>
   </div>
 </div>
 <hr>

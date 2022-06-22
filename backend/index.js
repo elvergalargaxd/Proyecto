@@ -2,21 +2,49 @@ const express=require('express');
 const bodyParser = require('body-parser');
 
 const cors = require ('cors');
+const multer= require('multer');
+const morgan= require('morgan');
+const path = require('path');
+
 const mysql= require('mysql2');
 const { Router } = require('express');
 
 const jwt = require('jsonwebtoken');
 const e = require('express');
+const { config } = require('process');
 
 const app= express();
 
+ 
+//ruta de imagenes
+app.use('/uploads',express.static(path.join(__dirname,'uploads')));
+
+//middlewares
 app.use(cors());
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(express.static('public'));
+
+app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
+   
+//multer
+const storage =multer.diskStorage({
+    destination:(req,file,cb)=>{
+        cb(null,'../frontend/src/assets/');
+    },
 
+    filename:(req,file,cb)=>{
+        
+        cb(null,file.originalname);
+    } 
+});
+const upload=multer({storage});
 
+ 
 //base de datos coneccion
 
+ 
+ 
 const db =mysql.createConnection({
     host:'localhost',
     user:'root',
@@ -130,21 +158,45 @@ app.get('/user/:id',(req,res)=>{
                 console.log(err);
             }
             if(result.length>0)
-            {  
-                res.send({
-                    message:'obteniendo simples datos',
-                    data:result
-                });
+            {   
+                res.send({ message:'obteniendo simples datos',      data:result });
             }
         })
     
-});
+}); 
 
+//modificar foto 
+app.put ('/userImagen/:id',upload.single('file'),(req,res,next)=>{
+
+    const file =req.file;
+
+    console.log(req.body,'modificar');
+    
+    
+    
+    let gID=req.params.id;  
+    let imagenes=file.path;
+     
+    
+    let qr=`update user set imagenes='${imagenes}'
+            where id='${gID}'`;
+
+    res.send(file);
+    console.log(qr);
+    
+    db.query(qr,(err,result)=>{
+        if(err){console.log(err);}
+       // return res.send({essage:'datos modificados'});
+    })
+})
 
 //crear usuario
+ 
 
+app.put ('/user/:id',(req,res,next)=>{
 
-app.put ('/user/:id',(req,res)=>{
+    const file =req.file;
+
     console.log(req.body,'modificar');
     let gID=req.params.id;  
     let nombre =req.body.nombre;
@@ -156,15 +208,39 @@ app.put ('/user/:id',(req,res)=>{
     let contrasena=req.body.contrasena;
     let telefono=req.body.telefono;
     
-
+     
+    
     let qr=`update user set nombre='${nombre}',apellido='${apellido}',userName='${userName}',correo='${correo}',pass='${contrasena}',roleID='${roleID}',telefono='${telefono}'
             where id='${gID}'`;
+
+    
+    console.log(qr);
+     
     db.query(qr,(err,result)=>{
         if(err){console.log(err);}
-        res.send({
-            message:'datos modificados'
-        });
+      return res.send({message:'datos modificados'});
     })
+    
+})
+app.put ('/userEstado/:id',(req,res,next)=>{
+
+    
+    console.log('baja');
+    
+    let gID=req.params.id;
+    
+    
+    let qr=`update user set estado='1'
+            where id='${gID}'`;
+
+    
+    console.log(qr);
+    
+    db.query(qr,(err,result)=>{
+        if(err){console.log(err);}
+      return res.send({message:'datos modificados'});
+    })
+    
 })
 
 app.delete('/user/:id',(req,res)=>{
@@ -178,9 +254,10 @@ app.delete('/user/:id',(req,res)=>{
         })
     });
 })
-app.post('/user',(req,res)=>{
+app.post('/user',(req,res,next)=>{
     console.log(req.body,'crear');
 
+    
     let nombre =req.body.nombre;
     let apellido=req.body.apellido;
     
@@ -190,15 +267,22 @@ app.post('/user',(req,res)=>{
     let contrasena=req.body.contrasena;
     let telefono=req.body.telefono;
 
-    let qr=`insert into user (nombre,apellido,correo,pass,userName,roleID,telefono)
-             values('${nombre}','${apellido}','${correo}','${contrasena}','${userName}','${roleID}','${telefono}')`;
 
+    let qr=`insert into user (nombre,apellido,correo,pass,userName,roleID,telefono) 
+              values('${nombre}','${apellido}','${correo}','${contrasena}','${userName}','${roleID}','${telefono}')`;
+
+     
+    console.log(req.body);
     db.query(qr,(err,result)=>{
-        if(err){console.log(err);}
-        res.send({message:'datos insertados'});
+        if(err){
+            console.log(err);
+            
+        }
+       return res.status({message:'datos insertados'});
          
     })
 });
+
 
 //Obter todo los datos de estudiante////////////////////////////////////////
 app.get('/estudiante',(req,res)=>{
@@ -304,15 +388,15 @@ app.get('/estudiante/curso',(req,res)=>{
             res.send({
                 message:'datos no encontrados'
             });
-        }
-    })
-});
+         }
+    }) 
+});  
 app.get('/estudiante/buscar/:nombre',(req,res)=>{
     let qID=req.params.nombre;
-
+    console.log(qID+"jjjjjjjjjjjj");
     let qr =`SELECT * FROM user WHERE nombre LIKE '%${qID}%'`;
-
-    
+ 
+      
     db.query(qr,(err,result)=>{
                 if(err)
         {
@@ -517,7 +601,7 @@ app.get('/docente/:id',(req,res)=>{
             res.send({
                 message:'obteniendo simples datos',
                 data:result
-            });
+            })  ;
         }
         else{
             res.send({
