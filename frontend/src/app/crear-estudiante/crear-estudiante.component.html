@@ -1,5 +1,5 @@
 <div class="container bootstrap snippets bootdey">
-    <h1 class="text-primary p-3">Editar Estudiante</h1>
+    <h2 class="p-3 ">Editar Estudiante</h2>
 	<div class="row container border border-5 rounded-3 p-4 border-black">
       <!-- left column -->    
 
@@ -9,37 +9,37 @@
          
         <h3>Datos personales</h3>
         
-        <form  [formGroup]="userForm"  class=" form-horizontal container border border-2 rounded-3 p-3 border-black" >
+        <form  [formGroup]="userForm"  class=" form-horizontal container p-3 border-black" >
           <div class="row p-3">
-          <div class="form-group col-md-5 ">
+          <div class="form-group col-md-6 ">
             <label class="control-label ">Nombres:</label>
-                <input type="text" class="form-control" formControlName="nombre"  placeholder="" >
+                <input type="text" class="form-control" formControlName="nombre"  placeholder="Ejemplo: Pedro" >
           </div>
-          <div class="form-group col-md-7">
+          <div class="form-group col-md-6">
             <label class="control-label">Apellidos:</label>
-                <input type="text"class="form-control" formControlName="apellido" placeholder="">
+                <input type="text"class="form-control" formControlName="apellido" placeholder="Ejemplo: gonsales jimenez">
           </div>
         </div>
         <div class="row p-3">
           
-          <div class="form-group col-md-5">
+          <div class="form-group col-md-6">
             <label class="control-label">Usuario:</label>
-                <input type="text" class="form-control" formControlName="userName"  placeholder="Ej:pepe123">
+                <input type="text" class="form-control" formControlName="userName"  placeholder="Ejemplo: pepe123">
           </div>
-          <div class="form-group col-md-7">
+          <div class="form-group col-md-6">
             <label class="control-label">Email:</label>
-                <input type="text"class="form-control" formControlName="correo" placeholder="Ej:pepe123@gmail.com">
+                <input type="text"class="form-control" formControlName="correo" placeholder="Ejemplo: pepe123@gmail.com">
           </div>
         </div>
         <div class="row p-3">
-          <div class="form-group col-md-5">
+          <div class="form-group col-md-6">
             <label class="control-label">Telefono:</label>
-                <input type="text"class="form-control" formControlName="telefono" placeholder="">
+                <input type="text"class="form-control" formControlName="telefono" placeholder="Ejemplo: 75489547">
           </div>
           
-          <div class="form-group col-md-5">
+          <div class="form-group col-md-6">
             <label class="control-label">Contrasena:</label>
-                <input type="text" class="form-control" formControlName="contrasena"  placeholder="">
+                 <input type="text" class="form-control" formControlName="contrasena"  placeholder="Ejemplo: Pedro123#$">
           </div>
           <div class="form-group">
             <label class="control-label" hidden="false"></label>
@@ -47,12 +47,12 @@
           </div>
         </div>
           <div class="col-4 mt-2 p-3 " *ngIf="!getparamid">
-            <button class=" btn btn-outline-primary" (click)="userSubmit()">Crear Estudiante</button>
+            <button class=" btn btn-outline-success btn-lg" (click)="userSubmit()">Crear Estudiante</button>
         </div>
         <!-- Modal -->
        
-        <div class="col-4 mt-2" *ngIf="getparamid">
-            <button class="btn btn-outline-primary" (click)="userUpdate()">Modificar</button>
+        <div class="col-4 mt-2 p-3" *ngIf="getparamid">
+            <button class="btn btn-outline-success btn-lg" (click)="userUpdate()">Modificar</button>
         </div>
         
         </form>

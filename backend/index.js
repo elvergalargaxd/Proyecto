@@ -12,9 +12,9 @@ const { Router } = require('express');
 const jwt = require('jsonwebtoken');
 const e = require('express');
 const { config } = require('process');
-
+ 
 const app= express();
-
+ 
  
 //ruta de imagenes
 app.use('/uploads',express.static(path.join(__dirname,'uploads')));

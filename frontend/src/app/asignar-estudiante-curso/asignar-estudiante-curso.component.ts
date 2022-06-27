@@ -17,12 +17,15 @@ export class AsignarEstudianteCursoComponent implements OnInit {
  
   values='';
   errormsg:any;
+  letraa:any;
   successmsg:any; 
   getparamid:any;
   readDataEstudiante:any;
   readDataCurso:any;
   buscar:any;
   idEstudiante:any;
+  nombreEst:any;
+  apellidoEst:any;
   public curso=[];
   public cursoNombre=[];
 
@@ -39,11 +42,21 @@ export class AsignarEstudianteCursoComponent implements OnInit {
       
     }
   }
+  onKeybuscar(){
+     
+    this.service.searchDataEstudiante('a').subscribe((res)=>{
+      console.log(res,'buscando');
+      this.buscar=res.data;
+    })
+    
+    
+  }
  
   ngOnInit(): void {
     
-      
+    
     this.getAllData();
+    this.onKeybuscar();
     this.search.valueChanges.subscribe(value=> this.searchEmiter.emit(value));
     
   }
@@ -51,53 +64,50 @@ export class AsignarEstudianteCursoComponent implements OnInit {
   @Output('search') searchEmiter=new EventEmitter<string>();
 
   asignarEC(){
-    
-        console.log(this.useForm.value);
-        this.service.createInscripcion(this.useForm.value).subscribe((res)=>{
-          console.log(res,'res++=+');
-          this.useForm.reset();
-          this.successmsg=res.message;
-        });
+    if(this.useForm.valid){
+    Swal.fire({
+      title: 'Desea asignar el curso',
+      text: "Esta seguro de los datos!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',      
+     confirmButtonText: `Asignar`,
+     }).then((result) => {
+     if (result.isConfirmed) {
 
+      this.service.createInscripcion(this.useForm.value).subscribe((res)=>{
+      
+        
+      // console.log(res, location.reload());
+      Swal.fire(
+        'Estudiante de asignado!',
+        'datos actualizados',
+        'success'
+      )
+     this.getAllData();
+       });
+     }
+     
+   });
+  }
+  else{
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Todos los datos son requeridos!'
+    })
+    this.errormsg='todos los datos son requeridos';
+  }
     
   }
 
   today = Date.now();
     fixedTimezone = this.today;
   
-  async obtenerID(id:any)
+  async obtenerID(id:any,nombre:any,apellido:any)
   {
-    this.curso.forEach(data => {
-      
-      this.cursoNombre.push(data['nombre']);
-      console.log('aaaaaaa'+this.cursoNombre);
-    });
-    console.log(this.cursoNombre);
-   console.log(this.curso);
-    const { value: fruit } = await Swal.fire({
-      title: 'Select field validation',
-      input: 'select',
-      inputPlaceholder: 'Select a fruit',
-      inputOptions: this.cursoNombre,
-      
-      showCancelButton: true,
-      inputValidator: (value) => {
-        return new Promise((resolve) => {
-          
-        })
-      }
-    })
     
-    if (fruit) {
-      Swal.fire(`You selected: ${fruit}`)
-    }
-
-    
-    this.curso.forEach(data => {
-      console.log(data['nombre']);
-    });
-    
-
     console.log(id,'deleteid==');
     this.service.getSingleData(id).subscribe((res)=>{
       console.log(res,'deleted');
@@ -111,6 +121,13 @@ export class AsignarEstudianteCursoComponent implements OnInit {
           
         })
       });
+    
+      Swal.fire('Asignar curso a "'+nombre+' '+apellido+'"')
+
+    
+    
+
+   
       
   } 
  
@@ -128,7 +145,10 @@ export class AsignarEstudianteCursoComponent implements OnInit {
       console.log(res,'res==>');
       this.readDataCurso =res.data;
       this.curso=res.data;
-      
+      this.curso.forEach(data => {
+        this.cursoNombre.push(data['idCurso'+'nombre']);
+        console.log(+this.cursoNombre);
+      });
     });
     
   }
@@ -148,7 +168,7 @@ export class AsignarEstudianteCursoComponent implements OnInit {
     'telefono':new FormControl('',Validators.required),
     'correo':new FormControl('',Validators.required),
     'idCurso':new FormControl('',Validators.required),
-    'costo':new FormControl('',Validators.required),
+    
     'fecha':new FormControl('')
 
     
