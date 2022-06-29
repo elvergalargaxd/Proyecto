@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
+import Swal from 'sweetalert2'
 
 
 @Component({
@@ -16,17 +17,24 @@ export class CrearDocenteComponent implements OnInit {
 
   public previsualizacion :string | undefined;
   public loading: boolean | undefined;
-  public prev:string | undefined;
+  
 
 
   constructor(private service:ApiserviceService, private  router:ActivatedRoute,private sanitizer: DomSanitizer) { }
 
+  prev ='';
+  title='uploadFiles';
+  image='';
+  imgUrl='assets/noimage.png';
+  images:any=[];
+  nombre='pepeeeeeeee';
+  edited=true;
 
-  public archi:any=[];
   errormsg:any;
   successmsg:any;
   getparamid:any;
   readDataCurso:any;
+  desact='1';
 
   ngOnInit(): void {
 
@@ -49,11 +57,63 @@ export class CrearDocenteComponent implements OnInit {
           imagenes:res.data[0].imagenes
           
         });
-        this.prev=res.data[0].imagenes;
+        const str = res.data[0].imagenes;
+        const newStr = str.slice(19);
+        console.log(newStr) ;
+        this.imgUrl="http://localhost:4200/assets/"+newStr;
+        
+        this.prev=newStr;
+        console.log(this.imgUrl);
       });
 
       }
        
+  }
+  selectImage(event: any){
+    if(event.target.files.length>0){
+      const file=event.target.files[0];
+      const reader=new FileReader();
+      
+
+      reader.readAsDataURL(file);
+      reader.onload=(event:any)=>{
+        this.imgUrl=event.target.result;
+      }
+      if(this.image!==null){
+        this.desact='0';
+      this.image=file;
+      this.prev=this.image;
+      console.log(this.image);
+      }
+      else{
+        this.image=file;
+      }
+    }
+    
+  }
+  onSubmit(){
+    let formData = new FormData();
+    formData.append('file',this.image);
+    
+    //this.http.post<any>('http://localhost:3000/user', formData).subscribe();
+    
+    this.service.updatePhoto(formData,this.getparamid).subscribe(
+      (res) => console.log(res,  Swal.fire({
+                icon: 'success',
+                title: 'Imagen cargada!!',
+                text: 'La imagen se subio correctamente!'
+                }).then((result) => {
+                            if (result) {
+                                      location.reload();
+                          } 
+               }) 
+         ),
+      (err) => Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: 'Parece que no subio nada!!' 
+                    })
+    );
   }
   userForm =new FormGroup({
     'nombre':new FormControl('',Validators.required),
@@ -62,24 +122,11 @@ export class CrearDocenteComponent implements OnInit {
     'roleID':new FormControl('docente'),
     'correo':new FormControl('',Validators.required),
     'telefono':new FormControl('',[Validators.required,Validators.minLength(6)]),
-    'contrasena':new FormControl('',Validators.required),
-    'imagenes':new FormControl('',Validators.required)
+    'contrasena':new FormControl('',Validators.required)
       
   });
   
-  capturarFile(event: any){
-    const archivoCapturado=event.target.files[0];
-    const archi=event.target.files[0];
-    this.extraerBase64(archivoCapturado).then((imagen:any)=>{
-      this.previsualizacion=imagen.base;
-      console.log(imagen);
-      this.archi=imagen.base;
-    })
-
-    this.archivos.push(archivoCapturado);
-
-    console.log(event.target.files);
-  }
+  
   subirArchivo(): any {
     try {
       this.loading = true;
@@ -90,47 +137,47 @@ export class CrearDocenteComponent implements OnInit {
 
     }
   }
-  save(): void {
-    const formData = new FormData();
-    formData.append('myImageToSend', this.archivos.file);
-    
-    this.service.createData(formData).subscribe(data => {});
-}
-  extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
-    try {
-      const unsafeImg = window.URL.createObjectURL($event);
-      const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
-      const reader = new FileReader();
-      reader.readAsDataURL($event);
-      reader.onload = () => {
-        resolve({
-          base: reader.result
-        });
-      };
-      reader.onerror = error => {
-        resolve({
-          base: null
-        });
-      };
-      return reader.result;
-    } catch (e) {
-      return null;
-    }
-  })
+  
   userSubmit(){
-      if(this.userForm.valid)
-      {
-        console.log(this.userForm.value);
-        this.service.createData(this.userForm.value).subscribe((res)=>{
-          console.log(res,'res++=+');
-          this.userForm.reset();
-          this.successmsg=res.message;
-        });
 
-      }
-      else{
-        this.errormsg='todos los datos son requeridos';
-      }
+    if(this.userForm.valid) 
+    {
+      console.log(this.userForm.value);
+      Swal.fire({
+        title: 'Desea guardar los datos?',
+        text: "Esta seguro de los datos!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',      
+       confirmButtonText: `Ingresar`,
+       }).then((result) => {
+       if (result.isConfirmed) {
+  
+       
+        this.service.createData(this.userForm.value).subscribe( res => {
+          
+        // console.log(res, location.reload());
+        Swal.fire(
+          'Datos Ingresados!',
+          'Los datos fueron ingresados.',
+          'success'
+        )
+         });
+       }
+     });   
+
+    }
+    else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Todos los datos son requeridos!'
+      })
+      this.errormsg='todos los datos son requeridos';
+    }
+///////////////////////////////////////////
+      
   }
   getAllData(){
     this.service.getAllDataCurso().subscribe((res)=>{
@@ -141,18 +188,31 @@ export class CrearDocenteComponent implements OnInit {
 
   userUpdate()
   {
-      console.log(this.userForm.value,'updatedform');
-      if(this.userForm.valid  )
-      {
-          this.service.updateData(this.userForm.value,this.getparamid).subscribe((res)=>{
-                console.log(res,'modificado');
+    Swal.fire({
+      title: 'Desea modificar los datos?',
+      text: "Esta seguro de los cambios!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',      
+     confirmButtonText: `Modificar`,
+     }).then((result) => {
+     if (result.isConfirmed) {
 
-                this.successmsg=res.message;
-          })
-      }else{
-        this.errormsg='todo es requerido'
-      }
+     
+      this.service.updateData(this.userForm.value,this.getparamid).subscribe( res => {
+        
+      // console.log(res, location.reload());
+      Swal.fire(
+        'Datos Modificados!',
+        'Los datos fueron ingresados.',
+        'success'
+      )
+       });
+     }
+   });   
   }
+  
 
 
 }

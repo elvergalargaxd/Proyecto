@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import Swal from 'sweetalert2'
 
-
+ 
 
 @Component({
   selector: 'app-crear-estudiante',
@@ -31,6 +31,7 @@ export class CrearEstudianteComponent implements OnInit {
   successmsg:any;
   getparamid:any;
   desact='1';
+  
   ngOnInit(): void {
 
     

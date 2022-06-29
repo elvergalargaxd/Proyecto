@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { Observable, ObservableLike } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { __param } from 'tslib';
 
 
 @Injectable({
@@ -18,9 +19,11 @@ export class ApiserviceService {
       private URL='http://localhost:3000';
       apiUrl='http://localhost:3000/user';
       apiUrlImagen='http://localhost:3000/userImagen';
-      apiUrlEstado='http://localhost:3000/userEstado'
+      apiUrlEstado='http://localhost:3000/userEstado';
+      apiUrlEstadoAlta='http://localhost:3000/userEstadoAlta'
       apiUrlEstudiante='http://localhost:3000/estudiante';
       apiUrlEstudianteBuscar='http://localhost:3000/estudiante/buscar';
+      apiUrlEstudianteBuscar2='http://localhost:3000/estudiante/buscar2';
       apiUrlDocente='http://localhost:3000/docente';
       apiUrlCurso='http://localhost:3000/curso';
       apiUrlInscripcion='http://localhost:3000/inscripcion';
@@ -44,13 +47,14 @@ export class ApiserviceService {
       {
         console.log(data,'crearpi');
           return this._http.post(`${this.apiUrlVideo}`,data);
-      }
+      } 
 
       //obtener todo los datos
       singin2(user:any){
         return this._http.post(`${this.URL}/user/singin2`,user)
       }
       singin(user:any){
+        console.log(user)
         return this._http.post(`${this.URL}/user/singin`,user)
       }
       isAuth():boolean{
@@ -108,6 +112,11 @@ export class ApiserviceService {
         let ids=id;
         return  this._http.put  (`${this.apiUrlEstado}/${ids}`,data);
       }
+      updateEstadoAlta(data:any,id:any):Observable <any>
+      {
+        let ids=id;
+        return  this._http.put  (`${this.apiUrlEstadoAlta}/${ids}`,data);
+      }
 
       getSingleData(id:any):Observable<any>
       {
@@ -127,6 +136,12 @@ export class ApiserviceService {
       {
         let ids=nombre;
         return this._http.get(`${this.apiUrlEstudianteBuscar}/${ids}`);
+      }
+      searchDataEstudiante2(nombre:any ):Observable<any>
+      {
+        let ids=nombre;
+        return this._http.get(`${this.apiUrlEstudianteBuscar2}/${ids}`);
+        
       }
 
       getAllDataEstudiante():Observable<any>

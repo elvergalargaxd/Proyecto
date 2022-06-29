@@ -61,8 +61,9 @@ db.connect(err=>{
 
 
  app.post ('/user/singin',(req,res)=>{
-     
+      
      const {userName,pass}=req.body;
+     console.log(req.body.pass+'aaaaaaaaaa');
      db.query('select id, userName, roleId from user where userName=? and pass=?',
      [userName,pass],
      (err,rows,)=>{
@@ -84,6 +85,7 @@ db.connect(err=>{
  app.post ('/user/singin2',(req,res)=>{
      
     const {userName,pass}=req.body;
+
     db.query('select id, userName, roleId from user where userName=? and pass=?',
     [userName,pass],
     (err,rows,)=>{
@@ -128,7 +130,7 @@ function verifyToken(req,res,next){
   
 //get all data
 app.get('/user',(req,res)=>{
-    let qr= `select * from user where roleId    ='user'    `;
+    let qr= `select * from user where roleId ='user'    `;
     db.query(qr,(err,result)=>{
         if(err)
         {
@@ -148,7 +150,7 @@ app.get('/user',(req,res)=>{
 // select de latabla
 app.get('/user/:id',(req,res)=>{
     
-    let gID=req.params.id;  
+    let gID=req.params.id; 
     
     let qr=`select * from user where id= ${gID}`;
 
@@ -230,7 +232,27 @@ app.put ('/userEstado/:id',(req,res,next)=>{
     let gID=req.params.id;
     
     
-    let qr=`update user set estado='1'
+    let qr=`update user set estado='Baja'
+            where id='${gID}'`;
+
+    
+    console.log(qr);
+    
+    db.query(qr,(err,result)=>{
+        if(err){console.log(err);}
+      return res.send({message:'datos modificados'});
+    })
+    
+})
+app.put ('/userEstadoAlta/:id',(req,res,next)=>{
+
+    
+    console.log('Alta');
+    
+    let gID=req.params.id;
+    
+    
+    let qr=`update user set estado='Activo'
             where id='${gID}'`;
 
     
@@ -394,7 +416,7 @@ app.get('/estudiante/curso',(req,res)=>{
 app.get('/estudiante/buscar/:nombre',(req,res)=>{
     let qID=req.params.nombre;
     console.log(qID+"jjjjjjjjjjjj");
-    let qr =`SELECT * FROM user WHERE nombre LIKE '%${qID}%'`;
+    let qr =`SELECT * FROM user WHERE nombre LIKE '%${qID}%' AND roleId='user'`;
  
       
     db.query(qr,(err,result)=>{
@@ -417,7 +439,33 @@ app.get('/estudiante/buscar/:nombre',(req,res)=>{
         }
     });
 })
-
+app.get('/estudiante/buscar2/:nombre',(req,res)=>{
+    
+    let qID=req.params.nombre;
+    console.log(qID+"jjjjjjjjjjjj");
+    let qr =`SELECT * FROM user WHERE nombre LIKE '%${qID}%' AND roleId='docente'`;
+ 
+      
+    db.query(qr,(err,result)=>{
+                if(err)
+        {
+            console.log(err,'errs');
+            
+        }
+        if(result.length>=0)
+        {
+            res.send({
+                message:'todo el dato del estudiante',
+                data:result
+            });
+        }
+        else{
+            res.send({
+                message:'datos no encontrados'
+            });
+        }
+    });
+})
 app.delete('/estudiante/:id',(req,res)=>{
     let qID=req.params.id;
 

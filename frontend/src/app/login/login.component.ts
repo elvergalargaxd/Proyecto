@@ -16,11 +16,12 @@ export class LoginComponent implements OnInit {
     userName:'',
     pass:''
   }
+  
 
   constructor( private authService:ApiserviceService, private router:Router) { }
 
   data:any;
-  
+   
   ngOnInit(): void {
   }
   logIn(){
