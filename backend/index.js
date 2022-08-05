@@ -191,7 +191,6 @@ app.put ('/userImagen/:id',upload.single('file'),(req,res,next)=>{
        // return res.send({essage:'datos modificados'});
     })
 })
-
 //crear usuario
  
 
@@ -546,14 +545,19 @@ app.get('/curso/:id',(req,res)=>{
 app.post('/curso',(req,res)=>{
     console.log(req.body,'crear');
 
-    let nombre =req.body.nombre;
+    let nombreLargo =req.body.nombreLargo;
+    let nombreCorto =req.body.nombreCorto;
     let descripcion=req.body.descripcion;
+    let categoria=req.body.categoria;
     let imagen=req.body.imagen;
     let idDocente=req.body.idDocente;
+    let precio=req.body.precio;
+    let fecha=req.body.fecha;
+
     
 
-    let qr=`insert into curso (nombre,descripcion,imagen,idDocente)
-             values('${nombre}','${descripcion}','${imagen}','${idDocente}')`;
+    let qr=`insert into curso (nombreLargo,nombreCorto,descripcion,categoria,imagen,idDocente,precio,fecha)
+             values('${nombreLargo}','${nombreCorto}','${descripcion}','${categoria}','${imagen}','${idDocente}','${precio}','${fecha}')`;
 
     db.query(qr,(err,result)=>{
         if(err){console.log(err);}
@@ -565,14 +569,20 @@ app.post('/curso',(req,res)=>{
 app.put ('/curso/:id',(req,res)=>{
     console.log(req.body,'modificar');
     
+    let gID=req.params.id; 
+    let nombreLargo =req.body.nombreLargo;
     
-    let gID=req.params.id;
-    let nombre =req.body.nombre;
+    let nombreCorto =req.body.nombreCorto;
     let descripcion=req.body.descripcion;
+    let categoria=req.body.categoria;
     let imagen=req.body.imagen;
-    let idDocente=req.body.idDocente;
+    let idDocente=req.body.idDocente; 
+    let precio=req.body.precio;
     
-    let qr=`update curso set nombre='${nombre}',descripcion='${descripcion}',imagen='${imagen}',idDocente='${idDocente}'
+    let idVideo=req.body.idVideo;
+    
+    let qr=`update curso set nombreLargo='${nombreLargo}',nombreCorto='${nombreCorto}',descripcion='${descripcion}',categoria='${categoria}',
+            imagen='${imagen}',idDocente='${idDocente}',precio='${precio}',idVideo='${idVideo}'
             where idCurso='${gID}'`;
     db.query(qr,(err,result)=>{
         if(err){console.log(err);}
@@ -613,6 +623,30 @@ app.get('/curso/docente/:id',(req,res)=>{
         }
     });
 });
+
+app.put ('/userImagenCurso/:id',upload.single('file'),(req,res,next)=>{
+
+    const file =req.file;
+
+    console.log(req.body,'modificar');
+    
+    
+    
+    let gID=req.params.id;  
+    let imagenes=file.path;
+     
+    
+    let qr=`update curso set imagen='${imagenes}'
+            where idCurso='${gID}'`;
+
+    res.send(file);
+    console.log(qr);
+    
+    db.query(qr,(err,result)=>{
+        if(err){console.log(err);}
+       // return res.send({essage:'datos modificados'});
+    })
+})
 
 
 //Obter todo los datos de docente////////////////////////////////////////
@@ -707,6 +741,69 @@ app.delete('/docente/:id',(req,res)=>{
     let qID=req.params.id;
 
     let qr =`delete from docente where idDocente= '${qID}'`;
+    db.query(qr,(err,result)=>{
+        if(err){console.log(err); }
+        res.send({
+            message:'eliminado'
+        })
+    });
+})
+//Categoria////////////////////////////////////////
+app.get('/categoria',(req,res)=>{
+    let qr= 'select * from categoria';
+
+    db.query(qr,(err,result)=>{
+        if(err)
+        {
+            console.log(err,'errs');
+        }
+        if(result.length>0)
+        {
+            res.send({
+                message:'todo el dato del categoria',
+                data:result
+            });
+        }
+    });
+});
+app.post('/categoria',(req,res)=>{
+    console.log(req.body,'crear');
+
+    let nombre =req.body.nombre;
+    let descripcion=req.body.descripcion;
+   
+
+    let qr=`insert into categoria (nombre,descripcion)
+             values('${nombre}','${descripcion}')`;
+
+    db.query(qr,(err,result)=>{
+        if(err){console.log(err);}
+        res.send({message:'datos insertados'});
+         
+    })
+});
+app.put ('/categoria/:id',(req,res)=>{
+    console.log(req.body,'modificar');
+    
+    
+    let gID=req.params.id;
+    let nombre =req.body.nombre;
+    let descripcion=req.body.descripcion;
+    
+
+    let qr=`update categoria set nombre='${nombre}',descripcion='${descripcion}'
+            where idCategoria='${gID}'`;
+    db.query(qr,(err,result)=>{
+        if(err){console.log(err);}
+        res.send({
+            message:'datos modificados'
+        });
+    })
+})
+app.delete('/categoria/:id',(req,res)=>{
+    let qID=req.params.id;
+
+    let qr =`delete from categoria where idCategoria= '${qID}'`;
     db.query(qr,(err,result)=>{
         if(err){console.log(err); }
         res.send({

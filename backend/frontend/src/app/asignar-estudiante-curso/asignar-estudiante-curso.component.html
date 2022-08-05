@@ -1,0 +1,126 @@
+
+  
+  <div class="container mt-5">
+    <h1>Incripcion de Estudiantes</h1>
+      <div class="row border border-2 rounded-3 p-3 border-black" p-2>
+        <div class="col-6  p-5 ">  
+          <form [formGroup]="useForm">
+            <fieldset disabled>
+            <div class="form-row">
+              <div class="form-group col">
+                
+                <input type="hidden" class="form-control"formControlName="id" placeholder="cod">
+              </div>
+              <div class="form-group col">
+                <label for="inputEmail4">Nombre</label>
+                <input type="text" class="form-control"formControlName="nombre" placeholder="Nombre">
+              </div>
+              &nbsp;
+              <div class="form-group col">
+                <label for="inputPassword4">Apellido Paterno</label>
+                <input type="text" class="form-control" formControlName="apellido" placeholder="Apellido Paterno">
+              </div>
+            </div>
+            &nbsp;
+            <div class="form-group">
+              <label for="inputAddress">Apellido Materno</label>
+              <input type="text" class="form-control" formControlName="telefono" placeholder="Apellido Materno">
+            </div>&nbsp;
+          </fieldset>
+            <div class="form-group">
+            
+              <label for="inputAddress2">Correo</label>
+              <input type="email" class="form-control" formControlName="correo" placeholder="Correo">
+            </div>&nbsp;
+            <div class="form-row">
+              
+              <div class="input-group mb-6">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputGroupSelect01">Curso</label>
+                </div>
+                <select class="custom-select col-6" id="id" formControlName="idCurso">
+                  <option  value="" selected disabled hidden>Seleccione Curso</option>
+                  <option *ngFor ='let us of readDataCurso' [ngValue]="us.idCurso" >{{us.nombre}}</option>
+                  
+                </select>
+            
+              </div>&nbsp;
+              
+            </div>
+            
+            <fieldset disabled>
+            <div class="form-group">
+                    <input type="text" class="form-control" formControlName="fecha"  placeholder="{{today | date:'dd-MM-yyyy hh:mm:ss a':'+0530'}}">
+            </div>&nbsp;
+          </fieldset>
+            <div class="form-group">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck">
+                <label class="form-check-label" for="gridCheck">
+                  Enviar inscripcion al correo
+                </label>
+              </div>
+            </div>
+            
+            <div class="col-lg-4 mt-2" (click)="asignarEC()">
+              <button class="btn btn-danger btn-lg">Asignar Curso</button>
+            </div>
+            &nbsp;
+            <div *ngIf="errormsg"  class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>{{errormsg}}</strong>.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+
+            <div *ngIf="successmsg"  class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>{{successmsg}}</strong>.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </form>
+      </div>
+        <div class="col-6 p-3">
+        <div class="col-9">
+          <p >Buscar Estudiante</p>
+          <input [formControl]="search" aria-label="Search" type="text" placeholder="Buscar Estudiante" class="form-control" (keyup)="onKey($event)" >
+        </div>
+      
+      &nbsp;
+      <div id="datatable">
+      </div>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Correo</th>
+                
+                <th scope="col">Editar</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor ='let us of buscar'>
+                <th scope="row">{{us.id}}</th>
+                <td>{{us.nombre}}</td>
+                <td>{{us.apellido}}</td>  
+                <td>{{us.correo}}</td>
+                
+                <td><button class="btn-sm btn-primary " (click)="obtenerID(us.id,us.nombre,us.apellido)"  data-toggle="modal" data-target="#exampleModalCenter" >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                  </svg>
+                  Asignar</button>
+                   &nbsp;
+
+                </td>
+                
+              
+              
+            </tbody>
+          </table>
+        </div>
+        
+
+    </div>
+    </div>

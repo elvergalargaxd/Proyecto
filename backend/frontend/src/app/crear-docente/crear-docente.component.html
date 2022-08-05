@@ -1,0 +1,89 @@
+
+<div class="container bootstrap snippets bootdey">
+    <h2 class="text-primary">Editar Docente</h2>
+      <hr>
+	<div class="row container border border-5 rounded-3 p-4 border-black">
+      <!-- left column -->
+      
+      
+      <!-- edit form column -->
+      <div class="col-md-7 p-3 px-4 personal-info">
+        
+        <h3>Informacion de docente</h3>
+        
+        <form  [formGroup]="userForm"  class=" form-horizontal container p-3 border-black" >
+          <div class="row p-3">
+          <div class="form-group col-md-5 ">
+            <label class="control-label ">Nombres:</label>
+                <input type="text" class="form-control" formControlName="nombre"  placeholder="Ejemplo: Pedro" >
+          </div>
+          <div class="form-group col-md-7">
+            <label class="control-label">Apellidos:</label>
+                <input type="text"class="form-control" formControlName="apellido" placeholder="Ejemplo: gonsales jimenez">
+          </div>
+        </div>
+        <div class="row p-3">
+          
+          <div class="form-group col-md-6">
+            <label class="control-label">Usuario:</label>
+                <input type="text" class="form-control" formControlName="userName"  placeholder="Ejemplo: pepe123">
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label">Email:</label>
+                <input type="text"class="form-control" formControlName="correo" placeholder="Ejemplo: pepe123@gmail.com">
+          </div>
+        </div>
+        <div class="row p-3">
+          <div class="form-group col-md-6">
+            <label class="control-label">Telefono:</label>
+                <input type="text"class="form-control" formControlName="telefono" placeholder="Ejemplo: 75489547">
+          </div>
+          
+          <div class="form-group col-md-6">
+            <label class="control-label">Contrasena:</label>
+                 <input type="text" class="form-control" formControlName="contrasena"  placeholder="Ejemplo: Pedro123#$">
+          </div>
+          <div class="form-group">
+            <label class="control-label" hidden="false"></label>
+                <input type="hidden"class="form-control" formControlName="roleID" placeholder="">
+          </div>
+        </div>
+          <div class="col-4 mt-2 p-3 " *ngIf="!getparamid">
+            <button class=" btn btn-outline-success btn-lg" (click)="userSubmit()">Crear Docente</button>
+        </div>
+        <!-- Modal -->
+       
+        <div class="col-4 mt-2 p-3" *ngIf="getparamid">
+            <button class="btn btn-outline-success btn-lg" (click)="userUpdate()">Modificar Docente</button>
+        </div>
+        
+        </form>
+        <div *ngIf="errormsg"  class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{errormsg}}</strong>.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+    
+    
+          <div *ngIf="successmsg"  class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{successmsg}}</strong>.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      </div>
+
+      <div class="col-md-3 p-3 "*ngIf="getparamid">
+        <div class="text-center container border border-2 rounded-3 p-3 border-black" [hidden]="!edited" >
+          <img [src]="imgUrl" class="card-img-top" alt="avatar">
+          <h6>Upload a different photo...{{image}}</h6>
+          
+          <input type="file" class="form-control" accept="image/*" (change)="selectImage($event)">
+          <hr>
+          <button class="btn btn-outline-primary" type="submit" (click)="onSubmit()" [disabled]="desact =='1'" >Subir Imagen</button>
+          
+          
+          
+        </div>
+      
+    </div>
+  </div>
+</div>
+<hr>

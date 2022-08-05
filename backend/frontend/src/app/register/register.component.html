@@ -1,0 +1,124 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+ <body>
+  <div class=""></div>
+   <div class="row bg-primary">
+    <div class="col">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class=" container-fluid ">
+            <nav class="navbar navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand px-5 fadeIn first " href="#">
+                        <span class="text-danger fs-1 fw-bold" routerLink="home">I</span>
+                        <span class="text-primary fs-1 fw-bold">N</span>
+                        <span class="text-primary fs-1 fw-bold">N</span>
+                        <span class="text-success fs-1 fw-bold">O</span>
+                        <span class="text-danger fs-1 fw-bold">V</span>
+                        <span class="text-primary fs-1 fw-bold">A-</span>
+                        <span class="text-warning fs-1 fw-bold">T</span>
+                        
+                    </a>
+                </div>
+                
+              </nav>
+      
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          <div class="collapse navbar-collapse row px-3 fadeIn first " id="navbarSupportedContent">
+          
+            <ul class="navbar-nav fadeIn first ">
+              <li class="nav-item col-md-1.7  ">
+                  <a class="nav-link active text-danger fs-4 px-3 fadeIn first " aria-current="page" routerLink="administrar">Inicio</a>          
+              
+              </li>
+              <li class="nav-item col-md-1.7 ">
+                <a class="nav-link active text-warning fs-4 px-3" aria-current="page" routerLink="crearEstudiante">Cursos</a>
+              </li>
+              <li class="nav-item dropdown col-1.7 ">
+                <a class="nav-link dropdown-toggle text-success fs-4 px-3" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Categorias
+                </a>
+                <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li> 
+              <li class="nav-item col-md-1">
+                <a class="nav-link active text-primary fs-4 px-3" aria-current="page" href="#">Nosotros</a>
+              </li>
+              <li class=" col-md-1.5 offset-md-2  p-2">
+                    <button routerLink="register" type="button" class="btn btn-primary btn-sm">
+                      Registrate
+                    </button>
+              </li>
+              <li  class=" col-md-3 p-2">
+                    <button routerLink="login" type="button" class="btn text-primary px-3 me-2">
+                    Iniciar Sesion
+                  </button>
+                  
+              </li>
+                
+              &nbsp;   
+              
+            </ul>
+            
+          </div>
+        </div>
+      </nav>
+    </div>   
+  </div>
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <div class="login-main-text">
+      <a class="navbar-brand" href="#">
+         <span class="text-danger fs-1 fw-bold">I</span>
+         <span class="text-primary fs-1 fw-bold">N</span>
+         <span class="text-primary fs-1 fw-bold">N</span>
+         <span class="text-success fs-1 fw-bold">O</span>
+         <span class="text-danger fs-1 fw-bold">V</span>
+         <span class="text-primary fs-1 fw-bold">A-</span>
+         <span class="text-warning fs-1 fw-bold">T</span>
+     </a>
+    <!-- Icon -->
+    
+
+    <!-- Login Form -->
+    <form [formGroup]="userForm" >
+      
+      
+      <input   type="text"class="fadeIn third text-left " formControlName="nombre" name="login" placeholder="Nombre">
+      <input   type="text"class="fadeIn third text-left" formControlName="apellido" name="login" placeholder="Apellido">
+      
+      <input   type="text"class="fadeIn third text-left" formControlName="userName" name="login" placeholder="Usuario">
+      <input   type="hidden"class="fadeIn third text-left" formControlName="roleID" name="login" placeholder="usuario">
+      <input  type="text"class="fadeIn third text-left" formControlName="correo" name="login" placeholder="Correo">
+      <input   type="text"class="fadeIn third text-left" formControlName="contrasena" name="idDocente" placeholder="Contraseña">
+      <input  type="submit" class="fadeIn fourth" (click)="register()" value="Crear usuario">
+    </form>
+ 
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" routerLink="/login">Iniciar Sesion</a>
+    </div>
+    
+    <div *ngIf="errormsg"  class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>{{errormsg}}</strong>.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+
+    <div *ngIf="successmsg"  class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>{{successmsg}}</strong>.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+</div>
+ </body>

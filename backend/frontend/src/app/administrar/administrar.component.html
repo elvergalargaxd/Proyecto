@@ -1,0 +1,72 @@
+
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar-->
+        <div class="border-end bg-white" id="sidebar-wrapper">
+          <div class="container-fluid sidebar-heading text-primary border-bottom bg-light p-3" >
+            <a class="navbar-brand px-2" href="#">
+                <span class="text-danger fs-1 fw-bold">I</span>
+                <span class="text-primary fs-1 fw-bold">n</span>
+                <span class="text-primary fs-1 fw-bold">n</span>
+                <span class="text-success fs-1 fw-bold">o</span>
+                <span class="text-danger fs-1 fw-bold">v</span>
+                <span class="text-primary fs-1 fw-bold">a-</span>
+                <span class="text-warning fs-1 fw-bold">T</span>
+            </a>
+        </div>
+        
+
+            <ul  >
+            <div class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action list-group-item-light fs-7 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" routerLink="crearEstudiante" >Crear Estudiante</a>
+                <a class="list-group-item list-group-item-action list-group-item-light fs-7 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" routerLink="leerEstudiante" >Editar Estudiante</a>
+                <a class="list-group-item list-group-item-action list-group-item-light fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" routerLink="asignarEstudianteCurso" >Inscripcion Estudiantes</a>  
+                <a class="list-group-item list-group-item-action list-group-item-light fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" routerLink="crearDocente">Crear Docente</a> 
+                <a class="list-group-item list-group-item-action list-group-item-light fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" routerLink="leerDocente">Modificar Docente</a>
+                <a class="list-group-item list-group-item-action list-group-item-light fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" routerLink="crearCurso">Crear Curso</a>
+                <a class="list-group-item list-group-item-action list-group-item-light fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" routerLink="leerCurso">Editar Curso</a>
+                
+                <a class="list-group-item list-group-item-action list-group-item-light fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" routerLink="leerEstudiante">Evaluaciones</a>
+                <a class="list-group-item list-group-item-action list-group-item-light fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" href="#!">Reportes</a>
+                <a class="list-group-item list-group-item-action fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" href="#!"></a>
+             
+            </div>
+        </ul>
+        </div>
+        <!-- Page content wrapper-->
+        <div id="page-content-wrapper">
+            <!-- Top navigation-->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <div class="container-fluid">
+                    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                            <li class="nav-item active"><a class="nav-link" href="#!">Administrador</a></li>
+                            
+                            <button class="btn btn-primary" id="sidebarToggle" (click)="onLogout()">Cerrar Sesion</button>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Page content-->
+            <div class="container-fluid">             
+                <p>
+                    
+                  
+        <router-outlet></router-outlet>
+        
+        
+        Make sure to keep all page content within the
+                    <code>#page-content-wrapper</code>
+                    . The top navbar is optional, and just for demonstration. Just create an element with the
+                    <code>#sidebarToggle</code>
+                    ID which will toggle the menu when clicked.
+                </p>
+            </div>
+        </div>
+    </div>
+      
+  
+  
+  
+  
