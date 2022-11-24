@@ -54,13 +54,16 @@ export class CrearDocenteComponent implements OnInit {
           correo:res.data[0].correo,
           telefono:res.data[0].telefono,
           contrasena:res.data[0].pass,
-          imagenes:res.data[0].imagenes
+          imagenes:res.data[0].imagenes,
+          ciudad:res.data[0].ciudad,
+          pais:res.data[0].pais,
+          domicilio:res.data[0].domicilio,
           
         });
         const str = res.data[0].imagenes;
         const newStr = str.slice(19);
         console.log(newStr) ;
-        this.imgUrl="http://localhost:4200/assets/"+newStr;
+        this.imgUrl=str;
         
         this.prev=newStr;
         console.log(this.imgUrl);
@@ -121,6 +124,9 @@ export class CrearDocenteComponent implements OnInit {
     'userName':new FormControl('',Validators.required),
     'roleID':new FormControl('docente'),
     'correo':new FormControl('',Validators.required),
+    'domicilio':new FormControl('',Validators.required),
+    'pais':new FormControl('',Validators.required),
+    'ciudad':new FormControl('',Validators.required),
     'telefono':new FormControl('',[Validators.required,Validators.minLength(6)]),
     'contrasena':new FormControl('',Validators.required)
       

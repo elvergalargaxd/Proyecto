@@ -1,72 +1,119 @@
 
-    <div class="d-flex" id="wrapper">
-        <!-- Sidebar-->
-        <div class="border-end bg-white" id="sidebar-wrapper">
-          <div class="container-fluid sidebar-heading text-primary border-bottom bg-light p-3" >
-            <a class="navbar-brand px-2" href="#">
-                <span class="text-danger fs-1 fw-bold">I</span>
-                <span class="text-primary fs-1 fw-bold">n</span>
-                <span class="text-primary fs-1 fw-bold">n</span>
-                <span class="text-success fs-1 fw-bold">o</span>
-                <span class="text-danger fs-1 fw-bold">v</span>
-                <span class="text-primary fs-1 fw-bold">a-</span>
-                <span class="text-warning fs-1 fw-bold">T</span>
-            </a>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <body>
+      <div class="sidebar">
+        <div class="logo-details"><div class="home-content">
+            <i class='bx bx-menu' ></i>
+          </div>
+          <span class="logo_name text-warning">
+                INNOVATE</span>
         </div>
-        
-
-            <ul  >
-            <div class="list-group list-group-flush">
-                <a class="list-group-item list-group-item-action list-group-item-light fs-7 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" routerLink="crearEstudiante" >Crear Estudiante</a>
-                <a class="list-group-item list-group-item-action list-group-item-light fs-7 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" routerLink="leerEstudiante" >Editar Estudiante</a>
-                <a class="list-group-item list-group-item-action list-group-item-light fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" routerLink="asignarEstudianteCurso" >Inscripcion Estudiantes</a>  
-                <a class="list-group-item list-group-item-action list-group-item-light fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" routerLink="crearDocente">Crear Docente</a> 
-                <a class="list-group-item list-group-item-action list-group-item-light fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" routerLink="leerDocente">Modificar Docente</a>
-                <a class="list-group-item list-group-item-action list-group-item-light fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" routerLink="crearCurso">Crear Curso</a>
-                <a class="list-group-item list-group-item-action list-group-item-light fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" routerLink="leerCurso">Editar Curso</a>
+        <ul class="nav-links">
+    
+          <li>
+            <div class="iocn-link">
+              <a href="#">
                 
-                <a class="list-group-item list-group-item-action list-group-item-light fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" routerLink="leerEstudiante">Evaluaciones</a>
-                <a class="list-group-item list-group-item-action list-group-item-light fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" href="#!">Reportes</a>
-                <a class="list-group-item list-group-item-action fs-6 fw-bold p-3" style="height: 60px; padding: 20px 35px; width:230px;" href="#!"></a>
-             
+                <i class='bx bxs-graduation' ></i>
+                <span class="link_name">Estudiantes</span>
+              </a>
+              <i class='bx bxs-chevron-down arrow' ></i>
             </div>
-        </ul>
-        </div>
-        <!-- Page content wrapper-->
-        <div id="page-content-wrapper">
-            <!-- Top navigation-->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                <div class="container-fluid">
-                    
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                            <li class="nav-item active"><a class="nav-link" href="#!">Administrador</a></li>
-                            
-                            <button class="btn btn-primary" id="sidebarToggle" (click)="onLogout()">Cerrar Sesion</button>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            <!-- Page content-->
-            <div class="container-fluid">             
-                <p>
-                    
-                  
-        <router-outlet></router-outlet>
-        
-        
-        Make sure to keep all page content within the
-                    <code>#page-content-wrapper</code>
-                    . The top navbar is optional, and just for demonstration. Just create an element with the
-                    <code>#sidebarToggle</code>
-                    ID which will toggle the menu when clicked.
-                </p>
+            <ul class="sub-menu">
+              <li><a class="link_name" href="#">Estudiantes</a></li>
+              <li><a routerLink="crearEstudiante">Registrar</a></li>
+              <li><a routerLink="leerEstudiante">Editar</a></li>
+              <li><a routerLink="asignarEstudianteCurso">Inscripcion</a></li>
+            </ul>
+          </li>
+          
+          <li>
+            <div class="iocn-link">
+              <a href="#">
+                <i class='bx bx-briefcase' ></i>
+                <span class="link_name">Docentes</span>
+              </a>
+              <i class='bx bxs-chevron-down arrow' ></i>
             </div>
+            <ul class="sub-menu">
+              <li><a class="link_name" href="#">Docentes</a></li>
+              <li><a routerLink="crearDocente">Registrar</a></li>
+              <li><a routerLink="leerDocente">Editar</a></li>
+            </ul>
+          </li>
+    
+          <li>
+            <a routerLink="categorias">
+                <i class='bx bx-category' ></i>
+              <span class="link_name">Categorias</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="#">Categorias</a></li>
+            </ul>
+          </li>
+    
+          <li>
+            <div class="iocn-link">
+              <a href="#">
+                <i class='bx bx-chalkboard' ></i>
+                <span class="link_name">Cursos</span>
+              </a>
+              <i class='bx bxs-chevron-down arrow' ></i>
+            </div>
+            <ul class="sub-menu">
+              <li><a class="link_name" href="#">Cursos</a></li>
+              <li><a routerLink="crearCurso">Crear</a></li>
+              <li><a routerLink="leerCurso">Editar</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">
+              <i class='bx bx-line-chart' ></i>
+              <span class="link_name">Reportes</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="#">Reportes</a></li>
+            </ul>
+          </li>
+          
+          
+          <li>
+            <a href="#">
+              <i class='bx bx-history'></i>
+              <span class="link_name">History</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="#">History</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">
+              <i class='bx bx-cog' ></i>
+              <span class="link_name">Setting</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="#">Setting</a></li>
+            </ul>
+          </li>
+          <li>
+        <div class="profile-details">
+          <div class="profile-content">
+            <!--<img src="image/profile.jpg" alt="profileImg">-->
+          </div>
+          <div class="name-job">
+            <div class="profile_name">Administrador</div>
+            <div class="job" (click)="onLogout()">Cerrar Sesion</div>
+          </div>
+          <i class='bx bx-log-out'></i>
         </div>
-    </div>
-      
-  
-  
-  
-  
+      </li>
+    </ul>
+      </div>
+      <section class="home-section globalContainer centrarContenido">
+        
+        <div class=" finp">
+            <router-outlet></router-outlet>
+        </div>
+      </section>
+       
+    </body>

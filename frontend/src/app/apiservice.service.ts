@@ -29,26 +29,69 @@ export class ApiserviceService {
       apiUrlCategoria='http://localhost:3000/categoria';
       apiUrlCurso='http://localhost:3000/curso';
       apiUrlInscripcion='http://localhost:3000/inscripcion';
-      apiUrlVideo='http://localhost:3000/video';
-      //estudiante/curso
+      apiUrlClase='http://localhost:3000/clase';
+      apiUrlEvaluacion='http://localhost:3000/evaluacion';
+      
 
 
+
+
+      //Servicios Evaluacion
+      updateDataEvaluacion(data:any,id:any):Observable <any>
+      {
+        let ids=id;
+        return  this._http.put(`${this.apiUrlEvaluacion}/${ids}`,data);
+      }
+
+      getSingleDataEvaluacion(id:any):Observable<any>{
+        let ids =id;
+        return this._http.get(`${this.apiUrlEvaluacion}/${ids}`);
+      }
+      getSingleDataEvaluacionEditar(id:any):Observable<any>{
+        let ids =id;
+        return this._http.get(`${this.apiUrlEvaluacion}Editar/${ids}`);
+      }
+      getAllDataEvaluacion():Observable<any>{
+        return this._http.get (`${this.apiUrlEvaluacion}`);
+      }
+      createEvaluacion(data:any,id:any):Observable<any>
+      {
+        
+        console.log(data.value);
+        let ids=id;
+          return this._http.post(`${this.apiUrlEvaluacion}/${ids}`,data);
+      } 
+
+      
+      //
       getDataInscripcion(id:any):Observable<any>{
         let ids=id;
         return this._http.get(`${this.apiUrlInscripcion}/${ids}`);
       }
-
-      getSingleDataVideo(id:any):Observable<any>{
-        let ids =id;
-        return this._http.get(`${this.apiUrlVideo}/${ids}`);
-      }
-      getAllDataVideo():Observable<any>{
-        return this._http.get (`${this.apiUrlVideo}`);
-      }
-      createVideo(data:any):Observable<any>
+      //Servicios Clase
+      updateDataClase(data:any,id:any):Observable <any>
       {
-        console.log(data,'crearpi');
-          return this._http.post(`${this.apiUrlVideo}`,data);
+        let ids=id;
+        return  this._http.put(`${this.apiUrlClase}/${ids}`,data);
+      }
+
+      getSingleDataClase(id:any):Observable<any>{
+        let ids =id;
+        return this._http.get(`${this.apiUrlClase}/${ids}`);
+      }
+      getSingleDataClaseEditar(id:any):Observable<any>{
+        let ids =id;
+        return this._http.get(`${this.apiUrlClase}Editar/${ids}`);
+      }
+      getAllDataClase():Observable<any>{
+        return this._http.get (`${this.apiUrlClase}`);
+      }
+      createClase(data:any,id:any):Observable<any>
+      {
+        
+        console.log(data.value);
+        let ids=id;
+          return this._http.post(`${this.apiUrlClase}/${ids}`,data);
       } 
 
       //obtener todo los datos
@@ -279,9 +322,9 @@ deleteDataCurso(id:any):Observable<any>
 }
 //modificar
 updateDataCurso(data:any,id:any):Observable <any>
-{
+{ 
   let ids=id;
-  return  this._http.put  (`${this.apiUrlCurso}/${ids}`,data);
+  return  this._http.put(`${this.apiUrlCurso}/${ids}`,data);
 }
 
 getSingleDataCurso(id:any):Observable<any>

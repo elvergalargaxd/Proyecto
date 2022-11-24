@@ -1,123 +1,101 @@
 &nbsp;
 <div class="container bootstrap snippets bootdey">
-  <h1 class="text-primary">Editar Curso</h1>
+  <h2 class="text-primary ">Editar Curso</h2>
   <hr>
-  <div class="row">
+  <div class="row ">
     <!-- left column -->
 
 
     <!-- edit form column -->
     <div class="col-md-12 personal-info">
 
-      <h3>Informacion</h3>
+      <h4>Informacion</h4>
 
-      <form [formGroup]="userForm">
-        &nbsp;
-        <div class="row">
-          <p class=" col-md-3"> <strong> Ingrese nombre completo del curso</strong></p>
-          <div class="col-md-6">
-            <input type="text" class="form-control" formControlName="nombreLargo" placeholder="">
-          </div>
-
+      <form [formGroup]="userForm" id="formCurso">
+        <div class=" formLinea margenInput">
+          <label class="textoInput  divInputsLabel">Nombre completo del curso:</label>
+          <input type="text" class="form-control divInputsInput textoInput" formControlName="nombreLargo"
+            placeholder="">
         </div>
-        <hr width="70%" noshade="noshade">
-
-        <div class="row">
-          <p class=" col-md-3"><strong> Ingrese Nombre Corto del curso</strong></p>
-          <div class="col-md-4">
-            <input type="text" class="form-control" formControlName="nombreCorto" placeholder="">
-          </div>
+        <div class=" formLinea margenInput">
+          <label class="textoInput  divInputsLabel">Nombre corto del curso:</label>
+          <input type="text" class="form-control divInputsInput textoInput" formControlName="nombreCorto"
+            placeholder="">
         </div>
 
-        <hr width="70%" noshade="noshade">
-        <div class="row ">
-          <p class=" col-md-3"><strong> Ingrese Costo del curso</strong></p>
-          <div class="col-md-2 ">
-            <input type="number" class="form-control" formControlName="precio" placeholder="">
-
-          </div>
+        <div class=" formLinea margenInput">
+          <label class="textoInput  divInputsLabel">Costo del curso:</label>
+          <input type="number" class="form-control divInputsInput textoInput" formControlName="precio" placeholder="">
         </div>
-        <hr width="70%" noshade="noshade">
-        <fieldset disabled="disabled">
-          <div class="row">
-            <p class=" col-md-3"><strong> fecha</strong></p>
-            <div class="col-md-4">
-              <input type="text" class="form-control" formControlName="fecha">
 
-            </div>
-          </div>
-        </fieldset>
-        <hr width="70%" noshade="noshade">
+        <div class=" formLinea margenInput">
+          <label class="textoInput  divInputsLabel">Fecha de creacion:</label>
+          <fieldset disabled="disabled">
+            <input type="text" class="form-control divInputsInput textoInput" formControlName="fecha" placeholder="">
+          </fieldset>
+        </div>
 
-        <div class="row">
-          <p class=" col-md-3"><strong> Categoria de curso</strong></p>
-          <div class="col-md-6">
-            <select class="custom-select col-6" id="id" formControlName="categoria">
+        <div class=" formLinea margenInput">
+          <label class="textoInput  divInputsLabel">Categoria de curso:</label>
+          
+          <div class="col-md-7">
+            <select class="custom-select col-12 textoInput" id="id" formControlName="categoria">
               <option value="" selected disabled hidden>Seleccione Categoria</option>
               <option *ngFor='let us of readDataCategoria' [ngValue]="us.idCategoria">{{us.nombre}}</option>
             </select>
           </div>
         </div>
 
-        <hr width="70%" noshade="noshade">
-        <div class="row">
-          <p class=" col-md-3"><strong> Descripcion de curso</strong></p>
-          <div class="col-6 mt-2">
-            <textarea type="text" class="form-control" rows="7" formControlName="descripcion"
-              placeholder="Descripcion"></textarea>
-          </div>
-        </div>
-
-        <hr width="70%" noshade="noshade">
-        <div class="row">
-          <p class=" col-md-3"><strong> Seleccione docente</strong></p>
-          <div class="col-md-6">
-            <select class="custom-select col-md-6" id="id" formControlName="idDocente">
+        <div class=" formLinea margenInput">
+          <label class="textoInput  divInputsLabel">Seleccione docente:</label>
+          
+            <select class="custom-select col-7 textoInput" id="id" formControlName="idDocente">
               <option value="" selected disabled hidden>Seleccione Docente</option>
-              <option *ngFor='let us of readDataDocente' [ngValue]="us.id">{{us.nombre}} {{us.apPaterno}}
+              <option *ngFor='let us of readDataDocente' [ngValue]="us.id">{{us.nombre}} {{us.apellido}}
                 {{us.apMaterno}}</option>
 
             </select>
-          </div>
+          
         </div>
 
-        <hr width="70%" noshade="noshade">
-        <div class="row">
-          <p class=" col-md-3"><strong> Subir imagen del curso</strong></p>
+
+
+        <div class="row " *ngIf="getparamid">
+          <p class=" col-md-4"><strong> Subir imagen del curso</strong></p>
           <div class="text-center col-3">
-            <img [src]="imgUrl" class="card-img-top" alt="avatar">
-            <h6>Upload a different photo...{{image}}</h6>
+            <img [src]="imgUrl" width="30" height="200" class="card-img-top" alt="avatar">
+            <div class="col ">
+              <input type="file" class="form-control" accept="image/*" (change)="selectImage($event)">
+              <button class="btn btn-outline-primary justify-content: center  ;" type="submit" (click)="onSubmit()"
+                [disabled]="desact =='1'">Subir
+                Imagen</button>
+            </div>
+            &nbsp;
 
-            <input type="file" class="form-control" accept="image/*" (change)="selectImage($event)">
-            <hr>
-            <button class="btn btn-outline-primary" type="submit" (click)="onSubmit()" [disabled]="desact =='1'">Subir
-              Imagen</button>
+          </div>
+          <div class="col-2 mt-2">
+
           </div>
 
         </div>
-        <div class="col-md-3 p-3 " *ngIf="getparamid">
-          <div class="text-center container border border-2 rounded-3 p-3 border-black" [hidden]="!edited">
-            
-          </div>
+        <div class=" formLinea margenInput">
+          <label class="textoInput  divInputsLabel">Descripcion de curso:</label>
+          <textarea type="text" class="form-control divInputsInput textoInput" rows="7" formControlName="descripcion"
+            placeholder=""></textarea>
+        </div>
+        <div class="col-lg-10 mt-2 d-flex justify-content-end " *ngIf="getparamid">
+          <button class="btn btn-success " (click)="userUpdate()">Guardar Cambios</button>
 
         </div>
-        <hr width="70%" noshade="noshade">
         <div class="text-center ">
           <div class="row">
-            <div class="col-md-3 offset-md-2 " *ngIf="!getparamid" (click)="userSubmit()">
-              <button class="btn btn-primary ">Guardar cambios del curso</button>
-            </div>
-
-            <div class="col-md-2 bg-primary " *ngIf="!getparamid" (click)="userSubmit()">
-              <button class="btn btn-primary ">Cancelar creacion</button>
+            <div class=" " *ngIf="!getparamid" (click)="userSubmit()">
+              <button class="btn btn-primary">Guardar curso</button>
             </div>
           </div>
         </div>
 
-        <div class="col-lg-4 mt-2" *ngIf="getparamid">
-          <button class="btn btn-success ntm-sm" (click)="userUpdate()">Modificar</button>
 
-        </div>
       </form>
 
     </div>

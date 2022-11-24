@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
 import { HttpClient } from '@angular/common/http';
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
  
 
@@ -50,15 +50,31 @@ export class CrearEstudianteComponent implements OnInit {
             telefono:res.data[0].telefono,
             contrasena:res.data[0].pass,
             imagenes:res.data[0].imagenes,
+            domicilio:res.data[0].domicilio,
+            ciudad:res.data[0].ciudad,
+            pais:res.data[0].pais
             
             
         });
+        const str =res.data[0].imagenes;
+        console.log(str);
+        if(str!=0){
+
         const str = res.data[0].imagenes;
-        const newStr = str.slice(19);
-        console.log(newStr) ;
-        this.imgUrl="http://localhost:4200/assets/"+newStr;
+        console.log("siuuuuuuuu"+str);
+
+        this.imgUrl=str;
+        }else{
+          this.imgUrl=this.imgUrl;
+          console.log("no image");
+        }
+
+
+        //const newStr = str.slice(19);
+        //console.log(newStr) ;
+     //this.imgUrl="http://localhost:4200/assets/"+newStr;
         
-        this.prev=newStr;
+        
         console.log(this.imgUrl);
       });
 
@@ -122,6 +138,9 @@ export class CrearEstudianteComponent implements OnInit {
     formData.append('correo',this.userForm.value.correo);
     formData.append('telefono',this.userForm.value.telefono);
     formData.append('contrasena',this.userForm.value.contrasena);
+    formData.append('contrasena',this.userForm.value.domicilio);
+    formData.append('contrasena',this.userForm.value.ciudad);
+    formData.append('contrasena',this.userForm.value.pais);
     console.log(formData.get('datos'));
     //this.http.post<any>('http://localhost:3000/user', formData).subscribe();
     this.service.updateData(formData,this.getparamid).subscribe(
@@ -156,7 +175,10 @@ export class CrearEstudianteComponent implements OnInit {
       'roleID':new FormControl('user'),
       'correo':new FormControl('',[Validators.required, Validators.email ]),
       'telefono':new FormControl('',[Validators.required,Validators.minLength(6)]),
-      'contrasena':new FormControl('',Validators.required)
+      'contrasena':new FormControl('',Validators.required),
+      'domicilio':new FormControl('',Validators.required),
+      'ciudad':new FormControl('',Validators.required),
+      'pais':new FormControl('',Validators.required)
       
       
   });

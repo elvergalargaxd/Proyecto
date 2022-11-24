@@ -3,6 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+//inicio service
+import {CargarScriptsService} from './cargar-scripts.service';
+//fin servicce
+
 
 import  {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { ApiserviceService } from './apiservice.service';
@@ -27,6 +31,8 @@ import { EstudiantesComponent } from './docente/estudiantes/estudiantes.componen
 import { EstudianteComponent } from './estudiante/estudiante/estudiante.component';
 import { CursosComponent } from './estudiante/cursos/cursos.component';
 import { EditarPerfilEstudianteComponent } from './estudiante/editar-perfil-estudiante/editar-perfil-estudiante.component';
+import { CategoriasComponent } from './categorias/categorias.component';
+import { ReporteComponent } from './reporte/reporte.component';
 
 
 
@@ -56,7 +62,9 @@ import { EditarPerfilEstudianteComponent } from './estudiante/editar-perfil-estu
     EstudiantesComponent,
     EstudianteComponent,
     CursosComponent,
-    EditarPerfilEstudianteComponent
+    EditarPerfilEstudianteComponent,
+    CategoriasComponent,
+    ReporteComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +77,7 @@ import { EditarPerfilEstudianteComponent } from './estudiante/editar-perfil-estu
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     ApiserviceService,
     JwtHelperService,
+    CargarScriptsService
   ],
   bootstrap: [AppComponent]
 })

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {LoginComponent} from '../../login/login.component';
 import  decode  from 'jwt-decode';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-editar-perfil',
@@ -36,6 +37,9 @@ export class EditarPerfilComponent implements OnInit {
             correo:res.data[0].correo,
             telefono:res.data[0].telefono,
             contrasena:res.data[0].pass,
+            domicilio:res.data[0].domicilio,
+            pais:res.data[0].pais,
+            ciudad:res.data[0].ciudad,
       });
     });
   }
@@ -48,20 +52,50 @@ export class EditarPerfilComponent implements OnInit {
       'correo':new FormControl('',Validators.required),
       'telefono':new FormControl('',[Validators.required,Validators.minLength(6)]),
       'contrasena':new FormControl('',Validators.required),
+      'domicilio':new FormControl('',Validators.required),
+      'ciudad':new FormControl('',Validators.required),
+      'pais':new FormControl('',Validators.required),
     
 });
 userUpdate()
   {
-      console.log(this.userForm.value,'updatedform');
-      if(this.userForm.valid  )
+      
+      if(this.userForm.valid) 
       {
-          this.service.updateData(this.userForm.value,this.data).subscribe((res)=>{
-                console.log(res,'modificado');
-
-                this.successmsg=res.message;
-          })
-      }else{
-        this.errormsg='todo es requerido'
+        console.log(this.userForm.value);
+        Swal.fire({
+          title: 'Desea guardar los datos?',
+          text: "Esta seguro de los datos!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',      
+         confirmButtonText: `Ingresar`,
+         }).then((result) => {
+         if (result.isConfirmed) {
+    
+         
+          this.service.updateData(this.userForm.value,this.data).subscribe( res => {
+            
+          // console.log(res, location.reload());
+          Swal.fire(
+            'Datos Ingresados!',
+            'Los datos fueron ingresados.',
+            'success'
+          )
+           });
+         }
+       });   
+ 
       }
+      else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Todos los datos son requeridos!'
+        })
+        this.errormsg='todos los datos son requeridos';
+      }
+
   }
 }

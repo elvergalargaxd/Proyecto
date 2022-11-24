@@ -1,58 +1,91 @@
-<div class="container bootstrap snippets bootdey">
-  <h2 class=" text-primary">Editar Estudiante</h2>
-  <div class="row container border border-5 rounded-3 p-4 border-black">
+<style type="text/css">
+  #premio {
+    display: none;
+  }
+</style>
+<div class=" bootstrap snippets bootdey  ">
+  <div class="   p-4 ">
     <!-- left column -->
 
-
+ 
     <!-- edit form column -->
-    <div class="col-md-7 p-3 px-4 personal-info">
+    <div class=" p-2 px-4 ">
 
-      <h3>Datos personales</h3>
+      <p class="subtituloForm">Formulario de registro</p>
+      <hr>
+      <form [formGroup]="userForm" class="textoInput  ">
 
-      <form [formGroup]="userForm" class=" form-horizontal container p-3 border-black">
-        <div class="row p-3">
-          <div class="form-group col-md-6">
-            <label class="control-label ">Nombres:</label>
-            <input type="text" class="form-control" formControlName="nombre" placeholder="Ejemplo: Pedro">
+        <div class=" formLinea margenInput">
+          <label class="  divInputsLabel">Nombres:</label>
+          <input type="text" class="form-control divInputsInput textoInput" formControlName="nombre" placeholder="Nombres">
+        </div>
+        <div class="formLinea margenInput">
+          <label class=" divInputsLabel ">Apellidos:</label>
+          <input type="text" class="form-control divInputsInput textoInput" formControlName="apellido"
+            placeholder="Apellidos">
+        </div>
+        <div class="formLinea margenInput">
+          <label class=" divInputsLabel ">Domicilio:</label>
+          <input type="text" class="form-control divInputsInput textoInput" formControlName="domicilio"
+            placeholder="Direccion">
+        </div>
+
+        <div class="formLinea  margenInput">
+          <div class="divInputsLabel ">
+            <label class=" "></label>
           </div>
-          <div class="form-group col-md-6">
-            <label class="control-label">Apellidos:</label>
-            <input type="text" class="form-control" formControlName="apellido" placeholder="Ejemplo: gonsales jimenez">
+          <div class="formLinea divInputsInput" >
+            <input type="text" class="form-control textoInput"  formControlName="ciudad" placeholder="Ciudad">
+            <input type="text" class="form-control textoInput" style="margin: 0px 0px 0px 8px" formControlName="pais" placeholder="Pais">
           </div>
         </div>
-        <div class="row p-3">
 
-          <div class="form-group col-md-6">
-            <label class="control-label">Usuario:</label>
-            <input type="text" class="form-control" formControlName="userName" placeholder="Ejemplo: pepe123">
-          </div>
-          <div class="form-group col-md-6">
-            <label class="control-label">Email:</label>
-            <input type="text" class="form-control" formControlName="correo" placeholder="Ejemplo: pepe123@gmail.com">
-          </div>
+        
+        <div class="formLinea margenInput">
+          <label class="divInputsLabel">Email:</label>
+          <input type="text" class="form-control divInputsInput textoInput" formControlName="correo" placeholder="email valido">
         </div>
-        <div class="row p-3">
-          <div class="form-group col-md-6">
-            <label class="control-label">Telefono:</label>
-            <input type="text" class="form-control" formControlName="telefono" placeholder="Ejemplo: 75489547">
+        <div class="">
+          <div class="formLinea margenInput">
+            <label class="divInputsLabel">Telefono:</label>
+            <input type="text" class="form-control divInputsInput textoInput" formControlName="telefono" placeholder="celular">
           </div>
-
-          <div class="form-group col-md-6">
-            <label class="control-label">Contrasena:</label>
-            <input type="text" class="form-control" formControlName="contrasena" placeholder="Ejemplo: Pedro123#$">
+          <div class="formLinea margenInput">
+            <label class="divInputsLabel">Usuario:</label>
+            <input type="text" class="form-control divInputsInput textoInput" formControlName="userName" placeholder="Ejm: pepe123">
           </div>
-          <div class="form-group">
+          <div class="formLinea margenInput">
+            <label class="divInputsLabel">Contrasena:</label>
+            <input type="text" class="form-control divInputsInput textoInput" formControlName="contrasena" placeholder="contraseña">
+          </div>
+          <div class="formLinea">
             <label class="control-label" hidden="false"></label>
             <input type="hidden" class="form-control" formControlName="roleID" placeholder="">
           </div>
+          <div class="formLinea margenInput" *ngIf="getparamid">
+            <label class="divInputsLabel">Foto de perfil:</label>
+            <div class="col-md-3 " >
+              <div class="text-center container " [hidden]="!edited">
+                <img [src]="imgUrl" class=" " style="border-radius: 50%;  width:150px; height:150px;" alt="avatar">
+                
+              </div>
+              <hr>
+              <input type="file" class="form-control" accept="" (change)="selectImage($event)">
+                
+                <button class="btn btn-outline-primary" type="submit" (click)="onSubmit()" [disabled]="desact =='1'">Subir Imagen</button>
+        
+            </div>
+          </div>
+          
         </div>
-        <div class="col-4 mt-2 p-3 " *ngIf="!getparamid">
-          <button class=" btn btn-outline-success btn-lg" (click)="userSubmit()">Crear Estudiante</button>
+        
+        <div class="col-4 mt-2 botonIzq " *ngIf="!getparamid">
+          <button class=" btn btn-danger" (click)="userSubmit()">Registrar estudiante</button>
         </div>
         <!-- Modal -->
 
-        <div class="col-4 mt-2 p-3" *ngIf="getparamid">
-          <button class="btn btn-outline-success btn-lg" (click)="userUpdate()">Modificar</button>
+        <div class=" mt-2 "  *ngIf="getparamid">
+          <button class="btn btn-danger "  (click)="userUpdate()">Modificar estudiante</button>
         </div>
 
       </form>
@@ -66,18 +99,6 @@
         <strong>{{successmsg}}</strong>.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
-    </div>
-    <div class="col-md-3 p-3 " *ngIf="getparamid">
-      <div class="text-center container border border-2 rounded-3 p-3 border-black" [hidden]="!edited">
-        <img [src]="imgUrl" class="card-img-top" alt="avatar">
-        <h6>Upload a different photo...{{image}}</h6>
-
-        <input type="file" class="form-control" accept="image/*" (change)="selectImage($event)">
-        <hr>
-        <button class="btn btn-outline-primary" type="submit" (click)="onSubmit()" [disabled]="desact =='1'">Subir
-          Imagen</button>
-      </div>
-
     </div>
   </div>
 </div>

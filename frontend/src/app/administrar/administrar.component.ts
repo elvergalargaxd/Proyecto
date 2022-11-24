@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
-
+import { CargarScriptsService } from '../cargar-scripts.service';
 
 @Component({
   selector: 'app-administrar',
@@ -11,7 +11,9 @@ import { ApiserviceService } from '../apiservice.service';
 })
 export class AdministrarComponent implements OnInit {
 
-  constructor(private service:ApiserviceService, private  router:ActivatedRoute, private routernav:Router) { }
+  constructor(private _CargarScripts:CargarScriptsService, private service:ApiserviceService, private  router:ActivatedRoute, private routernav:Router) { 
+    _CargarScripts.Carga(["menu"]);
+  }
 
 
   

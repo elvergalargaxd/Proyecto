@@ -15,15 +15,23 @@ body{margin-top:20px;}
     }
 }
 .navbar-nav{
-    font-size: 22px;
+    font-size: 17px;
 }
 @media screen and (max-width: 900px){
     .navbar-nav{
-    font-size:8px;
+    font-size:13px;
+      
     }
+    .btn{
+        font-size:13px;
+                border:10px;
+        width:80px;
+        height:30px;
+       }
     .titulo{
-    font-size:8px;
+    font-size:12px;
     }
+    
 }
 
 
@@ -152,6 +160,7 @@ body{margin-top:20px;}
     transition: all 0.3s ease 0s;
 }
 
+
 .pricingTable:hover .btn-price-bg {
     background: #232434;
     color: #fff;
@@ -182,3 +191,4 @@ p.section-title-white {
     margin: auto;
     letter-spacing: 1px;
 }
+

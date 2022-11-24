@@ -2,4 +2,29 @@ body{margin-top:20px;}
 .avatar{
 width:200px;
 height:200px;
-}			
+}	
+.subtituloForm{
+    font-size: 30px;
+}
+.margenInput{
+    margin: 15px 0px;
+}
+.divInputsLabel{
+    width: 100px;
+}
+.divInputsInput{
+    width: 300px;
+}
+.formLinea{
+    display: flex;
+}
+.textoInput{
+    font-size: 14px;
+}
+.enlinea{
+    display: block;
+}
+.botonIzq{
+    margin-left: auto;
+      margin-right: auto;
+}		

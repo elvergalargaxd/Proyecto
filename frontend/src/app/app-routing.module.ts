@@ -22,11 +22,14 @@ import { EstudiantesComponent } from './docente/estudiantes/estudiantes.componen
 import { EstudianteComponent } from './estudiante/estudiante/estudiante.component';
 import { EditarPerfilEstudianteComponent } from './estudiante/editar-perfil-estudiante/editar-perfil-estudiante.component';
 import { CursosComponent } from './estudiante/cursos/cursos.component';
+import { CategoriasComponent } from './categorias/categorias.component';
+import { ReporteComponent } from './reporte/reporte.component';
 
 
 const routes: Routes = [
 
-
+  
+  {path:'reporte',component:ReporteComponent},
   {path:'', component:HomeComponent},
   {path:'login', component:LoginComponent},
   {path:'register', component:RegisterComponent},
@@ -64,6 +67,8 @@ const routes: Routes = [
       {path:'asignarEstudianteCurso',component:AsignarEstudianteCursoComponent },
       {path:'asignarEstudianteCurso/:id',component:AsignarEstudianteCursoComponent},
       {path:'asignarEstudianteCurso',component:AsignarEstudianteCursoComponent},
+      {path:'categorias',component:CategoriasComponent},
+      {path:'reporte',component:ReporteComponent}
     ]
 },
   

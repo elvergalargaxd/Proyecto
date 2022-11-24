@@ -48,13 +48,13 @@
   .table100-body td {
     padding-top: 16px;
     padding-bottom: 16px;
-  }
+  } 
   
   /*==================================================================
   [ Fix header ]*/
   .table100 {
     position: relative;
-    padding-top: 60px;
+    padding-top: 5px;
   }
   
   .table100-head {
@@ -79,7 +79,6 @@
     color: #fff;
     line-height: 1.4;
   
-    background-color: #1172ff;
   }
   
   .table100.ver1 td {
@@ -90,7 +89,7 @@
   }
   
   .table100.ver1 .table100-body tr:nth-child(even) {
-    background-color: #f8f6ff;
+    background-color: #f8f9fa;
   }
   
   /*---------------------------------------------*/

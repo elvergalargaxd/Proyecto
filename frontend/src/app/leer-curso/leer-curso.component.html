@@ -7,34 +7,30 @@
 	
             
               
-                <div class="wrap-table100">
-                  <div class="table100 ver1 m-b-110">
-                    <div class="table100-head">
+                <div class="">
+                  <div class="table100 ver1 ">
+                    <div class="p-2 " style="background-color: #6c757dcc;">
                       <table>
                         <thead>
-                          <tr class="row100 head"  >
-                            <th class="cell100 column0 " style="text-align:center">Codigo</th>
-                            <th class="cell100 column1" >Nombre del Curso</th>
-                            <th class="cell100 column3">Descripcion</th>
-                            <th class="cell100 column1">Imagen</th>
-                            <th class="cell100 column1">Docente</th>
-                            <th class="cell100 column1" style="text-align:center">Editar</th>
+                          <tr class=""  >
+                            <th class="cell100 column1">Nombre del Curso</th>
+                            <th class="cell100 column1" style="text-align:center">Descripcion</th>
+                            
+                            <th class="cell100 column2" style="text-align:center">Editar</th>
                             
                           </tr>
                         </thead>
                       </table>
-                    </div>
+                    </div> 
           
                     <div class="table100-body js-pscroll">
                       <table>
                         <tbody>
-                          <tr class="row100 body" *ngFor ='let us of readData'>
-                            <td class="cell100 column0 "style="text-align:center"># {{us.idCurso}}</td>
+                          <tr class="" *ngFor ='let us of readData'>
+                            
                             <td class="cell100 column1">{{us.nombreLargo}}</td>
                             <td class="cell100 column3">{{us.descripcion}}</td>
-                            <td class="cell100 column1"><img src="{{us.imagen}}" width="150"  height="100"></td>
-                            <td class="cell100 column0"style="text-align:center">{{us.idDocente}}</td>
-                            <td class="cell100 column1"style="text-align:center"><button class="btn btn-sm btn-success p-2"[routerLink]="['/administrar/crearCurso',us.idCurso]" >Editar</button></td>
+                            <td class="cell100 column1"style="text-align:center"><button class="btn btn-sm btn-primary p-2"[routerLink]="['/administrar/crearCurso',us.idCurso]" >Editar <i class='bx bx-plus-circle'></i></button></td>
                             
                           </tr>
           

@@ -1,23 +1,39 @@
+require("dotenv").config();
+//import './config.js';
+//const awsx=require('./config');
+//import fileUpload=require('express-fileupload');
+//const aws=require('./config')
+//const fileUpload=require('express-fileupload')
 const express=require('express');
+
 const bodyParser = require('body-parser');
+
+  
 
 const cors = require ('cors');
 const multer= require('multer');
 const morgan= require('morgan');
 const path = require('path');
 
+//const uploadImageFirebase=require('./firebase')
+//const {dbfirebase}=require('./firebase')
+
+
 const mysql= require('mysql2');
 const { Router } = require('express');
-
 const jwt = require('jsonwebtoken');
 const e = require('express');
 const { config } = require('process');
  
 const app= express();
- 
+const cloudinary = require('cloudinary');
+const { s3Uploadv2, s3Deletev2 } = require("./s3");
+
+
  
 //ruta de imagenes
 app.use('/uploads',express.static(path.join(__dirname,'uploads')));
+
 
 //middlewares
 app.use(cors());
@@ -26,9 +42,15 @@ app.use(express.static('public'));
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
-   
+//cloudinary
+cloudinary.config({ 
+    cloud_name: 'hklqgljvj', 
+    api_key: '588296295312495', 
+    api_secret: '-kYlmLZD-wAF_L5IuwY7ogXzCvA' 
+  });
+
 //multer
-const storage =multer.diskStorage({
+ /*  const storage =multer.diskStorage({
     destination:(req,file,cb)=>{
         cb(null,'../frontend/src/assets/');
     },
@@ -37,9 +59,19 @@ const storage =multer.diskStorage({
         
         cb(null,file.originalname);
     } 
-});
-const upload=multer({storage});
+});  */
 
+const storage=multer.memoryStorage();
+
+const upload=multer({storage});
+ 
+
+//firebase
+/* const upload=multer({
+    storage:multer.memoryStorage(),
+}); */
+
+//app.use(fileUpload());
  
 //base de datos coneccion
 
@@ -52,13 +84,35 @@ const db =mysql.createConnection({
     database:'bddOmega',
     port:3306
 });
+// const db =mysql.createConnection({
+//     host:'database-1.cacbagrleume.us-east-1.rds.amazonaws.com',
+//     user:'admin',
+//     password:'Bayer[3000]',
+//     database:'bdinnovate123',
+//     port:3306
+// });
 
 //check
 db.connect(err=>{
     if(err){console.log(err,'error');}
     console.log('base de datos conectado...');
 })
+  
 
+
+app.post('/files',(req,res)=>{
+    console.log(req.files)
+    res.json({message:'uploaded file'})
+})
+app.get('/fire',async (req,res)=>{
+    
+    const querySnapshot= await dbfirebase.collection('curso').get();
+    console.log("asdfasdf"+querySnapshot.docs[0].data() );
+    res.send("hello");
+})
+app.get('/asdf',(req,res)=>{
+    res.send('hello');
+})
 
  app.post ('/user/singin',(req,res)=>{
       
@@ -130,6 +184,7 @@ function verifyToken(req,res,next){
   
 //get all data
 app.get('/user',(req,res)=>{
+    console.log("holaaaaaaaaaaaaaaaaa");
     let qr= `select * from user where roleId ='user'    `;
     db.query(qr,(err,result)=>{
         if(err)
@@ -165,22 +220,33 @@ app.get('/user/:id',(req,res)=>{
             }
         })
     
-}); 
+});  
 
 //modificar foto 
-app.put ('/userImagen/:id',upload.single('file'),(req,res,next)=>{
+//app.put ('/userImagen/:id',upload.single('file'),uploadImageFirebase,(req,res,next)=>{
+
+app.delete('/userImagen/:id',async (req,res,next)=>{
+    const file =req.params.id;
+    await s3Deletev2(file);
+
+})
+app.put ('/userImagen/:id',upload.single('file'),async (req,res,next)=>{
 
     const file =req.file;
-
-    console.log(req.body,'modificar');
+     
+    const result = await s3Uploadv2(file);
+    //const {firebaseUrl}=req.file ? req.file:""; 
+    console.log('subir imagen', result);
     
     
     
     let gID=req.params.id;  
     let imagenes=file.path;
+    //let imagenes=firebaseUrl;
+    console.log(imagenes);
      
     
-    let qr=`update user set imagenes='${imagenes}'
+    let qr=`update user set imagenes='${result.Location}'
             where id='${gID}'`;
 
     res.send(file);
@@ -208,10 +274,13 @@ app.put ('/user/:id',(req,res,next)=>{
     let roleID=req.body.roleID;
     let contrasena=req.body.contrasena;
     let telefono=req.body.telefono;
+    let domicilio=req.body.domicilio;
+    let ciudad=req.body.ciudad;
+    let pais=req.body.pais;
     
      
     
-    let qr=`update user set nombre='${nombre}',apellido='${apellido}',userName='${userName}',correo='${correo}',pass='${contrasena}',roleID='${roleID}',telefono='${telefono}'
+    let qr=`update user set nombre='${nombre}',apellido='${apellido}',userName='${userName}',correo='${correo}',pass='${contrasena}',roleID='${roleID}',telefono='${telefono}',domicilio='${domicilio}',ciudad='${ciudad}',pais='${pais}'
             where id='${gID}'`;
 
     
@@ -287,20 +356,21 @@ app.post('/user',(req,res,next)=>{
     let roleID=req.body.roleID;
     let contrasena=req.body.contrasena;
     let telefono=req.body.telefono;
+    let domicilio=req.body.domicilio;
+    let ciudad=req.body.ciudad;
+    let pais=req.body.pais;
 
 
-    let qr=`insert into user (nombre,apellido,correo,pass,userName,roleID,telefono) 
-              values('${nombre}','${apellido}','${correo}','${contrasena}','${userName}','${roleID}','${telefono}')`;
+    let qr=`insert into user (nombre,apellido,correo,pass,userName,roleID,telefono,domicilio,ciudad,pais) 
+              values('${nombre}','${apellido}','${correo}','${contrasena}','${userName}','${roleID}','${telefono}','${domicilio}','${ciudad}','${pais}')`;
 
      
     console.log(req.body);
     db.query(qr,(err,result)=>{
         if(err){
-            console.log(err);
-            
+            console.log(err); 
         }
-       return res.status({message:'datos insertados'});
-         
+       return res.send({message:'datos insertados'});
     })
 });
 
@@ -624,10 +694,11 @@ app.get('/curso/docente/:id',(req,res)=>{
     });
 });
 
-app.put ('/userImagenCurso/:id',upload.single('file'),(req,res,next)=>{
-
+app.put ('/userImagenCurso/:id',upload.single('file'),async(req,res,next)=>{
+ 
+    ///////////////////////
     const file =req.file;
-
+    const result = await s3Uploadv2(file);
     console.log(req.body,'modificar');
     
     
@@ -635,8 +706,9 @@ app.put ('/userImagenCurso/:id',upload.single('file'),(req,res,next)=>{
     let gID=req.params.id;  
     let imagenes=file.path;
      
+    console.log(imagenes);
     
-    let qr=`update curso set imagen='${imagenes}'
+    let qr=`update curso set imagen='${result.Location}'
             where idCurso='${gID}'`;
 
     res.send(file);
@@ -766,6 +838,25 @@ app.get('/categoria',(req,res)=>{
         }
     });
 });
+app.get('/categoria/:id',(req,res)=>{
+
+    let gID=req.params.id; 
+    let qr= `select * from categoria where idCategoria=${gID}`;
+
+    db.query(qr,(err,result)=>{
+        if(err)
+        {
+            console.log(err,'errs');
+        }
+        if(result.length>0)
+        {
+            res.send({
+                message:'todo el dato del categoria',
+                data:result
+            });
+        }
+    });
+});
 app.post('/categoria',(req,res)=>{
     console.log(req.body,'crear');
 
@@ -793,6 +884,7 @@ app.put ('/categoria/:id',(req,res)=>{
 
     let qr=`update categoria set nombre='${nombre}',descripcion='${descripcion}'
             where idCategoria='${gID}'`;
+    
     db.query(qr,(err,result)=>{
         if(err){console.log(err);}
         res.send({
@@ -832,18 +924,26 @@ app.post('/inscripcion',(req,res)=>{
     })
 });
 
-//crear usuario
-app.post('/video',(req,res)=>{
+//crear clase
+app.post('/clase/:id',(req,res,next)=>{
+//app.post('/video/:id',upload.single('file'),async (req,res,next)=>{
     console.log(req.body,'crear');
 
-    let nombre =req.body.nombre;
-    let video=req.body.video;
-    let descripcion=req.body.descripcion;
-    let idCurso=req.body.idCurso;
-    
+    // const file=req.file;
+    // const result=await s3Uploadv2(file);
+    // console.log("subir imagen", result)
+    // let video=file.path;
 
-    let qr=`insert into video (nombre,video,descripcion,idCurso)
-             values('${nombre}','${video}','${descripcion}','${idCurso}')`;
+    let nombre =req.body.nombreClase;
+    let descripcion=req.body.descripcionClase;
+    let idClase=req.params.id;
+       
+    
+    // let qr=`insert into video (nombre,video,descripcion,idCurso)
+    // values('${nombre}','${result.Location}','${descripcion}','${idCurso}')`;
+             
+    let qr=`insert into clase (nombre,video,descripcion,idCurso)
+    values('${nombre}','','${descripcion}','${idClase}')`;
 
     db.query(qr,(err,result)=>{
         if(err){console.log(err);}
@@ -852,8 +952,30 @@ app.post('/video',(req,res)=>{
     })
 });
 
-app.get('/video',(req,res)=>{
-    let qr= 'select * from video';
+app.put ('/clase/:id',(req,res)=>{
+    console.log(req.body,'modificar');
+    
+    
+    let gID=req.params.id;
+    let nombre =req.body.nombreClaseM;
+    let descripcion=req.body.descripcionClaseM;
+    
+
+    let qr=`update clase set nombre='${nombre}',descripcion='${descripcion}'
+            where idClase='${gID}'`;
+    
+    console.log(qr);
+
+    db.query(qr,(err,result)=>{
+        if(err){console.log(err);}
+        res.send({
+            message:'datos modificados'
+        });
+    })
+})
+
+app.get('/clase',(req,res)=>{
+    let qr= 'select * from clase';
     db.query(qr,(err,result)=>{
         if(err)
         {
@@ -870,10 +992,10 @@ app.get('/video',(req,res)=>{
 });
 
 // select de latabla
-app.get('/video/:id',(req,res)=>{
+app.get('/clase/:id',(req,res)=>{
     let gID=req.params.id;  
 
-    let qr=`select * from video where idCurso= ${gID}`;
+    let qr=`select * from clase where idCurso= ${gID}`;
 
     db.query(qr,(err,result)=>{
         if(err)
@@ -894,6 +1016,171 @@ app.get('/video/:id',(req,res)=>{
         }
     })
 });
+app.get('/claseEditar/:id',(req,res)=>{
+    let gID=req.params.id;  
+
+    let qr=`select * from clase where idClase= ${gID}`;
+
+    db.query(qr,(err,result)=>{
+        if(err)
+        {
+            console.log(err);
+        }
+        if(result.length>0)
+        {
+            res.send({
+                message:'obteniendo simples datos',
+                data:result
+            });
+        }
+        else{
+            res.send({
+                message:'datos no encontrados'
+            });
+        }
+    })
+});
+////EVALUACIONES///////////////////////////////////////////////////////////////
+
+app.post('/evaluacion/:id',(req,res,next)=>{
+    //app.post('/video/:id',upload.single('file'),async (req,res,next)=>{
+        console.log(req.body,'crear');
+    
+        // const file=req.file;
+        // const result=await s3Uploadv2(file);
+        // console.log("subir imagen", result)
+        // let video=file.path;
+    
+        let pregunta1 =req.body.pregunta1;
+        let pregunta2 =req.body.pregunta2;
+        let pregunta3 =req.body.pregunta3;
+        let pregunta4 =req.body.pregunta4;
+        let pregunta5 =req.body.pregunta5;
+        let pregunta6 =req.body.pregunta6;
+        let pregunta7 =req.body.pregunta7;
+        let pregunta8 =req.body.pregunta8;
+        let pregunta9 =req.body.pregunta9;
+        let pregunta10 =req.body.pregunta10;
+        
+        
+        let idCurso=req.params.id;
+           
+        
+        // let qr=`insert into video (nombre,video,descripcion,idCurso)
+        // values('${nombre}','${result.Location}','${descripcion}','${idCurso}')`;
+                 
+        let qr=`insert into evaluacion (pregunta,idCurso)values('${pregunta1}','${idCurso}'),
+        ('${pregunta2}','${idCurso}'),
+        ('${pregunta3}','${idCurso}'),
+        ('${pregunta4}','${idCurso}'),
+        ('${pregunta5}','${idCurso}'),
+        ('${pregunta6}','${idCurso}'),
+        ('${pregunta7}','${idCurso}'),
+        ('${pregunta8}','${idCurso}'),
+        ('${pregunta9}','${idCurso}'),
+        ('${pregunta10}','${idCurso}')`;
+        
+        console.log(qr);
+        db.query(qr,(err,result)=>{
+            if(err){console.log(err);}
+            res.send({message:'datos insertados'});
+             
+        })
+    });
+    
+    app.put ('/evaluaciones/:id',(req,res)=>{
+        console.log(req.body,'modificar');
+        
+        
+        let pregunta =req.body.pregunta;
+        
+        
+        let idCurso=req.params.id;
+        
+    
+        let qr=`update evaluacion set pregunta='${pregunta}'
+                where idClase='${idEvalucion}'`;
+        
+        console.log(qr);
+    
+        db.query(qr,(err,result)=>{
+            if(err){console.log(err);}
+            res.send({
+                message:'datos modificados'
+            });
+        })
+    })
+    
+    app.get('/evaluacion',(req,res)=>{
+        let qr= 'select * from evaluacion';
+        db.query(qr,(err,result)=>{
+            if(err)
+            {
+                console.log(err,'errs');
+            }
+            if(result.length>0)
+            {
+                res.send({
+                    message:'todo el dato del docente',
+                    data:result
+                });
+            }
+        });
+    });
+    
+    // select de latabla
+    app.get('/evaluacion/:id',(req,res)=>{
+        let gID=req.params.id;  
+    
+        let qr=`select * from evaluacion where idCurso= ${gID}`;
+        
+        console.log(qr);
+
+        db.query(qr,(err,result)=>{
+            if(err)
+            {
+                console.log(err);
+            }
+            if(result.length>0)
+            {
+                res.send({
+                    message:'obteniendo simples datos',
+                    data:result
+                });
+            }
+            else{
+                res.send({
+                    message:'datos no encontrados'
+                });
+            }
+        })
+    });
+    app.get('/evaluacionEditar/:id',(req,res)=>{
+        let gID=req.params.id;  
+    
+        let qr=`select * from evaluacion where idEvaluacion= ${gID}`;
+    
+        db.query(qr,(err,result)=>{
+            if(err)
+            {
+                console.log(err);
+            }
+            if(result.length>0)
+            {
+                res.send({
+                    message:'obteniendo simples datos',
+                    data:result
+                });
+            }
+            else{
+                res.send({
+                    message:'datos no encontrados'
+                });
+            }
+        })
+    });
+
+///////////////////////////////////////////////////////////////////////////////
 
 app.get('/inscripcion/:id',(req,res)=>{
     let gID=req.params.id;  

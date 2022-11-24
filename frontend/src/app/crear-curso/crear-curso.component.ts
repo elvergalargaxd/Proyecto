@@ -16,7 +16,7 @@ export class CrearCursoComponent implements OnInit {
 
   constructor(private service: ApiserviceService, private router: ActivatedRoute) { }
 
-
+ 
 
   errormsg: any;
   successmsg: any;
@@ -36,6 +36,9 @@ export class CrearCursoComponent implements OnInit {
 
     console.log(this.fecha);
     console.log(this.todayWithPipe);
+    this.userForm.patchValue({
+      fecha:this.todayWithPipe
+    })
     this.getparamid = this.router.snapshot.paramMap.get('id');
     if (this.getparamid) {
 
@@ -55,7 +58,7 @@ export class CrearCursoComponent implements OnInit {
         const str = res.data[0].imagen;
         const newStr = str.slice(19);
         console.log(newStr) ;
-        this.imgUrl="http://localhost:4200/assets/"+newStr;
+        this.imgUrl=str;
         
         this.prev=newStr;
         console.log(this.imgUrl);
@@ -67,15 +70,17 @@ export class CrearCursoComponent implements OnInit {
     this.getAllDataCategoria();
 
   }
+  
   userForm = new FormGroup({
     'nombreLargo': new FormControl('', Validators.required),
     'nombreCorto': new FormControl('', Validators.required),
     'descripcion': new FormControl('', Validators.required),
-    'imagen': new FormControl(''),
+    
     'categoria': new FormControl(''),
     'precio': new FormControl('', Validators.required),
     'idDocente': new FormControl('', Validators.required),
     'fecha': new FormControl(''),
+    
 
   });
   selectImage(event: any){
@@ -102,8 +107,13 @@ export class CrearCursoComponent implements OnInit {
   }
 
   onSubmit() {
+    
     let formData = new FormData();
+
+    const userName=formData.get('nombreLargo');
+    console.log(userName+'gaaaaaaaaaa');
     formData.append('file', this.image);
+    
 
     //this.http.post<any>('http://localhost:3000/user', formData).subscribe();
 
@@ -140,17 +150,41 @@ export class CrearCursoComponent implements OnInit {
   }
 
   userSubmit() {
-    if (this.userForm.valid) {
-      console.log(this.userForm.value);
-      this.service.createDataCurso(this.userForm.value).subscribe((res) => {
-        console.log(res, 'res++=+');
-        this.userForm.reset();
-        this.successmsg = res.message;
-      });
-
+    
+    if(this.userForm.valid){
+      Swal.fire({
+        title: 'Desea crar el curso',
+        text: "Esta seguro de los datos! "+this.userForm.value.nombreLargo,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',      
+       confirmButtonText: `Crear`,
+       }).then((result) => {
+       if (result.isConfirmed) {
+  
+        this.service.createDataCurso(this.userForm.value).subscribe((res)=>{
+        
+          
+        // console.log(res, location.reload());
+        Swal.fire(
+          'Curso creado!',
+          'datos actualizados',
+          'success'
+        )
+       this.getAllData();
+         });
+       }
+       
+     });
     }
-    else {
-      this.errormsg = 'todos los datos son requeridos';
+    else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Todos los datos son requeridos!'
+      })
+      this.errormsg='todos los datos son requeridos';
     }
   }
 
@@ -164,6 +198,42 @@ export class CrearCursoComponent implements OnInit {
       })
     } else {
       this.errormsg = 'todo es requerido'
+    }
+
+    if(this.userForm.valid){
+      Swal.fire({
+        title: 'Desea modificar el curso',
+        text: "Esta seguro de los datos! "+this.userForm.value.nombreLargo,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',      
+       confirmButtonText: `Modificar`,
+       }).then((result) => {
+       if (result.isConfirmed) {
+  
+        this.service.updateDataCurso(this.userForm.value,this.getparamid).subscribe((res)=>{
+        
+          
+        // console.log(res, location.reload());
+        Swal.fire(
+          'Curso modificado!',
+          'datos actualizados',
+          'success'
+        )
+       this.getAllData();
+         });
+       }
+       
+     });
+    }
+    else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Todos los datos son requeridos!'
+      })
+      this.errormsg='todos los datos son requeridos';
     }
   }
 

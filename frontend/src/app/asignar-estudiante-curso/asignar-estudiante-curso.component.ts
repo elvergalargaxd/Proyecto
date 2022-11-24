@@ -14,7 +14,7 @@ export class AsignarEstudianteCursoComponent implements OnInit {
 
   constructor(private service:ApiserviceService, private  router:ActivatedRoute) { }
 
- 
+  
   values='';
   errormsg:any;
   letraa:any;
@@ -122,7 +122,7 @@ export class AsignarEstudianteCursoComponent implements OnInit {
         })
       });
     
-      Swal.fire('Asignar curso a "'+nombre+' '+apellido+'"')
+      Swal.fire('Inscribir curso a "'+nombre+' '+apellido+'"')
 
     
     

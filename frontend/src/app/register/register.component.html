@@ -93,13 +93,13 @@
     <form [formGroup]="userForm" >
       
       
-      <input   type="text"class="fadeIn third text-left " formControlName="nombre" name="login" placeholder="Nombre">
-      <input   type="text"class="fadeIn third text-left" formControlName="apellido" name="login" placeholder="Apellido">
+      <input   type="text"class="fadeIn third text-left " autocomplete="off" formControlName="nombre" name="login" placeholder="Nombre">
+      <input   type="text"class="fadeIn third text-left" autocomplete="off" formControlName="apellido" name="login" placeholder="Apellido">
       
-      <input   type="text"class="fadeIn third text-left" formControlName="userName" name="login" placeholder="Usuario">
-      <input   type="hidden"class="fadeIn third text-left" formControlName="roleID" name="login" placeholder="usuario">
-      <input  type="text"class="fadeIn third text-left" formControlName="correo" name="login" placeholder="Correo">
-      <input   type="text"class="fadeIn third text-left" formControlName="contrasena" name="idDocente" placeholder="Contraseña">
+      <input   type="text"class="fadeIn third text-left" autocomplete="off" formControlName="userName" name="login" placeholder="Usuario">
+      <input   type="hidden"class="fadeIn third text-left" autocomplete="off" formControlName="roleID" name="login" placeholder="usuario">
+      <input  type="text"class="fadeIn third text-left" autocomplete="off" formControlName="correo" name="login" placeholder="Correo">
+      <input   type="text"class="fadeIn third text-left" autocomplete="off" formControlName="contrasena" name="idDocente" placeholder="Contraseña">
       <input  type="submit" class="fadeIn fourth" (click)="register()" value="Crear usuario">
     </form>
  

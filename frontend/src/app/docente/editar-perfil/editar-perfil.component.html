@@ -1,13 +1,13 @@
 
 <div class="container bootstrap snippets bootdey">
-    <h1 class="text-primary">Edit Profile</h1>
+  <p class="subtituloForm">Informacion de docente</p>
       <hr>
 	<div class="row">
       <!-- left column -->
       <div class="col-md-3">
         <div class="text-center">
           <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="avatar img-circle img-thumbnail" alt="avatar">
-          <h6>Upload a different photo...</h6>
+          <h6>Foto de perfil...</h6>
           
           <input type="file" class="form-control">
         </div>
@@ -16,58 +16,45 @@
       <!-- edit form column -->
       <div class="col-md-9 personal-info">
         
-        <h3>Personal info</h3>
         
         <form  [formGroup]="userForm"  class="form-horizontal" >
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Nombre:</label>
-            <div class="col-lg-8">
-                <input type="text" class="form-control" formControlName="nombre"  placeholder="Ingrese Nombre">
-            </div>
+          <div class=" formLinea margenInput">
+            <label class="  divInputsLabel">Nombres:</label>
+            <input type="text" class="form-control divInputsInput textoInput" formControlName="nombre" placeholder="Nombres">
           </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Apellido:</label>
-            <div class="col-lg-8">
-                <input type="text"class="form-control" formControlName="apellido" placeholder="Ingrese Apellido Paterno">
-            </div>
+          <div class=" formLinea margenInput">
+            <label class="  divInputsLabel">Apellidos:</label>
+            <input type="text" class="form-control divInputsInput textoInput" formControlName="apellido" placeholder="Nombres">
           </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Usuario:</label>
-            <div class="col-lg-8">
-                <input type="text" class="form-control" formControlName="roleID"  placeholder="Ingrese Apellido Materno">
-            </div>
+          <div class=" formLinea margenInput">
+            <label class="  divInputsLabel">Usuario:</label>
+            <input type="text" class="form-control divInputsInput textoInput" formControlName="userName" placeholder="Nombres">
           </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Email:</label>
-            <div class="col-lg-8">
-                <input type="text"class="form-control" formControlName="correo" placeholder="Ingrese Correo">
-            </div>
+          <div class=" formLinea margenInput">
+            <label class="  divInputsLabel">Correo:</label>
+            <input type="text" class="form-control divInputsInput textoInput" formControlName="correo" placeholder="Nombres">
           </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Telefono:</label>
-            <div class="col-lg-8">
-                <input type="text"class="form-control" formControlName="telefono" placeholder="Ingrese Correo">
-            </div>
+          <div class=" formLinea margenInput">
+            <label class="  divInputsLabel">Celular:</label>
+            <input type="text" class="form-control divInputsInput textoInput" formControlName="telefono" placeholder="Nombres">
           </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Time Zone:</label>
-            <div class="col-lg-8">
-              <div class="ui-select">
-                <select id="user_time_zone" class="form-control">
-                  <option value="Hawaii">(GMT-10:00) Hawaii</option>
-                  <option value="Alaska">(GMT-09:00) Alaska</option>
-                  <option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>
-                  <option value="Arizona">(GMT-07:00) Arizona</option>
-                  <option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>
-                  <option value="Central Time (US &amp; Canada)" selected="selected">(GMT-06:00) Central Time (US &amp; Canada)</option>
-                  <option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>
-                  <option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
-                </select>
-              </div>
-            </div>
+          
+          <div class=" formLinea margenInput">
+            <label class="  divInputsLabel">Pais:</label>
+            <input type="text" class="form-control divInputsInput textoInput" formControlName="pais" placeholder="Nombres">
+          </div>
+          
+          <div class=" formLinea margenInput">
+            <label class="  divInputsLabel">Ciudad:</label>
+            <input type="text" class="form-control divInputsInput textoInput" formControlName="ciudad" placeholder="Nombres">
+          </div>
+          
+          <div class=" formLinea margenInput">
+            <label class="  divInputsLabel">Domicilio:</label>
+            <input type="text" class="form-control divInputsInput textoInput" formControlName="domicilio" placeholder="Nombres">
           </div>
           <div class="col-lg-4 mt-2">
-            <button class="btn btn-success ntm-sm" (click)="userUpdate()">Modificar</button>
+            <button class="btn btn-primary ntm-sm" (click)="userUpdate()">Modificar</button>
         </div>
         </form>
         <div *ngIf="errormsg"  class="alert alert-warning alert-dismissible fade show" role="alert">
