@@ -3,7 +3,8 @@
   
   <p class="subtituloForm">Curso {{nombreCurso}}</p>
   <p class="subtituloForm2">Clases</p>
-  
+  <input type="text" [formControl]="myInput">
+  <div> {{myInput.value}}</div>
   <hr>
   <div class="row ">
   
@@ -26,9 +27,12 @@
                     <label class="col-lg-3 control-label">Nombre:</label>
                     <input type="text" class="form-control" name="nombreVideo" id="nombreVideo"
                       formControlName="nombreClaseM" placeholder="{{us.nombre}}">
+                      <input type="text" class="form-control" name="idClase" id="idClase" 
+                    formControlName="posicionM">
                     <input type="text" class="form-control" name="idCurso" placeholder="{{us.idClase}}" hidden
                       formControlName="idClaseM">
                     &nbsp;
+                    
                     &nbsp;&nbsp;
                     <div class="">
                       <label class="col-lg-3 control-label">Descripcion:</label>
@@ -52,7 +56,7 @@
 
                           <input type="file" class="form-control" accept="" (change)="selectImage($event)">
                           <hr>
-                          <button class="btn btn-outline-primary" type="submit" (click)="onSubmit()"
+                          <button class="btn btn-outline-primary" type="submit" (click)="onEditarImagen(us.posicion)"
                             [disabled]="desact =='1'">Subir
                             Imagen</button>
                         </div>
@@ -89,6 +93,8 @@
                     formControlName="nombreClase" placeholder="nombre">
                   <input type="hidden" class="form-control" name="idClase" id="idClase" placeholder="nombre"
                     formControlName="idClase">
+                    <input type="text" class="form-control" name="posicion" id="posicion" placeholder="nombre"
+                    formControlName="posicion">
                   &nbsp;
                   &nbsp;&nbsp;
                   <div class="">
@@ -128,86 +134,96 @@
           </details>
           <details *ngIf="getparamidEvaluacion">
             <summary>Editar Evaluacion</summary>
+            
             <form [formGroup]="evaluacionForm ">
               
-              <fieldset>
+             
                 <label class="col-lg-3 control-label">Preguntas:</label>
                 
-                <div class="formLinea margenInput">
-                  <input type="text" class="form-control divInputsInput textoInput" autocomplete="off"
-                    name="nombreClase" id="nombreClase" placeholder="pregunta 1" formControlName="pregunta1">
-                      <button class="btn btn-outline-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                <div class="formLinea  margenInput">
+                  <input type="text" class="form-control  divInputsInput textoInput" autocomplete="off"
+                   name="nombreClase" id="pregunta1" placeholder="pregunta 1"  formControlName="pregunta1" >
+                   
+                      <button class="btn btn-outline-secondary" (click)="editar1()" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                         <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                       </svg></button>
+                      <button class="btn btn-outline-secondary" (click)="crear1()" ><i class='bx bxs-save'></i> </button>
                 </div>
+
                 <div class="formLinea margenInput">
-                  <input type="text" class="form-control divInputsInput textoInput" autocomplete="off" name="nombreClase" id="nombreClase"
-                    placeholder="pregunta 2" formControlName="pregunta2">
-                    <button class="btn btn-outline-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                  <input type="text" class="form-control divInputsInput textoInput" autocomplete="off" 
+                  name="nombreClase" id="pregunta2" placeholder="pregunta 2" formControlName="pregunta2">
+                    <button class="btn btn-outline-secondary" (click)="editar2()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                       <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                     </svg></button>
+                    <button class="btn btn-outline-secondary" (click)="crear2()" ><i class='bx bxs-save'></i></button>
                 </div>
                 
                 <div class="formLinea margenInput">
                   <input type="text" class="form-control divInputsInput textoInput" autocomplete="off" name="nombreClase" id="nombreClase"
                     placeholder="pregunta 3" formControlName="pregunta3">
-                    <button class="btn btn-outline-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                    <button class="btn btn-outline-secondary"(click)="editar3()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                       <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                     </svg></button>
+                  <button class="btn btn-outline-secondary"(click)="crear3()"><i class='bx bxs-save'></i></button>
                 </div>
                 <div class="formLinea margenInput">
                   <input type="text" class="form-control divInputsInput textoInput" autocomplete="off" name="nombreClase" id="nombreClase"
                     placeholder="pregunta 4" formControlName="pregunta4">
-                    <button class="btn btn-outline-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                    <button class="btn btn-outline-secondary"(click)="editar4()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                       <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                     </svg></button>
+                    <button class="btn btn-outline-secondary" (click)="crear4()" ><i class='bx bxs-save'></i> </button>
                 </div>
                 <div class="formLinea margenInput">
                   <input type="text" class="form-control divInputsInput textoInput" autocomplete="off" name="nombreClase" id="nombreClase"
                     placeholder="pregunta 5" formControlName="pregunta5">
-                    <button class="btn btn-outline-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                    <button class="btn btn-outline-secondary"(click)="editar5()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                       <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                     </svg></button>
+                    <button class="btn btn-outline-secondary" (click)="crear5()" ><i class='bx bxs-save'></i> </button>
                 </div>
                 
                 <div class="formLinea margenInput">
                   <input type="text" class="form-control divInputsInput textoInput" autocomplete="off" name="nombreClase" id="nombreClase"
                     placeholder="pregunta 6" formControlName="pregunta6">
-                    <button class="btn btn-outline-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                    <button class="btn btn-outline-secondary"(click)="editar6()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                       <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                     </svg></button>
+                    <button class="btn btn-outline-secondary" (click)="crear6()" ><i class='bx bxs-save'></i> </button>
                 </div>
                 <div class="formLinea margenInput">
                   <input type="text" class="form-control divInputsInput textoInput" autocomplete="off" name="nombreClase" id="nombreClase"
                     placeholder="pregunta 7" formControlName="pregunta7">
-                    <button class="btn btn-outline-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                    <button class="btn btn-outline-secondary"(click)="editar7()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                       <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                     </svg></button>
+                    <button class="btn btn-outline-secondary" (click)="crear7()" ><i class='bx bxs-save'></i> </button>
                 </div>
                 <div class="formLinea margenInput">
                   <input type="text" class="form-control divInputsInput textoInput" autocomplete="off" name="nombreClase" id="nombreClase"
                     placeholder="pregunta 8" formControlName="pregunta8">
-                    <button class="btn btn-outline-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                    <button class="btn btn-outline-secondary"(click)="editar8()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                       <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                     </svg></button>
+                    <button class="btn btn-outline-secondary" (click)="crear8()" ><i class='bx bxs-save'></i> </button>
                 </div>
                 <div class="formLinea margenInput">
                   <input type="text" class="form-control divInputsInput textoInput" autocomplete="off" name="nombreClase" id="nombreClase"
                     placeholder="pregunta 9" formControlName="pregunta9">
-                    <button class="btn btn-outline-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                    <button class="btn btn-outline-secondary"(click)="editar9()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                       <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                     </svg></button>
+                    <button class="btn btn-outline-secondary" (click)="crear9()" ><i class='bx bxs-save'></i> </button>
                 </div>
                 <div class="formLinea margenInput">
                   <input type="text" class="form-control divInputsInput textoInput" autocomplete="off" name="nombreClase" id="nombreClase"
                     placeholder="pregunta 10" formControlName="pregunta10">
-                    <button class="btn btn-outline-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                    <button class="btn btn-outline-secondary"(click)="editar10()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                       <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                     </svg></button>
+                    <button class="btn btn-outline-secondary" (click)="crear10()" ><i class='bx bxs-save'></i> </button>
                 </div>
-              </fieldset>
-              <button *ngIf="!getparamidclase" class="btn btn-outline-primary" type="submit"
-                (click)="banderaEditarEvaluacion()">Modificar Evaluacion</button>
 
             </form>
           </details>

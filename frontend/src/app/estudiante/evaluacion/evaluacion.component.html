@@ -1,0 +1,70 @@
+<p class="subtituloForm">Evaluacion</p>
+<p>{{timeLeftHora}} Minutos {{timeLeft}} Segundos  ...</p>
+<p>el examen se enviara cuando acabe el examen cuando se acabe el tiempo  ...</p>
+<form [formGroup]="evaluacionForm">
+    <div class="container">
+    <div class="margen">
+        <label class=" control-label textoInput">{{pregunta1}}:</label>
+        <input type="hidden" class="form-control textoInput" autocomplete="off" name="respuesta1Id" id="respuesta1Id" size="233"
+            formControlName="respuesta1Id">
+            <textarea name="" id="" style="border: 2px; border-style: solid; border-radius: 8px; border-color: rgb(176, 176, 176);" formControlName="respuesta1"></textarea>
+    </div>
+    <div class="margen"> 
+        <label class=" control-label textoInput">{{pregunta2}}</label>
+        <input type="hidden" class="form-control textoInput" autocomplete="off" name="nombreClase" id="nombreClase"
+            placeholder="pregunta 2" formControlName="respuesta2Id">
+            <textarea name="" id="" formControlName="respuesta2"></textarea>
+    </div>
+    <div class="margen">
+        <label class=" control-label textoInput">{{pregunta3}}</label>
+        <input type="hidden" class="form-control textoInput" autocomplete="off" name="nombreClase" id="nombreClase"
+            placeholder="pregunta 3" formControlName="respuesta3Id">
+            <textarea name="" id="" formControlName="respuesta3"></textarea>
+    </div>
+    <div class="margen">
+        <label class=" control-label textoInput">{{pregunta4}}</label>
+        <input type="hidden" class="form-control textoInput" autocomplete="off" name="nombreClase" id="nombreClase"
+            placeholder="pregunta 4" formControlName="respuesta4Id">
+            <textarea name="" id="" formControlName="respuesta4"></textarea>
+    </div>
+    <div class="margen">
+        <label class=" control-label textoInput">{{pregunta5}}</label>
+        <input type="hidden" class="form-control textoInput" autocomplete="off" name="nombreClase" id="nombreClase"
+            placeholder="pregunta 5" formControlName="respuesta5Id">
+            <textarea name="" id="" formControlName="respuesta5"></textarea>
+    </div>
+    <div class="margen">
+        <label class=" control-label textoInput">{{pregunta6}}</label>
+        <input type="hidden" class="form-control textoInput" autocomplete="off" name="nombreClase" id="nombreClase"
+            placeholder="pregunta 6" formControlName="respuesta6Id">
+            <textarea name="" id="" formControlName="respuesta6"></textarea>
+    </div>
+    <div class="margen">
+        <label class=" control-label textoInput">{{pregunta7}}</label>
+        <input type="hidden" class="form-control textoInput" autocomplete="off" name="nombreClase" id="nombreClase"
+            placeholder="pregunta 7" formControlName="respuesta7Id">
+            <textarea name="" id="" formControlName="respuesta7"></textarea>
+    </div>
+    <div class="margen">
+        <label class=" control-label textoInput">{{pregunta8}}</label>
+        <input type="hidden" class="form-control textoInput" autocomplete="off" name="nombreClase" id="nombreClase"
+            placeholder="pregunta 8" formControlName="respuesta8Id">
+            <textarea name="" id="" formControlName="respuesta8"></textarea>
+    </div>
+    <div class="margen">
+        <label class=" control-label textoInput">{{pregunta9}}</label>
+        <input type="hidden" class="form-control textoInput" autocomplete="off" name="nombreClase" id="nombreClase"
+            placeholder="pregunta 9" formControlName="respuesta9Id">
+            <textarea name="" id="" formControlName="respuesta9"></textarea>
+    </div>
+    <div class="margen">
+        <label class=" control-label textoInput">{{pregunta10}}</label>
+        <input type="hidden" class="form-control textoInput" autocomplete="off" name="nombreClase" id="nombreClase"
+            placeholder="preguntasdfsdf 10" formControlName="respuesta10Id">
+            <textarea name="" id="" formControlName="respuesta10"></textarea>
+    </div>
+    <p>{{timeLeftHora}} Minutos {{timeLeft}} Segundos  ...</p>
+    <button class="btn btn-outline-primary" type="submit" (click)="enviarEvaluacion()">Enviar Evaluacion</button>
+
+</div>
+</form>

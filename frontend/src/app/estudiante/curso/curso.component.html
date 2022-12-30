@@ -1,0 +1,33 @@
+<div class="back">
+<h3 class="heading">Lista de clases</h3>
+
+<select class="js-example-basic-single" name="state">
+    <option value="AL">Alabama</option>
+      ...
+    <option value="WY">Wyoming</option>
+  </select>
+
+<form [formGroup]="claseForm" >
+    <div >
+        <div class="container">
+            <div class="main-video">
+                <div class="video" >
+                    <video id="video" src="http://localhost:4200/assets/marketing1.mp4" controls width="400px" height="300px" controlslist="nodownload"></video>
+                    <h3 id="titulo" class="title">video 1</h3>
+                    <p id="descripcion"></p>
+                    <button (click)="IngresarEvaluacion()">Realizar Evaluacion </button>
+                </div>
+
+            </div>
+            <div class="video-list" >
+                <div class="vid " *ngFor='let us of readData'>
+                    <video src="http://localhost:4200/assets/{{us.video}}" controls ></video>
+                    <h3 class="title">{{us.nombre}}</h3>
+                    <p hidden>{{us.descripcion}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+</div>

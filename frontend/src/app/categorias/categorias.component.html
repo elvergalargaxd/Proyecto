@@ -1,83 +1,84 @@
 <div class="container mt-5">
-  <p class="subtitulo2">Categorias de curso</p>
+  <p class="subtitulo2">Crear categorias</p>
       <hr>
-      &nbsp;
-        
-          <div class="table100 ver1 tableSize">
-            <div class="p-2 " style="background-color: rgba(0, 0, 0, 0.1)">
-              <table>
-                <thead>
-                  <tr class="">
-                    <th class="cell100 column0">Id</th>
-                    <th class="cell100 column1">Categoria</th>
-                    <th class="cell100 column5" style="text-align:center">Editar</th>
-        
-                  </tr>
-                </thead>
-              </table>
+      <form [formGroup]="useForm">
+        <div class=" formLinea margenInput">
+          <label class="textoInput  divInputsLabel">Nombres:</label>
+          <input type="text" class="form-control divInputsInput textoInput" formControlName="nombre" placeholder="">
+        </div>
+        <div class=" formLinea margenInput">
+          <label class="textoInput  divInputsLabel">Descripcion:</label>
+    
+          <textarea type="text" class="form-control divInputsInput textoInput" rows="7" formControlName="descripcion"
+            placeholder="Descripcion"></textarea>
+        </div>
+    
+    
+    
+        <div class="col-md-3 offset-md-2 " (click)="submit() " *ngIf="getparamid">
+          <button class="btn btn-primary ">Crear Categoria</button>
+    
+        </div>
+        <div class="text-center ">
+          <div class="row">
+            <div class="col-md-3 offset-md-2 " *ngIf="!getparamid" (click)="upload()">
+              <button class="btn btn-primary ">Guardar cambios</button>
             </div>
-        
-            <div class="table100-body js-pscroll ">
-              <table>
-                <tbody>
-                  <tr class="" *ngFor='let us of buscar'>
-                    <td class="cell100 column0">{{us.idCategoria}}</td>
-                    <td class="cell100 column2">{{us.nombre}} {{us.apellido}}</td>
-        
-        
-                    <td class="cell100 column3"><button class=" btn btn-outline-secondary textoInput"
-                        (click)="obtenerID(us.idCategoria)" data-toggle="modal" data-target="#exampleModalCenter">
-        
-                       Modificar
-                        <i class='bx bx-plus-circle'></i></button>
-                      &nbsp;
-                    </td>
-                    <td class="cell100 column3"><button class=" btn btn-outline-secondary textoInput"
-                      (click)="deleteCategoria(us.idCategoria)" data-toggle="modal" data-target="#exampleModalCenter">
-      
-                     Eliminar
-                     <i class='bx bx-trash-alt'></i></button>
-                    &nbsp;
-                  </td>
-                  </tr>
-                </tbody>
-              </table>
+    
+            <div class="col-md-2 bg-primary " *ngIf="!getparamid" (click)="cancel()">
+              <button class="btn btn-primary ">Cancelar </button>
             </div>
           </div>
+        </div>
+      </form>
+          
           
       &nbsp;
-  <p class="subtitulo2">Categorias de curso</p>
+  <p class="subtitulo2">Editar Categorias de curso</p>
   <hr>
-  <form [formGroup]="useForm">
-    <div class=" formLinea margenInput">
-      <label class="textoInput  divInputsLabel">Nombres:</label>
-      <input type="text" class="form-control divInputsInput textoInput" formControlName="nombre" placeholder="">
+  
+
+  <div class="table100 ver1 tableSize">
+    <div class="p-2 " style="background-color: rgba(0, 0, 0, 0.1)">
+      <table>
+        <thead>
+          <tr class="">
+            <th class="cell100 column0">Id</th>
+            <th class="cell100 column1">Categoria</th>
+            <th class="cell100 column5" style="text-align:center">Editar</th>
+
+          </tr>
+        </thead>
+      </table>
     </div>
-    <div class=" formLinea margenInput">
-      <label class="textoInput  divInputsLabel">Descripcion:</label>
 
-      <textarea type="text" class="form-control divInputsInput textoInput" rows="7" formControlName="descripcion"
-        placeholder="Descripcion"></textarea>
+    <div class="table100-body js-pscroll ">
+      <table>
+        <tbody>
+          <tr class="" *ngFor='let us of buscar'>
+            <td class="cell100 column0">{{us.idCategoria}}</td>
+            <td class="cell100 column2">{{us.nombre}} {{us.apellido}}</td>
+
+
+            <td class="cell100 column3"><button class=" btn btn-outline-secondary textoInput"
+                (click)="obtenerID(us.idCategoria)" data-toggle="modal" data-target="#exampleModalCenter">
+
+               Modificar
+                <i class='bx bx-plus-circle'></i></button>
+              &nbsp;
+            </td>
+            <td class="cell100 column3"><button class=" btn btn-outline-secondary textoInput"
+              (click)="deleteCategoria(us.idCategoria)" data-toggle="modal" data-target="#exampleModalCenter">
+
+             Eliminar
+             <i class='bx bx-trash-alt'></i></button>
+            &nbsp;
+          </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-
-
-
-    <div class="col-md-3 offset-md-2 " (click)="submit() " *ngIf="getparamid">
-      <button class="btn btn-primary ">Crear Categoria</button>
-
-    </div>
-    <div class="text-center ">
-      <div class="row">
-        <div class="col-md-3 offset-md-2 " *ngIf="!getparamid" (click)="upload()">
-          <button class="btn btn-primary ">Guardar cambios</button>
-        </div>
-
-        <div class="col-md-2 bg-primary " *ngIf="!getparamid" (click)="cancel()">
-          <button class="btn btn-primary ">Cancelar </button>
-        </div>
-      </div>
-    </div>
-  </form>
+  </div>
   <hr>
 
 

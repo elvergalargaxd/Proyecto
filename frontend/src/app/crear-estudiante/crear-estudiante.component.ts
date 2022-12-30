@@ -33,7 +33,7 @@ export class CrearEstudianteComponent implements OnInit {
   desact='1';
   
   ngOnInit(): void {
-
+ 
     
       this.getparamid =this.router.snapshot.paramMap.get('id');
       if(this.getparamid)

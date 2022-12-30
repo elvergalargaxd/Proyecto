@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiserviceService } from '../apiservice.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  getparamid:any;
+
+  constructor(private service: ApiserviceService) { }
 
   ngOnInit(): void {
+
+    this.service.getAllDataCurso().subscribe((res) => {
+      console.log(res, 'res==>');
+      this.getparamid = res.data;
+      
+    })
   }
 
 }

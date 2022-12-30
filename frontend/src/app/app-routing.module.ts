@@ -24,7 +24,8 @@ import { EditarPerfilEstudianteComponent } from './estudiante/editar-perfil-estu
 import { CursosComponent } from './estudiante/cursos/cursos.component';
 import { CategoriasComponent } from './categorias/categorias.component';
 import { ReporteComponent } from './reporte/reporte.component';
-
+import { CursoComponent } from './estudiante/curso/curso.component';
+import { EvaluacionComponent } from './estudiante/evaluacion/evaluacion.component';
 
 const routes: Routes = [
 
@@ -37,7 +38,7 @@ const routes: Routes = [
   {path:'docente', component:DocenteComponent,canActivate:[RoleGuard], data: { expectedRole: 'docente' },
     children:[
       {path:'perfil', component:EditarPerfilComponent},
-      {path:'curso', component:EditarCursosComponent},
+      {path:'cursos', component:EditarCursosComponent},
       {path:'edicionCurso/:id', component:EdicionCursoComponent},
       {path:'estudiante/:id', component:EstudiantesComponent},
       {path:'estudiante', component:EstudiantesComponent}
@@ -45,9 +46,12 @@ const routes: Routes = [
   }, 
   {path:'estudiante', component:EstudianteComponent,canActivate:[RoleGuard], data: { expectedRole: 'user' },
   children:[
-    {path:'curso', component:CursosComponent},
-    {path:'perfilEstudiante', component:EditarPerfilEstudianteComponent}
-    
+    {path:'cursos', component:CursosComponent},
+    {path:'perfilEstudiante', component:EditarPerfilEstudianteComponent},
+    {path:'curso', component:CursoComponent},
+    {path:'curso/:id', component:CursoComponent},
+    {path:'evaluacion', component:EvaluacionComponent},
+    {path:'evaluacion/:id', component:EvaluacionComponent},
   ] 
 }, 
 

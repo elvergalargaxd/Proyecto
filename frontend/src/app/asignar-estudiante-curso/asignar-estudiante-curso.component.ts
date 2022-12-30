@@ -63,7 +63,12 @@ export class AsignarEstudianteCursoComponent implements OnInit {
 
   @Output('search') searchEmiter=new EventEmitter<string>();
 
+  
+
   asignarEC(){
+
+    console.log(this.useForm.value);
+
     if(this.useForm.valid){
     Swal.fire({
       title: 'Desea asignar el curso',
@@ -78,13 +83,22 @@ export class AsignarEstudianteCursoComponent implements OnInit {
 
       this.service.createInscripcion(this.useForm.value).subscribe((res)=>{
       
-        
+      if(res.message=="datos no insertados"){
+        console.log("no registrado");
+        Swal.fire(
+          'Estudiante ya asignado!',
+          'datos no actualizados',
+          'error'
+        )
+      }
+      else{
       // console.log(res, location.reload());
       Swal.fire(
-        'Estudiante de asignado!',
+        'Estudiante inscrito correctamente!',
         'datos actualizados',
         'success'
       )
+      }
      this.getAllData();
        });
      }

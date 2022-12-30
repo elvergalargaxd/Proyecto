@@ -56,11 +56,12 @@ export class CrearCursoComponent implements OnInit {
 
         });
         const str = res.data[0].imagen;
-        const newStr = str.slice(19);
-        console.log(newStr) ;
-        this.imgUrl=str;
         
-        this.prev=newStr;
+        
+        //const newStr = str.slice(19);
+        //console.log(newStr) ;
+        this.imgUrl="http://localhost:4200/assets/"+str;
+        //this.prev=newStr;
         console.log(this.imgUrl);
 
       });

@@ -29,13 +29,16 @@ export class EditarPerfilEstudianteComponent implements OnInit {
           this.service.getSingleData(this.data).subscribe((res)=>{
           console.log(res,'res==>');
           this.userForm.patchValue({
-            nombre:res.data[0].nombre,
+            nombre:res.data[0].nombre, 
             apellido:res.data[0].apellido,
             userName:res.data[0].userName,
             roleID:res.data[0].roleId,
             correo:res.data[0].correo,
             telefono:res.data[0].telefono,
             contrasena:res.data[0].pass,
+            pais:res.data[0].pais,
+            ciudad:res.data[0].ciudad,
+            domicilio:res.data[0].domicilio,
       });
     });
   }
@@ -48,6 +51,9 @@ export class EditarPerfilEstudianteComponent implements OnInit {
       'correo':new FormControl('',Validators.required),
       'telefono':new FormControl('',[Validators.required,Validators.minLength(6)]),
       'contrasena':new FormControl('',Validators.required),
+      'pais':new FormControl('',Validators.required),
+      'ciudad':new FormControl('',Validators.required),
+      'domicilio':new FormControl('',Validators.required),
     
 });
 userUpdate()

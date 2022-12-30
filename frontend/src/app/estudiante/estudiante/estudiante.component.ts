@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CargarScriptsService } from 'src/app/cargar-scripts.service';
 
 @Component({
   selector: 'app-estudiante',
@@ -8,7 +9,9 @@ import { Router } from '@angular/router';
 })
 export class EstudianteComponent implements OnInit {
 
-  constructor(private service:Router) { }
+  constructor(private _CargarScripts:CargarScriptsService,private service:Router) {
+    _CargarScripts.Carga(["menu"]);
+   }
 
   ngOnInit(): void {
   }

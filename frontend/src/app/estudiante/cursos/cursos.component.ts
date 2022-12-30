@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiserviceService } from 'src/app/apiservice.service';
 import  decode  from 'jwt-decode';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cursos',
@@ -9,9 +10,10 @@ import  decode  from 'jwt-decode';
 })
 export class CursosComponent implements OnInit {
 
-  constructor(private servise:ApiserviceService) { }
+  constructor(private servise:ApiserviceService,private router:Router) { }
   //DataEstudianteCurso
   readData:any;
+  readDataCursos:any;
   data:any;
 
   ngOnInit(): void {
@@ -22,6 +24,7 @@ export class CursosComponent implements OnInit {
     console.log(decodetoken.id);
 
     this.data=decodetoken.id;
+    this.cusosInscritos();
   }
   getAllData()
   {
@@ -31,4 +34,22 @@ export class CursosComponent implements OnInit {
       this.readData =res.data;
     })
   }
+  cusosInscritos(){
+    this.servise.getDataCursosEstudiante(this.data).subscribe((res)=>{
+      console.log(res);
+      this.readDataCursos=res.data;
+    })
+  }
+  ingresarCurso(id:any){
+    
+    console.log("curso "+id)
+    this.router.navigate(['/estudiante/curso',id]);
+    //  this.router.navigate(['/estudiante/curso'])
+    // this.servise.diparadorCursos.emit({
+    //   data:id 
+    // })
+
+     //
+   } 
+  
 }

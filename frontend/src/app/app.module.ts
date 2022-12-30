@@ -33,6 +33,8 @@ import { CursosComponent } from './estudiante/cursos/cursos.component';
 import { EditarPerfilEstudianteComponent } from './estudiante/editar-perfil-estudiante/editar-perfil-estudiante.component';
 import { CategoriasComponent } from './categorias/categorias.component';
 import { ReporteComponent } from './reporte/reporte.component';
+import { CursoComponent } from './estudiante/curso/curso.component';
+import { EvaluacionComponent } from './estudiante/evaluacion/evaluacion.component';
 
 
 
@@ -64,7 +66,9 @@ import { ReporteComponent } from './reporte/reporte.component';
     CursosComponent,
     EditarPerfilEstudianteComponent,
     CategoriasComponent,
-    ReporteComponent
+    ReporteComponent,
+    CursoComponent,
+    EvaluacionComponent
   ],
   imports: [
     BrowserModule,
