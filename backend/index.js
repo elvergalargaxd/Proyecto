@@ -51,16 +51,16 @@ cloudinary.config({
     api_secret: '-kYlmLZD-wAF_L5IuwY7ogXzCvA'
 });
 
-  const storage =multer.diskStorage({
-   destination:(req,file,cb)=>{
-       cb(null,'../frontend/src/assets/');
-   },
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, '../frontend/src/assets/');
+    },
 
-   filename:(req,file,cb)=>{
-       
-       cb(null,file.originalname);
-   } 
-});  
+    filename: (req, file, cb) => {
+
+        cb(null, file.originalname);
+    }
+});
 
 //const storage = multer.memoryStorage();
 
@@ -97,8 +97,8 @@ const db = mysql.createConnection({
 db.connect(err => {
     if (err) { console.log(err, 'error'); }
     console.log('base de datos conectado...');
-}) 
-    
+})
+
 
 
 app.post('/files', (req, res) => {
@@ -229,21 +229,21 @@ app.delete('/userImagen/:id', async (req, res, next) => {
 })
 app.put('/userImagen/:id', upload.single('file'), async (req, res, next) => {
 
+    ///////////////////////
     const file = req.file;
-
-    const result = await s3Uploadv2(file);
-    //const {firebaseUrl}=req.file ? req.file:""; 
-    console.log('subir imagen', result);
+    //const result = await s3Uploadv2(file);
+    //console.log(req.body, 'modificar');
 
 
 
     let gID = req.params.id;
     let imagenes = file.path;
-    //let imagenes=firebaseUrl;
-    console.log(imagenes);
 
+    const str = imagenes.slice(22);
 
-    let qr = `update user set imagenes='${result.Location}'
+    console.log(str);
+
+    let qr = `update user set imagenes='${str}'
             where id='${gID}'`;
 
     res.send(file);
@@ -254,6 +254,33 @@ app.put('/userImagen/:id', upload.single('file'), async (req, res, next) => {
         // return res.send({essage:'datos modificados'});
     })
 })
+// app.put('/userImagen/:id', upload.single('file'), async (req, res, next) => {
+
+//     const file = req.file;
+
+//     const result = await s3Uploadv2(file);
+//     //const {firebaseUrl}=req.file ? req.file:""; 
+//     console.log('subir imagen', result);
+
+
+
+//     let gID = req.params.id;
+//     let imagenes = file.path;
+//     //let imagenes=firebaseUrl;
+//     console.log(imagenes);
+
+
+//     let qr = `update user set imagenes='${result.Location}'
+//             where id='${gID}'`;
+
+//     res.send(file);
+//     console.log(qr);
+
+//     db.query(qr, (err, result) => {
+//         if (err) { console.log(err); }
+//         // return res.send({essage:'datos modificados'});
+//     })
+// })
 //crear usuario
 
 
@@ -552,10 +579,10 @@ app.post('/estudiante', (req, res) => {
 
     })
 });
-app.get('/estudiante/cursos/:id', (req,res)=>{
+app.get('/estudiante/cursos/:id', (req, res) => {
     let gID = req.params.id;
     let qr = `select * from inscripcioN INNER JOIN curso ON inscripcion.idCurso=curso.idCurso WHERE idEstudiante= ${gID}`;
-//SELECT * FROM `inscripcion` INNER JOIN `curso` on inscripcion.idCurso=curso.idCurso WHERE idEstudiante="10"
+    //SELECT * FROM `inscripcion` INNER JOIN `curso` on inscripcion.idCurso=curso.idCurso WHERE idEstudiante="10"
 
     db.query(qr, (err, result) => {
         if (err) {
@@ -608,7 +635,31 @@ app.get('/curso/:id', (req, res) => {
             });
         }
     })
-    
+
+});
+
+app.get('/cursoCategoria/:id', (req, res) => {
+    let gID = req.params.id;
+ 
+    let qr = `select * from curso where categoria= ${gID}`;
+
+    db.query(qr, (err, result) => {
+        if (err) { 
+            console.log(err);
+        }
+        if (result.length > 0) {
+            res.send({
+                message: 'obteniendo simples datos',
+                data: result
+            });
+        }
+        else {
+            res.send({
+                message: 'datos no encontrados'
+            });
+        }
+    })
+
 });
 
 
@@ -625,11 +676,12 @@ app.post('/curso', (req, res) => {
     let idDocente = req.body.idDocente;
     let precio = req.body.precio;
     let fecha = req.body.fecha;
+    let codigo = req.body.codigo;
 
 
 
-    let qr = `insert into curso (nombreLargo,nombreCorto,descripcion,categoria,imagen,idDocente,precio,fecha)
-             values('${nombreLargo}','${nombreCorto}','${descripcion}','${categoria}','${imagen}','${idDocente}','${precio}','${fecha}')`;
+    let qr = `insert into curso (nombreLargo,nombreCorto,descripcion,categoria,imagen,idDocente,precio,fecha,codigo)
+             values('${nombreLargo}','${nombreCorto}','${descripcion}','${categoria}','${imagen}','${idDocente}','${precio}','${fecha}','${codigo}')`;
 
     db.query(qr, (err, result) => {
         if (err) { console.log(err); }
@@ -643,18 +695,14 @@ app.put('/curso/:id', (req, res) => {
 
     let gID = req.params.id;
     let nombreLargo = req.body.nombreLargo;
-
     let nombreCorto = req.body.nombreCorto;
     let descripcion = req.body.descripcion;
     let categoria = req.body.categoria;
-    let imagen = req.body.imagen;
     let idDocente = req.body.idDocente;
     let precio = req.body.precio;
 
-    let idVideo = req.body.idVideo;
-
     let qr = `update curso set nombreLargo='${nombreLargo}',nombreCorto='${nombreCorto}',descripcion='${descripcion}',categoria='${categoria}',
-            imagen='${imagen}',idDocente='${idDocente}',precio='${precio}',idVideo='${idVideo}'
+            idDocente='${idDocente}',precio='${precio}'
             where idCurso='${gID}'`;
     db.query(qr, (err, result) => {
         if (err) { console.log(err); }
@@ -734,8 +782,36 @@ app.put('/cursoEstadoAlta/:id', (req, res, next) => {
     })
 
 })
+app.put('/ImagenCurso/:id', upload.single('file'), async (req, res, next) => {
 
-app.put('/userImagenCurso/:id', upload.single('file'), async (req, res, next) => {
+    ///////////////////////
+    const file = req.file;
+    //const result = await s3Uploadv2(file);
+    //console.log(req.body, 'modificar');
+
+
+
+    let gID = req.params.id;
+    let imagenes = file.path;
+
+    const str = imagenes.slice(22);
+
+    console.log(str);
+
+    let qr = `update curso set imagen='${str}'
+            where codigo='${gID}'`;
+
+    res.send(file);
+    console.log(qr);
+
+    db.query(qr, (err, result) => {
+        if (err) { console.log(err); }
+        // return res.send({essage:'datos modificados'});
+    })
+})
+
+
+app.put('/ImagenClase/:id', upload.single('file'), async (req, res, next) => {
 
     ///////////////////////
     const file = req.file;
@@ -938,6 +1014,87 @@ app.delete('/categoria/:id', (req, res) => {
         })
     });
 })
+//vista inscripciones////////////////////////////////////////
+app.get('/inscripcionDocente/:id', (req, res) => {
+    let gID = req.params.id;
+
+
+    let qr = `SELECT user.id,curso.idCurso, user.nombre,user.apellido,user.estado,inscripcion.estadoCurso,inscripcion.nota,curso.nombreCorto
+                FROM user
+                JOIN inscripcion ON inscripcion.idEstudiante=user.id 
+                JOIN curso ON inscripcion.idCurso=curso.idCurso
+                WHERE curso.idCurso=${gID}`;
+
+    db.query(qr, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        if (result.length > 0) {
+            res.send({
+                message: 'obteniendo simples datos',
+                data: result
+            });
+        }
+        else {
+            res.send({ 
+                message: 'datos no encontrados'
+            });
+        }
+    })
+});
+app.get('/inscripcionImprimir/:id', (req, res) => {
+    let gID = req.params.id;
+
+
+    let qr = `SELECT inscripcion.idInscripcion, user.nombre,user.apellido,user.estado,curso.nombreCorto,inscripcion.estadoCurso, user.telefono, user.ciudad
+    FROM user
+    JOIN inscripcion ON inscripcion.idEstudiante=user.id 
+    JOIN curso ON inscripcion.idCurso=curso.idCurso`;
+
+    db.query(qr, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        if (result.length > 0) {
+            res.send({
+                message: 'obteniendo simples datos',
+                data: result
+            });
+        }
+        else {
+            res.send({ 
+                message: 'datos no encontrados'
+            });
+        }
+    })
+});
+app.get('/inscripcionReport', (req, res) => {
+    let gID = req.params.id;
+
+
+    let qr = `SELECT curso.nombreCorto, COUNT(*) AS cantidad
+    FROM user
+    JOIN inscripcion ON inscripcion.idEstudiante=user.id
+    JOIN curso ON inscripcion.idCurso=curso.idCurso
+    GROUP BY curso.nombreCorto`;
+
+    db.query(qr, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        if (result.length > 0) {
+            res.send({
+                message: 'obteniendo simples datos',
+                data: result
+            });
+        }
+        else {
+            res.send({
+                message: 'datos no encontrados'
+            });
+        }
+    })
+});
 //Inscripciones////////////////////////////////////////
 
 app.post('/inscripcion', (req, res) => {
@@ -945,31 +1102,31 @@ app.post('/inscripcion', (req, res) => {
 
     let idCurso = req.body.idCurso;
     let idEstudiante = req.body.id;
-    let costo = req.body.costo; 
+    let costo = req.body.costo;
     let fecha = req.body.fecha;
 
     db.query(`SELECT 1 FROM inscripcion WHERE idCurso = '${idCurso}' and idEstudiante = '${idEstudiante}' ORDER BY idEstudiante LIMIT 1`, function (error, results, fields) {
         if (error) {
-            console.log(error); 
+            console.log(error);
         }
-        if (results.length  > 0) {
+        if (results.length > 0) {
             console.log('fail');
             res.send({ message: 'datos no insertados' });
-        
+
         } else {
-        
-        
-                console.log('insert');
-                var query = db.query (
-                    `insert into inscripcion (idCurso,idEstudiante,costo,fecha)
-             values('${idCurso}','${idEstudiante}','${costo}','${fecha}')`
-                );
-        
-                res.send({ message: 'datos insertados' });
+
+
+            console.log('insert');
+            var query = db.query(
+                `insert into inscripcion (idCurso,idEstudiante,estadoCurso,fecha)
+             values('${idCurso}','${idEstudiante}','Sin respuesta','${fecha}')`
+            );
+
+            res.send({ message: 'datos insertados' });
         }
-        
+
         console.log(results);
-        });
+    });
     // let qr = `insert into inscripcion (idCurso,idEstudiante,costo,fecha)
     //          values('${idCurso}','${idEstudiante}','${costo}','${fecha}')`;
 
@@ -993,15 +1150,15 @@ app.post('/clase/:id', (req, res, next) => {
     let nombre = req.body.nombreClase;
     let descripcion = req.body.descripcionClase;
     let idClase = req.params.id;
-    let posicion=req.body.posicion;
-    console.log(posicion+"asdfasdfasdfsd");
+    let posicion = req.body.posicion;
+    console.log(posicion + "asdfasdfasdfsd");
 
     // let qr=`insert into video (nombre,video,descripcion,idCurso)
     // values('${nombre}','${result.Location}','${descripcion}','${idCurso}')`;
 
     let qr = `insert into clase (nombre,video,descripcion,idCurso,posicion)
     values('${nombre}','','${descripcion}','${idClase}','${posicion}')`;
- 
+
     db.query(qr, (err, result) => {
         if (err) { console.log(err); }
         res.send({ message: 'datos insertados' });
@@ -1092,12 +1249,12 @@ app.get('/claseEditar/:id', (req, res) => {
     })
 });
 app.get('/buscarClase/:id', (req, res) => {
-    
-    
-    
+
+
+
     let nombre = req.body.posicion;
-    
-    console.log(nombre+"buscar claseeee");
+
+    console.log(nombre + "buscar claseeee");
     let qr = `select * from clase where posicion='${posicion}'`;
 
     db.query(qr, (err, result) => {
@@ -1123,8 +1280,8 @@ app.get('/respuesta/:id/:id2', (req, res) => {
     let idEstudiante = req.params.id;
     let idCurso = req.params.id2;
 
-    console.log(req.body+"aaaaaaaaaa");
-    
+    console.log(req.body + "aaaaaaaaaa");
+
     // let qr = `select * from respuestas WHERE idEvaluacion=1 OR 
     //                                         idEvaluacion=2 OR  
     //                                         idEvaluacion=3 OR  
@@ -1136,19 +1293,19 @@ app.get('/respuesta/:id/:id2', (req, res) => {
     //                                         idEvaluacion=9 OR
     //                                         idEvaluacion=10`;
 
-    let qr = `select * from respuestas WHERE idEstudiante=${idEstudiante} And idCurso=${idCurso} `; 
+    let qr = `select * from respuestas WHERE idEstudiante=${idEstudiante} And idCurso=${idCurso} `;
 
-    db.query(qr, (err, result) => {
+    db.query(qr, (err, result) => { 
         if (err) {
-            console.log(err, 'errs'); 
+            console.log(err, 'errs');
         }
         if (result.length > 0) {
             res.send({
                 message: 'todo el dato del respuestas',
                 data: result
             });
-        } 
-    });
+        }
+    }); 
 });
 app.post('/respuesta/:id', (req, res, next) => {
     //app.post('/video/:id',upload.single('file'),a sync (req,res,next)=>{
@@ -1208,6 +1365,131 @@ app.post('/respuesta/:id', (req, res, next) => {
 
     })
 });
+app.put('/respuesta/:id/:id2', (req, res) => {
+    console.log(req.body, 'modificar');
+
+
+    let idEstudiante = req.params.id;
+    let idCurso = req.params.id2;
+
+    let respuesta1Id = req.body.respuesta1Id;
+    let respuesta2Id = req.body.respuesta2Id;
+    let respuesta3Id = req.body.respuesta3Id;
+    let respuesta4Id = req.body.respuesta4Id;
+    let respuesta5Id = req.body.respuesta5Id;
+    let respuesta6Id = req.body.respuesta6Id;
+    let respuesta7Id = req.body.respuesta7Id;
+    let respuesta8Id = req.body.respuesta8Id;
+    let respuesta9Id = req.body.respuesta9Id;
+    let respuesta10Id = req.body.respuesta10Id;
+
+    let calificacion1 = req.body.calificacion1;
+    let calificacion2 = req.body.calificacion2;
+    let calificacion3 = req.body.calificacion3;
+    let calificacion4 = req.body.calificacion4;
+    let calificacion5 = req.body.calificacion5;
+    let calificacion6 = req.body.calificacion6;
+    let calificacion7 = req.body.calificacion7;
+    let calificacion8 = req.body.calificacion8;
+    let calificacion9 = req.body.calificacion9;
+    let calificacion10 = req.body.calificacion10;
+
+    let nota = calificacion1 + calificacion2 + calificacion3 + calificacion4 + calificacion5 + calificacion6 + calificacion7 + calificacion8 + calificacion9 + calificacion10;
+
+    let qr = `update inscripcion set nota='${nota}', estadoCurso='Calificado'
+            where idEstudiante='${idEstudiante}' and idCurso='${idCurso}'`;
+
+    let qr1 = `update respuestas set calificacion='${calificacion1}'
+            where idRespuesta='${respuesta1Id}'`;
+    let qr2 = `update respuestas set calificacion='${calificacion2}'
+            where idRespuesta='${respuesta2Id}'`;
+    let qr3 = `update respuestas set calificacion='${calificacion3}'
+            where idRespuesta='${respuesta3Id}'`;
+    let qr4 = `update respuestas set calificacion='${calificacion4}'
+            where idRespuesta='${respuesta4Id}'`;
+    let qr5 = `update respuestas set calificacion='${calificacion5}'
+            where idRespuesta='${respuesta5Id}'`;
+    let qr6 = `update respuestas set calificacion='${calificacion6}'
+            where idRespuesta='${respuesta6Id}'`;
+    let qr7 = `update respuestas set calificacion='${calificacion7}'
+            where idRespuesta='${respuesta7Id}'`;
+    let qr8 = `update respuestas set calificacion='${calificacion8}'
+            where idRespuesta='${respuesta8Id}'`;
+    let qr9 = `update respuestas set calificacion='${calificacion9}'
+            where idRespuesta='${respuesta9Id}'`;
+    let qr10 = `update respuestas set calificacion='${calificacion10}'
+            where idRespuesta='${respuesta10Id}'`;
+
+    console.log(qr);
+
+    db.query(qr, (err, result) => {
+        if (err) { console.log(err); }
+        
+    })
+
+    console.log(qr1);
+
+    db.query(qr1, (err, result) => {
+        if (err) { console.log(err); }
+        res.send({
+            message: 'datos modificados'
+        });
+    })
+    console.log(qr2);
+
+    db.query(qr2, (err, result) => {
+        if (err) { console.log(err); }
+
+    })
+    console.log(qr3);
+
+    db.query(qr3, (err, result) => {
+        if (err) { console.log(err); }
+
+    })
+    console.log(qr4);
+
+    db.query(qr4, (err, result) => {
+        if (err) { console.log(err); }
+
+    })
+    console.log(qr5);
+
+    db.query(qr5, (err, result) => {
+        if (err) { console.log(err); }
+
+    })
+    console.log(qr6);
+
+    db.query(qr6, (err, result) => {
+        if (err) { console.log(err); }
+
+    })
+    console.log(qr7);
+
+    db.query(qr7, (err, result) => {
+        if (err) { console.log(err); }
+
+    })
+    console.log(qr8);
+
+    db.query(qr8, (err, result) => {
+        if (err) { console.log(err); }
+
+    })
+    console.log(qr9);
+
+    db.query(qr9, (err, result) => {
+        if (err) { console.log(err); }
+
+    })
+    console.log(qr10);
+
+    db.query(qr10, (err, result) => {
+        if (err) { console.log(err); }
+
+    })
+})
 ////EVALUACIONES///////////////////////////////////////////////////////////////
 
 app.post('/evaluacion/:id', (req, res, next) => {
@@ -1393,7 +1675,34 @@ app.get('/evaluacionEditar/:id', (req, res) => {
         }
     })
 });
+////////////////////////////////////////////////////////////////////////////////////////
+app.get('/evaluacionVista/:id/:id2', (req, res) => {
+    let idEstudiante = req.params.id;
+    let idCurso = req.params.id2;
 
+    console.log("est " + idEstudiante + "cur " + idCurso)
+
+    let qr = `SELECT * FROM evaluacion JOIN respuestas ON respuestas.idEvaluacion = evaluacion.idEvaluacion WHERE respuestas.idEstudiante=${idEstudiante} AND evaluacion.idCurso=${idCurso}`;
+
+    console.log(qr);
+
+    db.query(qr, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        if (result.length > 0) {
+            res.send({
+                message: 'obteniendo simples datos',
+                data: result
+            });
+        }
+        else {
+            res.send({
+                message: 'datos no encontrados'
+            });
+        }
+    })
+});
 ///////////////////////////////////////////////////////////////////////////////
 
 app.get('/inscripcion/:id', (req, res) => {
@@ -1421,6 +1730,17 @@ app.get('/inscripcion/:id', (req, res) => {
     })
 });
 
+app.delete('/inscripcion/:id', (req, res) => {
+    let qID = req.params.id;
+
+    let qr = `delete from inscripcion where idInscripcion= '${qID}'`;
+    db.query(qr, (err, result) => {
+        if (err) { console.log(err); }
+        res.send({
+            message: 'eliminado'
+        })
+    });
+})
 
 app.listen(3000, () => {
     console.log('servidor corriendooo');

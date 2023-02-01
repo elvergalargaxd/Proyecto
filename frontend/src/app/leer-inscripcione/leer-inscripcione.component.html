@@ -1,0 +1,56 @@
+<div class="container mt-2 p-3 ">
+  <h2>Editar Inscripciones</h2>
+  <button (click)="imprimir()">Impresion</button>
+  <div class="col-md-6 p-3">
+    Buscar Estudiante
+    <img
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAASNJREFUSEvVldENwjAMRN1NYBJgEmASYBLYBDYBJgE95ENRSJxC2w8iVVHVxO98cdzOJh7dxPEtAuzMbOnPzcwuZsZ8+EZUCUDQo5nNKoGAbB3YZOUAgp99F4pRywyMb2ufWbLqA8kBVw92cpUlhVi3d7vmrRRSgDaiGHXRIEsyAhSeSQrA940rJ4NoyMqmmBQge0ibg4wGZ8J61oU2/QoA/nAF4V1KP8rXPtWBlVgaFcOLnwK0qemrl/LXh4yvZMEcVYeKoel/ngHv6UVTWyAjBmC1D96b9pQACqRMSpUEmOC6bNyDalnXKkCtYZG0BjU8XSwVBSKqlg5p16mdVcgQAEHVXmTlRyZDAU3IGIAcwr/ifehjAQS55xU1JqDYHP8f8AQG20QZZP+AVAAAAABJRU5ErkJggg==" />
+    <input aria-label="Search" type="text" placeholder="" class="form-control " (keyup)="onKey($event)">
+  </div>
+  <div class="">
+    <div class="table100 ver1 ">
+      <div class="p-2 " style="background-color: rgba(0, 0, 0, 0.1)">
+        <table>
+          <thead>
+            <tr class="">
+              <th class="cell100 column1" style="">Nombre y apellido</th>
+              <th class="cell100 column1">Estado</th>
+              <th class="cell100 column1">Curso</th>
+              <th class="cell100 column1">Est.Curso</th>
+              <th class="cell100 column5" style="text-align:center">Editar</th>
+
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+      <div class="table100-body js-pscroll">
+        <table>
+          <tbody>
+            <tr class="" *ngFor='let us of readData'>
+
+              <td class="cell100 column1">{{us.nombre}}</td>
+              <td class="cell100 column3">{{us.apellido}}</td>
+              <td class="cell100 column2">{{us.estado}}</td>
+              <td class="cell100 column2">{{us.nombreCorto}}</td>
+              <td class="cell100 column2">{{us.estadoCurso}}</td>
+
+              <td>
+                             
+                  
+                <!-- [routerLink]="['/administrar/crearEstudiante',us.id]" -->
+                <button class="btn btn-link texto margenButton" (click)="deleteID(us.idInscripcion)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-trash-fill" viewBox="0 0 16 16">
+                    <path
+                      d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                  </svg></button>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

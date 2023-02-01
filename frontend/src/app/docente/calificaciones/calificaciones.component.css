@@ -1,0 +1,65 @@
+body {
+    margin-top: 20px;
+}
+
+.avatar {
+    width: 200px;
+    height: 200px;
+}
+
+.subtituloForm {
+    font-size: 30px;
+}
+
+.margenInput {
+    margin: 15px 0px;
+}
+
+.divInputsLabel {
+    width: 100px;
+}
+
+.divInputsInput {
+    width: 300px;
+}
+
+.formLinea {
+    display: flex;
+}
+
+.textoInput {
+    font-size: 13px;
+}
+
+.enlinea {
+    display: block;
+}
+
+.botonIzq {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.margen {
+    padding: 10px;
+    border-radius: 5px;
+    gap: 15px;
+    background: #f7f7f7;
+    margin: 5px;
+    padding-bottom: 10px;
+}
+
+textarea {
+    
+    width: 680px;
+    height: 60px;
+    line-height: 12px;
+    font-size: 13px;
+    resize: none;
+    overflow: hidden;
+    /* fix ie */
+}
+
+.formLinea{
+    display: flex;
+}

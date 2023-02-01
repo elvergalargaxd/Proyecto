@@ -1,50 +1,46 @@
-
-    
-    <h1>Cursos asignados</h1>
+       <h1>Cursos {{nombreCurso}}</h1>
     &nbsp;
-
         <body>
-  
-          
+              
             
-              <div class="wrap-table100">
-                <div class="table100 ver1 m-b-110">
-                  <div class="table100-head">
-                    <table>
-                      <thead>
-                        <tr class="row100 head"  >
-                          <th class="cell100 column0 " style="text-align:center">Nombre</th>
-                          <th class="cell100 column1" >Apellido</th>
-                          <th class="cell100 column3">Correo</th>
-                          <th class="cell100 column1">Telefono</th>
-                          <th class="cell100 column1">Curso</th>
-                          
-                          
-                        </tr>
-                      </thead>
-                    </table>
-                  </div>
+          <div class="table100 ver1 tableSize">
+            <div class="p-2 " style="background-color: rgba(0, 0, 0, 0.1)">
+              <table>
+                <thead>
+                  <tr class="">
+                    <th class="cell100 column0">Nombre</th>
+                    <th class="cell100 column2">Apellido</th>
+                    <th class="cell100 column2">Calificación </th>
+                    <th class="cell100 column2">Estado </th>
+                     <th class="cell100 column5" style="text-align:center">Editar</th>
         
-                  <div class="table100-body js-pscroll">
-                    <table>
-                      <tbody>
-                        <tr class="row100 body" *ngFor ='let us of readData'>
-                          <td class="cell100 column0 "style="text-align:center">{{us.estudiante}}</td>
-                          <td class="cell100 column1">{{us.apellido}}</td>
-                          <td class="cell100 column3">{{us.correo}}</td>
-                          <td class="cell100 column1">{{us.telefono}}</td>
-                          <td class="cell100 column0"style="text-align:center">{{us.nombre}}</td>
-                          
-                          
-                        </tr>
+                  </tr>
+                </thead>
+              </table>
+            </div>
         
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-               </div>
-            
-         
+            <div class="table100-body js-pscroll ">
+              <table>
+                <tbody>
+                  <tr class="" *ngFor='let us of readData'>
+                    <td class="cell100 column0">{{us.nombre}}</td>
+                    <td class="cell100 column2">{{us.apellido}}</td>
+                    <td class="cell100 column2">{{us.nota}}</td>
+                    <td class="cell100 column2">{{us.estadoCurso}}</td>
+        
+        
+                    <td class="cell100 column1"><button class=" btn btn-outline-secondary textoInput"
+                        [routerLink]="['/docente/calificaciones',us.idCurso,us.id]" data-toggle="modal" data-target="#exampleModalCenter">
+                        
+                         Calificar
+                        <i class='bx bx-plus-circle'></i></button>
+                      &nbsp;
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         
         
         <!--===============================================================================================-->	

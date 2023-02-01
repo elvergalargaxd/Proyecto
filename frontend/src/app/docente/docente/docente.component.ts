@@ -1,7 +1,7 @@
 import { Component, OnInit, } from '@angular/core';
 import { Router } from '@angular/router';
 import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
-import { CargarScriptsService } from 'src/app/cargar-scripts.service'; 
+import { CargarScriptsService } from 'src/app/cargar-scripts.service';  
 import { ApiserviceService } from 'src/app/apiservice.service';
 import  decode  from 'jwt-decode';
 

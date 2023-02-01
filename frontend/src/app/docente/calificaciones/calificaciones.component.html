@@ -1,0 +1,130 @@
+<p class="subtituloForm">Calificaciones</p>
+<p>realize las Calificaciones...</p>
+<form [formGroup]="evaluacionForm">
+    <div class="container" *ngIf="getparamid">
+        <fieldset>
+            <div class="margen">
+                <div class="formLinea" >
+                <label class=" control-label textoInput">{{pregunta1}}:</label>
+                <input type="number" class="form-control textoInput justify-content-end" autocomplete="off" name="respuesta1Id" min="0"
+                    max="10" maxlength="1" style="width: 70px; " pattern="[0-9]+" id="respuesta1Id" formControlName="calificacion1">
+                </div>
+                <label class=" control-label textoInput">{{respuesta1}}</label>
+                <input hidden type="text" class="form-control textoInput" autocomplete="off" name="respuesta1Id"
+                    id="respuesta1Id" size="100" formControlName="respuesta1Id">
+                
+            </div>
+            <div class="margen">
+                <div class="formLinea">
+                <label class=" control-label textoInput">{{pregunta2}}</label>
+                <input type="number" class="form-control textoInput" autocomplete="off" name="respuesta1Id" min="0"
+                max="10" maxlength="1" style="width: 70px;" pattern="[0-9]+" id="respuesta1Id" size="233" formControlName="calificacion2">
+            </div>
+                <label class=" control-label textoInput">{{respuesta2}}</label>
+                <input hidden type="text" class="form-control textoInput" autocomplete="off" name="nombreClase"
+                    id="nombreClase" formControlName="respuesta2Id">
+                
+                
+            </div>
+            <div class="margen">
+                <div class="formLinea">
+                <label class=" control-label textoInput">{{pregunta3}}</label>
+                <input type="number" class="form-control textoInput" autocomplete="off" name="respuesta1Id" min="0"
+                    max="10" id="respuesta1Id" style="width: 70px;" pattern="[0-9]+" size="233" formControlName="calificacion3">
+
+                </div>
+                <label class=" control-label textoInput">{{respuesta3}}</label>
+                <input type="hidden" class="form-control textoInput" autocomplete="off" name="nombreClase"
+                    id="nombreClase" placeholder="pregunta 3" formControlName="respuesta3Id">
+                
+                
+            </div>
+            <div class="margen">
+                <div class="formLinea">
+                <label class=" control-label textoInput">{{pregunta4}}</label>
+                <input type="number" class="form-control textoInput" autocomplete="off" name="respuesta1Id" min="0"
+                    max="10" id="respuesta1Id" style="width: 70px;" pattern="[0-9]+" size="233" formControlName="calificacion4">
+                </div>
+                <label class=" control-label textoInput">{{respuesta4}}</label>
+                <input type="hidden" class="form-control textoInput" autocomplete="off" name="nombreClase"
+                    id="nombreClase" placeholder="pregunta 4" formControlName="respuesta4Id">
+                
+                
+            </div>
+            <div class="margen">
+                <div class="formLinea">
+                <label class=" control-label textoInput">{{pregunta5}}</label>
+                <input type="number" class="form-control textoInput" autocomplete="off" name="respuesta1Id" min="0"
+                    max="10" id="respuesta1Id" style="width: 70px;" pattern="[0-9]+" size="233" formControlName="calificacion5">
+                </div>
+                <label class=" control-label textoInput">{{respuesta5}}</label>
+                <input type="hidden" class="form-control textoInput" autocomplete="off" name="nombreClase"
+                    id="nombreClase" placeholder="pregunta 5" formControlName="respuesta5Id">
+                
+                
+            </div>
+            <div class="margen">
+                <div class="formLinea">
+                <label class=" control-label textoInput">{{pregunta6}}</label>
+                <input type="number" class="form-control textoInput" autocomplete="off" name="respuesta1Id" min="0"
+                    max="10" id="respuesta1Id" style="width: 70px;" pattern="[0-9]+" size="233" formControlName="calificacion6">
+                </div>
+                <label class=" control-label textoInput">{{respuesta6}}</label>
+                <input type="hidden" class="form-control textoInput" autocomplete="off" name="nombreClase"
+                    id="nombreClase" placeholder="pregunta 6" formControlName="respuesta6Id">
+                
+                
+            </div>
+            <div class="margen">
+                <div class="formLinea">
+                <label class=" control-label textoInput">{{pregunta7}}</label>
+                <input type="number" class="form-control textoInput" autocomplete="off" name="respuesta1Id" min="0"
+                    max="10" id="respuesta1Id" style="width: 70px;" pattern="[0-9]+" size="233" formControlName="calificacion7">
+                </div>
+                <label class=" control-label textoInput">{{respuesta7}}</label>
+                <input type="hidden" class="form-control textoInput" autocomplete="off" name="nombreClase"
+                    id="nombreClase" placeholder="pregunta 7" formControlName="respuesta7Id">
+                
+                
+            </div>
+            <div class="margen">
+                <div class="formLinea">
+                <label class=" control-label textoInput">{{pregunta8}}</label>
+                <input type="number" class="form-control textoInput" autocomplete="off" name="respuesta1Id" min="0"
+                    max="10" id="respuesta1Id" style="width: 70px;" pattern="[0-9]+" size="233" formControlName="calificacion8">
+                </div>
+                <label class=" control-label textoInput">{{respuesta8}}</label>
+                <input type="hidden" class="form-control textoInput" autocomplete="off" name="nombreClase"
+                    id="nombreClase" placeholder="pregunta 8" formControlName="respuesta8Id">
+                
+                
+            </div>
+            <div class="margen">
+                <div class="formLinea">
+                <label class=" control-label textoInput">{{pregunta9}}</label>
+                <input type="number" class="form-control textoInput" autocomplete="off" name="respuesta1Id" min="0"
+                    max="10" id="respuesta1Id" style="width: 70px;" pattern="[0-9]+" size="233" formControlName="calificacion9">
+                </div>
+                <label class=" control-label textoInput">{{respuesta9}}</label>
+                <input type="hidden" class="form-control textoInput" autocomplete="off" name="nombreClase"
+                    id="nombreClase" placeholder="pregunta 9" formControlName="respuesta9Id">
+                
+                
+            </div>
+            <div class="margen">
+                <div class="formLinea">
+                <label class=" control-label textoInput">{{pregunta10}}</label>
+                <input type="number" class="form-control textoInput" autocomplete="off" name="respuesta1Id" min="0"
+                    max="10" id="respuesta1Id" style="width: 70px;" pattern="[0-9]+"  size="233" formControlName="calificacion10">
+                </div>
+                <label class=" control-label textoInput">{{respuesta10}}</label>
+                <input type="hidden" class="form-control textoInput" autocomplete="off" name="nombreClase"
+                    id="nombreClase" placeholder="preguntasdfsdf 10" formControlName="respuesta10Id">
+                
+                
+            </div>
+
+            <button class="btn btn-outline-primary" type="submit" (click)="calificar()">Enviar Calificacion</button>
+        </fieldset>
+    </div>
+</form>

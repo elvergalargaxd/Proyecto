@@ -1,4 +1,4 @@
-
+<!-- 
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 <body>
   <div class="sidebar close">
@@ -96,7 +96,7 @@
       <li>
     <div class="profile-details">
       <div class="profile-content">
-        <!--<img src="image/profile.jpg" alt="profileImg">-->
+       
       </div>
       <div class="name-job">
         <div class="profile_name">Administrador</div>
@@ -113,5 +113,53 @@
       <span class="text">Administrador</span>
     </div>
     <router-outlet></router-outlet>
-  </section>
-</body>
+  </section> -->
+
+  <div class="row ">
+    <div class="h5">Dashboards</div>
+    
+    <div class="col-9 p-3"> 
+      <p>Cantidad de inscritos </p>
+      <canvas id="piechart"> </canvas>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Curso</th>
+            <th scope="col">Cantidad de inscritos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor ='let us of readData'>
+            <th>{{us.nombreCorto}}</th>
+            <td>{{us.cantidad}}</td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+    <div class="h5">Dashboards</div>
+
+    <div class=" col-9 p-3"> 
+      <p>Cantidad de aprobados </p>
+      <canvas id="colum"> </canvas>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Curso</th>
+            <th scope="col">Cantidad de inscritos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor ='let us of readData'>
+            <th>{{us.nombreCorto}}</th>
+            <td>{{us.cantidad}}</td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+    
+    
+  </div>
+  
+<!-- </body> -->

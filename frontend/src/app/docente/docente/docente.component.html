@@ -54,8 +54,9 @@
               </a>
               <i class='bx bxs-chevron-down arrow' ></i>
             </div>
-            <ul class="sub-menu">
-              <li><a routerLink="crearCurso">Crear</a></li>
+            <ul class="sub-menu" *ngFor='let us of readData'>
+              
+              <li><a href="/docente/estudiante/{{us.idCurso}}">{{us.nombreCorto}}</a></li>
             </ul>
           </li>
           <li>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { ApiserviceService } from '../apiservice.service';
+import { ApiserviceService } from '../apiservice.service'; 
 import Swal from 'sweetalert2';
 
 
@@ -49,7 +49,7 @@ export class LeerEstudianteComponent implements OnInit {
     })
     }
     else{
-      
+      this.getAllData();
     }
   }
   onKey2(event:any){

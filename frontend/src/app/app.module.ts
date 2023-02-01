@@ -35,7 +35,11 @@ import { CategoriasComponent } from './categorias/categorias.component';
 import { ReporteComponent } from './reporte/reporte.component';
 import { CursoComponent } from './estudiante/curso/curso.component';
 import { EvaluacionComponent } from './estudiante/evaluacion/evaluacion.component';
-
+import { CalificacionesComponent } from './docente/calificaciones/calificaciones.component';
+import { NgwWowModule } from 'ngx-wow';
+import { CursosInnovatComponent } from './cursos-innovat/cursos-innovat.component';
+import { CursoInovateComponent } from './curso-inovate/curso-inovate.component';
+import { LeerInscripcioneComponent } from './leer-inscripcione/leer-inscripcione.component';
 
 
 
@@ -68,14 +72,19 @@ import { EvaluacionComponent } from './estudiante/evaluacion/evaluacion.componen
     CategoriasComponent,
     ReporteComponent,
     CursoComponent,
-    EvaluacionComponent
+    EvaluacionComponent,
+    CalificacionesComponent,
+    CursosInnovatComponent,
+    CursoInovateComponent,
+    LeerInscripcioneComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgwWowModule
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

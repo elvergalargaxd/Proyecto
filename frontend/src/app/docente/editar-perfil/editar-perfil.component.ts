@@ -17,6 +17,11 @@ export class EditarPerfilComponent implements OnInit {
   data:any;
   errormsg:any;
   successmsg:any;
+  imgUrl = 'assets/noimage.png';
+  image='';
+  desact = '1';
+  prev ='';
+  codigo:any;
 
   ngOnInit(): void {
         const token =localStorage.getItem('token') as string;
@@ -41,6 +46,7 @@ export class EditarPerfilComponent implements OnInit {
             pais:res.data[0].pais,
             ciudad:res.data[0].ciudad,
       });
+      this.imgUrl="http://localhost:4200/assets/"+res.data[0].imagenes;
     });
   }
 
@@ -57,6 +63,28 @@ export class EditarPerfilComponent implements OnInit {
       'pais':new FormControl('',Validators.required),
     
 });
+selectImage(event: any){
+  if(event.target.files.length>0){
+    const file=event.target.files[0];
+    const reader=new FileReader();
+    
+
+    reader.readAsDataURL(file);
+    reader.onload=(event:any)=>{
+      this.imgUrl=event.target.result;
+    }
+    if(this.image!==null){
+      this.desact='0';
+    this.image=file;
+    this.prev=this.image;
+    console.log(this.image);
+    }
+    else{
+      this.image=file;
+    }
+  }
+  
+}
 userUpdate()
   {
       
@@ -97,5 +125,33 @@ userUpdate()
         this.errormsg='todos los datos son requeridos';
       }
 
+  }
+
+  onSubmit() {
+    
+    let formData = new FormData();
+
+    const userName=formData.get('nombreLargo');
+    console.log(userName+'gaaaaaaaaaa');
+    formData.append('file', this.image);
+    //this.http.post<any>('http://localhost:3000/user', formData).subscribe();
+
+    this.service.updatePhoto(formData, this.data).subscribe(
+      (res) => console.log(res, Swal.fire({
+        icon: 'success',
+        title: 'Imagen cargada!!',
+        text: 'La imagen se subio correctamente!'
+      }).then((result) => {
+        if (result) {
+          location.reload();
+        }
+      })
+      ),
+      (err) => Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Parece que no subio nada!!'
+      })
+    );
   }
 }

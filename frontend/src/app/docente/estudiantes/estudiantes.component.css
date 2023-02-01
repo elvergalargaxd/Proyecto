@@ -18,6 +18,7 @@
   }
   .column0 {
     width: 5%;
+    padding-left: 40px;
   }
   .column1 {
     width: 10%;
@@ -37,7 +38,7 @@
   }
   
   .column5 {
-    width: 35%;
+    width: 17%;
   }
   
   .table100-head th {
@@ -46,15 +47,15 @@
   }
   
   .table100-body td {
-    padding-top: 16px;
-    padding-bottom: 16px;
-  }
+    padding-top: 8px;
+    padding-bottom: 8px;
+  } 
   
   /*==================================================================
   [ Fix header ]*/
   .table100 {
     position: relative;
-    padding-top: 60px;
+    padding-top: 5px;
   }
   
   .table100-head {
@@ -63,9 +64,11 @@
     top: 0;
     left: 0;
   }
-  
+  .tableSize{
+    max-width: 680px;
+  }
   .table100-body {
-    max-height: 585px;
+    max-height: 500px;
     overflow: auto;
   }
   
@@ -75,22 +78,21 @@
   
   .table100.ver1 th {
     
-    font-size: 18px;
-    color: #fff;
+    font-size: 15px;
+    color: rgba(52, 51, 51, 0.822);
     line-height: 1.4;
   
-    background-color: #1172ff;
   }
   
   .table100.ver1 td {
     
-    font-size: 15px;
+    font-size: 14px;
    
     line-height: 1.4;
   }
   
   .table100.ver1 .table100-body tr:nth-child(even) {
-    background-color: #f8f6ff;
+    background-color: #f8f9fa;
   }
   
   /*---------------------------------------------*/
@@ -116,4 +118,39 @@
   .table100.ver1 .ps__rail-y .ps__thumb-y::before {
     background-color: #cccccc;
   }
-  
+  .texto{
+    font-size: 13px;
+  }
+  .margenButton{
+    padding-top: 0.2rem; 
+    padding-right: 0.2rem; 
+    padding-left: 0.2rem;
+  }
+.subtitulo2{
+    font-size: 25px;
+}
+.subtituloForm{
+    font-size: 30px;
+}
+.margenInput{
+    margin: 15px 0px;
+}
+.divInputsLabel{
+    width: 150px;
+}
+.divInputsInput{
+    width: 500px;
+}
+.formLinea{
+    display: flex;
+}
+.textoInput{
+    font-size: 14px;
+}
+.enlinea{
+    display: block;
+}
+.botonIzq{
+    margin-left: auto;
+      margin-right: auto;
+}

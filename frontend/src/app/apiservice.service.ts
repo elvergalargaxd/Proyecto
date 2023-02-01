@@ -21,7 +21,8 @@ export class ApiserviceService {
   private URL = 'http://localhost:3000';
   apiUrl = 'http://localhost:3000/user';
   apiUrlImagen = 'http://localhost:3000/userImagen';
-  apiUrlImagenCurso = 'http://localhost:3000/userImagenCurso';
+  apiUrlImagenClase = 'http://localhost:3000/ImagenClase';
+  apiUrlImagenCurso = 'http://localhost:3000/ImagenCurso';
   apiUrlEstado = 'http://localhost:3000/userEstado';
   apiUrlEstadoAlta = 'http://localhost:3000/userEstadoAlta';
   apiUrlCursoEstado = 'http://localhost:3000/cursoEstado';
@@ -32,14 +33,32 @@ export class ApiserviceService {
   apiUrlDocente = 'http://localhost:3000/docente';
   apiUrlCategoria = 'http://localhost:3000/categoria';
   apiUrlCurso = 'http://localhost:3000/curso';
+  apiUrlCursoCategoria = 'http://localhost:3000/cursoCategoria';
   apiUrlInscripcion = 'http://localhost:3000/inscripcion';
+  apiUrlInscripcionDocente = 'http://localhost:3000/inscripcionDocente';
+  apiUrlInscripcionReporte = 'http://localhost:3000/inscripcionReport';
+  apiUrlInscripcionImprimir = 'http://localhost:3000/inscripcionImprimir';
   apiUrlClase = 'http://localhost:3000/clase';
   apiUrlEvaluacion = 'http://localhost:3000/evaluacion';
   apiUrlCursosEstudiante = 'http://localhost:3000/estudiante/cursos';
   apibuscarClase = 'http://localhost:3000/buscarClase';
   apiUrlRespuesta = 'http://localhost:3000/respuesta';
+  apiUrlEvaluacionVista = 'http://localhost:3000/evaluacionVista';
+  
+  vistaEvaluacion(id: any,id2: any): Observable<any> {
+    let ids = id;
+    let ids2 = id2;
+    return this._http.get(`${this.apiUrlEvaluacionVista}/${ids}/${ids2}`);
+  }
 
-
+  vistaInscripciones(id: any): Observable<any> {
+    let ids = id;
+    return this._http.get(`${this.apiUrlInscripcionDocente}/${ids}`);
+  }
+  InscripcionesImprimir(id: any): Observable<any> {
+    let ids = id;
+    return this._http.get(`${this.apiUrlInscripcionImprimir}/${ids}`);
+  }
   getBuscarClase(id: any): Observable<any> {
     let ids = id;
     return this._http.get(`${this.apibuscarClase}/${ids}`);
@@ -80,6 +99,11 @@ export class ApiserviceService {
     console.log(data.value);
     let ids = id;
     return this._http.post(`${this.apiUrlRespuesta}/${ids}`, data);
+  }
+  updateDataRespuesta(data: any,id:any,id2:any): Observable<any> {
+    let idEst = id;
+    let idCur = id2;
+    return this._http.put(`${this.apiUrlRespuesta}/${idEst}/${idCur}`, data);
   }
   getDataRespuestaEstudiante(id: any, id2: any): Observable<any> {
     let ids = id;
@@ -166,6 +190,10 @@ export class ApiserviceService {
   updatePhoto(data: any, id: any): Observable<any> {
     let ids = id;
     return this._http.put(`${this.apiUrlImagen}/${ids}`, data);
+  }
+  updatePhotoClase(data: any, id: any): Observable<any> {
+    let ids = id;
+    return this._http.put(`${this.apiUrlImagenClase}/${ids}`, data);
   }
   updatePhotoCurso(data: any, id: any): Observable<any> {
     let ids = id;
@@ -329,10 +357,22 @@ export class ApiserviceService {
     return this._http.get(`${this.apiUrlCurso}/${ids}`);
 
   }
+  getSingleDataCursoCategoria(id: any): Observable<any> {
+    let ids = id;
+    return this._http.get(`${this.apiUrlCursoCategoria}/${ids}`);
+
+  }
   // SERVICIOS DE CURSO//////////////////////////////////////////////
   createInscripcion(data: any): Observable<any> {
     console.log(data, 'crearpi');
     return this._http.post(`${this.apiUrlInscripcion}`, data);
   }
+  inscripcionReporte(): Observable<any> {
+    return this._http.get(`${this.apiUrlInscripcionReporte}`);
 
+  }
+  inscripcionDelete(id: any): Observable<any> {
+    let ids = id;
+    return this._http.delete(`${this.apiUrlInscripcion}/${ids}`);
+  }
 }

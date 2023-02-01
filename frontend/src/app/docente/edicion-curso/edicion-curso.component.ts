@@ -21,7 +21,7 @@ export class EdicionCursoComponent implements OnInit {
   successmsg: any;
   readDataCurso: any;
   readDataEvaluacion:any;
-  getparamid: any;
+  getparamid: any; 
   getparamidEvaluacion: any;
   paramidEditarEvaluacion: any;
   getparamidclase: any;
@@ -200,7 +200,7 @@ export class EdicionCursoComponent implements OnInit {
     this.desact == "0"
     //this.http.post<any>('http://localhost:3000/user', formData).subscribe();
 
-    this.service.updatePhotoCurso(formData, this.posicionId).subscribe(
+    this.service.updatePhotoClase(formData, this.posicionId).subscribe(
       (res) => console.log(res, Swal.fire({
 
         icon: 'success',
@@ -285,7 +285,7 @@ export class EdicionCursoComponent implements OnInit {
     this.service.createEvaluacion(this.evaluacionForm.value,this.getparamid).subscribe((res=>{
       console.log(res, 'res++=+');
     }))
-  }
+  } 
   getAllDataEvaluacion(){
     this.service.getSingleDataEvaluacion(this.getparamid).subscribe((res)=>{
       console.log(res, 'res==>');

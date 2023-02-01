@@ -6,12 +6,17 @@
       <!-- left column -->
       <div class="col-md-3">
         <div class="text-center">
-          <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="avatar img-circle img-thumbnail" alt="avatar">
-          <h6>Foto de perfil...</h6>
-          
-          <input type="file" class="form-control">
+          <img [src]="imgUrl" width="30" height="200" class="card-img-top" alt="avatar">
+          <div class="col ">
+            <input type="file" class="form-control" accept="image/*" (change)="selectImage($event)">
+            <button class="btn btn-outline-primary justify-content: center  ;" type="submit" (click)="onSubmit()"
+              [disabled]="desact =='1'">Subir Imagen</button>
+          </div>
+          &nbsp;
+
         </div>
       </div>
+       
       
       <!-- edit form column -->
       <div class="col-md-9 personal-info">

@@ -1,6 +1,6 @@
 &nbsp;
 <div class="container bootstrap snippets bootdey">
-  <h2 class="text-primary ">Editar Curso</h2>
+  <h2 class="text-primary ">Crear Curso</h2>
   <hr>
   <div class="row ">
     <!-- left column -->
@@ -12,6 +12,8 @@
       <h4>Informacion</h4>
 
       <form [formGroup]="userForm" id="formCurso">
+        <input hidden type="text" class="form-control" name="codigo" id="codigo" placeholder="nombre"
+                    formControlName="codigo">
         <div class=" formLinea margenInput">
           <label class="textoInput  divInputsLabel">Nombre completo del curso:</label>
           <input type="text" class="form-control divInputsInput textoInput" formControlName="nombreLargo"
@@ -28,7 +30,7 @@
           <input type="number" class="form-control divInputsInput textoInput" formControlName="precio" placeholder="">
         </div>
 
-        <div class=" formLinea margenInput">
+        <div hidden class=" formLinea margenInput">
           <label class="textoInput  divInputsLabel">Fecha de creacion:</label>
           <fieldset disabled="disabled">
             <input type="text" class="form-control divInputsInput textoInput" formControlName="fecha" placeholder="">
@@ -42,7 +44,7 @@
             <select class="custom-select col-12 textoInput" id="id" formControlName="categoria">
               <option value="" selected disabled hidden>Seleccione Categoria</option>
               <option *ngFor='let us of readDataCategoria' [ngValue]="us.idCategoria">{{us.nombre}}</option>
-            </select>
+            </select> 
           </div>
         </div>
 
@@ -58,9 +60,9 @@
           
         </div>
 
+ 
 
-
-        <div class="row " *ngIf="getparamid">
+        <div class="row ">
           <p class=" col-md-4"><strong> Subir imagen del curso</strong></p>
           <div class="text-center col-3">
             <img [src]="imgUrl" width="30" height="200" class="card-img-top" alt="avatar">

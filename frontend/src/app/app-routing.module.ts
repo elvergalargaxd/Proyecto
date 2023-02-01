@@ -26,6 +26,11 @@ import { CategoriasComponent } from './categorias/categorias.component';
 import { ReporteComponent } from './reporte/reporte.component';
 import { CursoComponent } from './estudiante/curso/curso.component';
 import { EvaluacionComponent } from './estudiante/evaluacion/evaluacion.component';
+import { CalificacionesComponent } from './docente/calificaciones/calificaciones.component';
+import { CursosInnovatComponent } from './cursos-innovat/cursos-innovat.component';
+import { CursoInovateComponent } from './curso-inovate/curso-inovate.component';
+import { LeerInscripcioneComponent } from './leer-inscripcione/leer-inscripcione.component';
+
 
 const routes: Routes = [
 
@@ -33,6 +38,8 @@ const routes: Routes = [
   {path:'reporte',component:ReporteComponent},
   {path:'', component:HomeComponent},
   {path:'login', component:LoginComponent},
+  {path:'cursosInnovat', component:CursosInnovatComponent},
+  {path:'cursoInnovat/:id', component:CursoInovateComponent},
   {path:'register', component:RegisterComponent},
   {path:'home', component:HomeComponent},
   {path:'docente', component:DocenteComponent,canActivate:[RoleGuard], data: { expectedRole: 'docente' },
@@ -41,6 +48,8 @@ const routes: Routes = [
       {path:'cursos', component:EditarCursosComponent},
       {path:'edicionCurso/:id', component:EdicionCursoComponent},
       {path:'estudiante/:id', component:EstudiantesComponent},
+      {path:'calificaciones', component:CalificacionesComponent},
+      {path:'calificaciones/:id/:id2', component:CalificacionesComponent},
       {path:'estudiante', component:EstudiantesComponent}
     ] 
   }, 
@@ -72,7 +81,8 @@ const routes: Routes = [
       {path:'asignarEstudianteCurso/:id',component:AsignarEstudianteCursoComponent},
       {path:'asignarEstudianteCurso',component:AsignarEstudianteCursoComponent},
       {path:'categorias',component:CategoriasComponent},
-      {path:'reporte',component:ReporteComponent}
+      {path:'reporte',component:ReporteComponent},
+      {path:'leerInscripciones',component:LeerInscripcioneComponent },
     ]
 },
   

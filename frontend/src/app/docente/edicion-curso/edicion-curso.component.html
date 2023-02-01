@@ -2,8 +2,7 @@
 <div class="container bootstrap snippets bootdey">
   
   <p class="subtituloForm">Curso {{nombreCurso}}</p>
-  <p class="subtituloForm2">Clases</p>
-  <input type="text" [formControl]="myInput">
+  
   <div> {{myInput.value}}</div>
   <hr>
   <div class="row ">
@@ -13,7 +12,56 @@
       <div class="container2">
   
         <section>
-          
+          <details>
+            <summary class="bg-danger">Agregar Clase</summary>
+            <form [formGroup]="claseForm">
+              <div class="row">
+                <div class="col">
+                  <label class="col-lg-3 control-label">Nombre del capitulo:</label>
+                  <input type="text" class="form-control" autocomplete="off" name="nombreClase" id="nombreClase"
+                    formControlName="nombreClase" placeholder="nombre">
+                  <input type="hidden" class="form-control" name="idClase" id="idClase" placeholder="nombre"
+                    formControlName="idClase">
+                    <input type="hidden" class="form-control" name="posicion" id="posicion" placeholder="nombre"
+                    formControlName="posicion">
+                  &nbsp;
+                  &nbsp;&nbsp;
+                  <div class="">
+                    <label class="col-lg-3 control-label">Descripcion:</label>
+                    <textarea type="text" rows="4" cols="40" name="descripcionClase" id="descripcionClase
+                    " formControlName="descripcionClase" class="form-control" placeholder="Descripcion"></textarea>
+                  </div>
+                  <div class="row">
+                    <div class="p-3 ">
+                      <div class="text-center container border border-2 rounded-3 p-3 border-black" [hidden]="!edited">
+
+                        <h6>Seleccione video...{{image}}</h6>
+
+                        <input type="file" class="form-control" accept="" (change)="selectImage($event)">
+                        <hr>
+                        <button class="btn btn-outline-primary" type="submit" (click)="onSubmit()"
+                          [disabled]="desact =='1'">Subir
+                          Imagen</button>
+                      </div>
+
+                    </div>
+                    <div class="col-4 loading" *ngIf="loading">
+                      CARGANDO IMAGEN..!!!
+                      <img src="../../../assets/img/loading.gif" alt="" width="50" height="50">
+
+                    </div>
+                  </div>
+
+                </div>
+
+
+              </div>
+              <div class="col-lg-4 mt-2" *ngIf="getparamid">
+                <button class="btn  ntm-sm btn-success" (click)="crearClase()">Agregar Clase</button>
+              </div>
+            </form>
+          </details>
+          <p class="subtituloForm">Temas</p>
           <details *ngFor='let us of readData'>
             <summary><a>{{us.nombre}}</a></summary>
             
@@ -27,7 +75,7 @@
                     <label class="col-lg-3 control-label">Nombre:</label>
                     <input type="text" class="form-control" name="nombreVideo" id="nombreVideo"
                       formControlName="nombreClaseM" placeholder="{{us.nombre}}">
-                      <input type="text" class="form-control" name="idClase" id="idClase" 
+                      <input type="hidden" class="form-control" name="idClase" id="idClase" 
                     formControlName="posicionM">
                     <input type="text" class="form-control" name="idCurso" placeholder="{{us.idClase}}" hidden
                       formControlName="idClaseM">
@@ -83,55 +131,7 @@
             </form>
 
           </details>
-          <details>
-            <summary class="bg-danger">Agregar Clase</summary>
-            <form [formGroup]="claseForm">
-              <div class="row">
-                <div class="col">
-                  <label class="col-lg-3 control-label">Nombre del capitulo:</label>
-                  <input type="text" class="form-control" autocomplete="off" name="nombreClase" id="nombreClase"
-                    formControlName="nombreClase" placeholder="nombre">
-                  <input type="hidden" class="form-control" name="idClase" id="idClase" placeholder="nombre"
-                    formControlName="idClase">
-                    <input type="text" class="form-control" name="posicion" id="posicion" placeholder="nombre"
-                    formControlName="posicion">
-                  &nbsp;
-                  &nbsp;&nbsp;
-                  <div class="">
-                    <label class="col-lg-3 control-label">Descripcion:</label>
-                    <textarea type="text" rows="4" cols="40" name="descripcionClase" id="descripcionClase
-                    " formControlName="descripcionClase" class="form-control" placeholder="Descripcion"></textarea>
-                  </div>
-                  <div class="row">
-                    <div class="p-3 ">
-                      <div class="text-center container border border-2 rounded-3 p-3 border-black" [hidden]="!edited">
-
-                        <h6>Seleccione video...{{image}}</h6>
-
-                        <input type="file" class="form-control" accept="" (change)="selectImage($event)">
-                        <hr>
-                        <button class="btn btn-outline-primary" type="submit" (click)="onSubmit()"
-                          [disabled]="desact =='1'">Subir
-                          Imagen</button>
-                      </div>
-
-                    </div>
-                    <div class="col-4 loading" *ngIf="loading">
-                      CARGANDO IMAGEN..!!!
-                      <img src="../../../assets/img/loading.gif" alt="" width="50" height="50">
-
-                    </div>
-                  </div>
-
-                </div>
-
-
-              </div>
-              <div class="col-lg-4 mt-2" *ngIf="getparamid">
-                <button class="btn  ntm-sm btn-success" (click)="crearClase()">Agregar Clase</button>
-              </div>
-            </form>
-          </details>
+          <p class="subtituloForm">Evaluacion</p>
           <details *ngIf="getparamidEvaluacion">
             <summary>Editar Evaluacion</summary>
             
@@ -227,6 +227,7 @@
 
             </form>
           </details>
+          
           <details *ngIf="!getparamidEvaluacion">
             <summary>Crear Evaluacion</summary>
             <form [formGroup]="evaluacionForm ">

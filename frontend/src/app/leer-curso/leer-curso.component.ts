@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 })
 export class LeerCursoComponent implements OnInit {
   estado: any;
-  constructor(private servise: ApiserviceService) {
+  constructor(private servise: ApiserviceService) { 
 
 
 

@@ -30,6 +30,9 @@ export class CrearCursoComponent implements OnInit {
   image='';
   desact = '1';
   edited=true;
+  codigo:any;
+
+
   ngOnInit(): void {
     this.fecha = new Date().getDay();
     this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
@@ -50,11 +53,13 @@ export class CrearCursoComponent implements OnInit {
           descripcion: res.data[0].descripcion,
           categoria: res.data[0].categoria,
           precio: res.data[0].precio,
+          codigo: res.data[0].codigo,
           fecha: this.todayWithPipe,
 
           idDocente: res.data[0].idDocente
 
         });
+        this.codigo=res.data[0].codigo;
         const str = res.data[0].imagen;
         
         
@@ -81,7 +86,7 @@ export class CrearCursoComponent implements OnInit {
     'precio': new FormControl('', Validators.required),
     'idDocente': new FormControl('', Validators.required),
     'fecha': new FormControl(''),
-    
+    'codigo': new FormControl(new Date().getTime())
 
   });
   selectImage(event: any){
@@ -107,18 +112,16 @@ export class CrearCursoComponent implements OnInit {
     
   }
 
-  onSubmit() {
+  onSubmit() { 
     
     let formData = new FormData();
 
     const userName=formData.get('nombreLargo');
     console.log(userName+'gaaaaaaaaaa');
     formData.append('file', this.image);
-    
-
     //this.http.post<any>('http://localhost:3000/user', formData).subscribe();
 
-    this.service.updatePhotoCurso(formData, this.getparamid).subscribe(
+    this.service.updatePhotoCurso(formData, this.codigo).subscribe(
       (res) => console.log(res, Swal.fire({
         icon: 'success',
         title: 'Imagen cargada!!',
@@ -165,8 +168,8 @@ export class CrearCursoComponent implements OnInit {
        if (result.isConfirmed) {
   
         this.service.createDataCurso(this.userForm.value).subscribe((res)=>{
-        
-          
+          this.codigo=this.userForm.get('codigo')?.value;
+          this.onSubmit();
         // console.log(res, location.reload());
         Swal.fire(
           'Curso creado!',
