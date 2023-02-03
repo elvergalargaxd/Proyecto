@@ -67,7 +67,7 @@
           <div class="text-center col-3">
             <img [src]="imgUrl" width="30" height="200" class="card-img-top" alt="avatar">
             <div class="col ">
-              <input type="file" class="form-control" accept="image/*" (change)="selectImage($event)">
+              <input type="file" class="form-control" accept="image/*" (change)="selectImage($event)" accept="image/*">
               <button class="btn btn-outline-primary justify-content: center  ;" type="submit" (click)="onSubmit()"
                 [disabled]="desact =='1'">Subir Imagen</button>
             </div>

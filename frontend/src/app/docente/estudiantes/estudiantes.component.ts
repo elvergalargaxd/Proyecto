@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiserviceService } from '../../apiservice.service';
 import { ActivatedRoute } from '@angular/router';
 import decode from 'jwt-decode';
+import { ImpresionService } from 'src/app/impresion.service';
 
 @Component({
   selector: 'app-estudiantes',
@@ -11,8 +12,7 @@ import decode from 'jwt-decode';
 export class EstudiantesComponent implements OnInit {
 
 
-  constructor(private servise: ApiserviceService, private router: ActivatedRoute) {
-
+  constructor(private servise: ApiserviceService, private router: ActivatedRoute,private srvImpresion: ImpresionService,) {
 
 
   }
@@ -53,4 +53,25 @@ export class EstudiantesComponent implements OnInit {
       this.readData = res.data;
     })
   }
+  imprimir(){
+    
+    this.servise.vistaInscripciones(this.getparamid).subscribe(res => {
+      console.log(res.data, 'res==>');
+
+      const encabezado = [
+        { header: 'Nombre', dataKey: 'nombre' },
+        { header: 'Apellidos', dataKey: 'apellido' },
+        { header: 'Nota', dataKey: 'nota' },
+        { header: 'Curso', dataKey: 'nombreCorto' },
+        { header: 'Estado del curso', dataKey: 'estadoCurso' },
+       
+      ];
+      const cuerpo = res.data
+      this.nombreCurso = res.data[0].nombreCorto;
+
+      this.readData = res;
+      this.srvImpresion.imprimir(encabezado, cuerpo, this.nombreCurso+" lista de estudiantes" , true);
+    })
+  }
 }
+

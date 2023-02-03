@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
 import Swal from 'sweetalert2';
+import { ImpresionService } from '../impresion.service';
 
 @Component({
   selector: 'app-leer-docente',
@@ -10,7 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class LeerDocenteComponent implements OnInit {
 
-  constructor(private servise:ApiserviceService,private router:Router) { 
+  constructor(private servise:ApiserviceService,private router:Router,private srvImpresion: ImpresionService) { 
 
   
 
@@ -183,6 +184,26 @@ export class LeerDocenteComponent implements OnInit {
     this.servise.getAllDataDocente().subscribe((res)=>{
       console.log(res,'res==>');
       this.readData =res.data;
+    })
+  }
+  imprimir(){
+    
+    this.servise.getAllDataDocente().subscribe(res => {
+      console.log(res.data, 'res==>');
+
+      const encabezado = [
+        { header: 'Nombre', dataKey: 'nombre' },
+        { header: 'Apellidos', dataKey: 'apellido' },
+        { header: 'Correo', dataKey: 'correo' },
+        { header: 'Telefono', dataKey: 'telefono' },
+        { header: 'Domicilio', dataKey: 'domicilio' },
+        { header: 'Ciudad', dataKey: 'ciudad' },
+        { header: 'Estado', dataKey: 'estado' },
+      ];
+      const cuerpo = res.data
+
+      this.readData = res;
+      this.srvImpresion.imprimir(encabezado, cuerpo, "Lista de estudiantes", true);
     })
   }
 }

@@ -1,12 +1,17 @@
 <div class="container mt-2 p-3 ">
   <h2>Editar Inscripciones</h2>
-  <button (click)="imprimir()">Impresion</button>
+  
   <div class="col-md-6 p-3">
     Buscar Estudiante
     <img
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAASNJREFUSEvVldENwjAMRN1NYBJgEmASYBLYBDYBJgE95ENRSJxC2w8iVVHVxO98cdzOJh7dxPEtAuzMbOnPzcwuZsZ8+EZUCUDQo5nNKoGAbB3YZOUAgp99F4pRywyMb2ufWbLqA8kBVw92cpUlhVi3d7vmrRRSgDaiGHXRIEsyAhSeSQrA940rJ4NoyMqmmBQge0ibg4wGZ8J61oU2/QoA/nAF4V1KP8rXPtWBlVgaFcOLnwK0qemrl/LXh4yvZMEcVYeKoel/ngHv6UVTWyAjBmC1D96b9pQACqRMSpUEmOC6bNyDalnXKkCtYZG0BjU8XSwVBSKqlg5p16mdVcgQAEHVXmTlRyZDAU3IGIAcwr/ifehjAQS55xU1JqDYHP8f8AQG20QZZP+AVAAAAABJRU5ErkJggg==" />
     <input aria-label="Search" type="text" placeholder="" class="form-control " (keyup)="onKey($event)">
+  
   </div>
+  <div class="col-md-4">
+    
+  </div>
+  
   <div class="">
     <div class="table100 ver1 ">
       <div class="p-2 " style="background-color: rgba(0, 0, 0, 0.1)">
@@ -39,7 +44,7 @@
                              
                   
                 <!-- [routerLink]="['/administrar/crearEstudiante',us.id]" -->
-                <button class="btn btn-link texto margenButton" (click)="deleteID(us.idInscripcion)">
+                <button class="btn btn-link texto margenButton" (click)="deleteID(us.idInscripcion, us.nombre)">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-trash-fill" viewBox="0 0 16 16">
                     <path
@@ -53,4 +58,10 @@
       </div>
     </div>
   </div>
+  <div class="p-3 float-right">
+  <button  class="btn btn-outline-success" (click)="imprimir()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
+    <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/>
+    <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+  </svg> Imprimir</button>
+</div>
 </div>

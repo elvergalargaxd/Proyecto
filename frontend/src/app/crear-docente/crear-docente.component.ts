@@ -63,9 +63,9 @@ export class CrearDocenteComponent implements OnInit {
         const str = res.data[0].imagenes;
         const newStr = str.slice(19);
         console.log(newStr) ;
-        this.imgUrl=str;
+        this.imgUrl="http://localhost:4200/assets/"+str;
         
-        this.prev=newStr;
+        this.prev=newStr; 
         console.log(this.imgUrl);
       });
 

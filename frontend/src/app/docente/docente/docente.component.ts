@@ -13,8 +13,8 @@ import  decode  from 'jwt-decode';
 export class DocenteComponent implements OnInit {
 
   constructor(private service:Router, private _CargarScripts:CargarScriptsService, private serviceBdd:ApiserviceService) {
-    _CargarScripts.Carga(["menu"]);
-   }
+    _CargarScripts.Carga(["menu"]); 
+   } 
    getparamid:any;
    imgUrl='assets/noimage.png';
    data:any;

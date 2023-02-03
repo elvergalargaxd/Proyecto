@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiserviceService } from '../apiservice.service';
 import Swal from 'sweetalert2';
+import { ImpresionService } from '../impresion.service';
 
 @Component({
   selector: 'app-leer-curso',
@@ -9,7 +10,7 @@ import Swal from 'sweetalert2';
 })
 export class LeerCursoComponent implements OnInit {
   estado: any;
-  constructor(private servise: ApiserviceService) { 
+  constructor(private servise: ApiserviceService,private srvImpresion: ImpresionService) { 
 
 
 
@@ -109,6 +110,23 @@ export class LeerCursoComponent implements OnInit {
     this.servise.getAllDataCurso().subscribe((res) => {
       console.log(res, 'res==>');
       this.readData = res.data;
+    })
+  }
+  imprimir(){
+    
+    this.servise.getAllDataCurso().subscribe(res => {
+      console.log(res.data, 'res==>');
+
+      const encabezado = [
+        { header: 'Nombre Largo', dataKey: 'nombreLargo' },
+        { header: 'Nombre corto', dataKey: 'nombreCorto' },
+        { header: 'Estado', dataKey: 'estado' },
+        { header: 'Fecha de creacion', dataKey: 'fecha' }
+      ];
+      const cuerpo = res.data
+
+      this.readData = res;
+      this.srvImpresion.imprimir(encabezado, cuerpo, "Lista de cursos", true);
     })
   }
 }

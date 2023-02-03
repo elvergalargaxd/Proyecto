@@ -62,10 +62,10 @@ export class CrearEstudianteComponent implements OnInit {
 
         const str = res.data[0].imagenes;
         console.log("siuuuuuuuu"+str);
-
-        this.imgUrl=str;
+        this.imgUrl="http://localhost:4200/assets/"+str;
         }else{
           this.imgUrl=this.imgUrl;
+          
           console.log("no image");
         }
 

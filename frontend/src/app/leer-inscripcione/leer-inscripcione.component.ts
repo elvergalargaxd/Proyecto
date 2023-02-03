@@ -46,12 +46,35 @@ export class LeerInscripcioneComponent implements OnInit {
       this.readData = res.data;
     })
   }
-  deleteID(id: any) {
-    this.servise.inscripcionDelete(id).subscribe((res) => {
-      console.log(res, 'res==>');
-      this.readData = res.data;
-    })
-    this.getAllData();
+  deleteID(id: any,nombre:any) {
+    
+    Swal.fire({
+      title: 'Desea eliminar los datos de "'+nombre+'"',
+      text: "Esta seguro de eliminar los datos!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',      
+     confirmButtonText: `Eliminar`,
+     }).then((result) => {
+     if (result.isConfirmed) {
+
+     
+      this.servise.inscripcionDelete(id).subscribe( (res) => {
+        
+      // console.log(res, location.reload());
+      Swal.fire(
+        'Datos Eliminados!',
+        'Los datos fueron Eliminados.',
+        'success'
+      )
+      console.log(res,'res==>');
+      this.readData =res.data;
+     this.getAllData();
+       });
+     }
+     
+   });  
   }
   downData(id: any, nombre: any) {
 

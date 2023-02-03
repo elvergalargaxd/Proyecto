@@ -66,13 +66,13 @@
             <label class="divInputsLabel">Foto de perfil:</label>
             <div class="col-md-3 " >
               <div class="text-center container " [hidden]="!edited">
-                <img [src]="imgUrl" class=" " style="border-radius: 50%;  width:150px; height:150px;" alt="avatar">
+                <img [src]=" imgUrl" class=" " style="border-radius: 50%;  width:150px; height:150px;" alt="avatar">
                 
               </div>
               <hr>
-              <input type="file" class="form-control" accept="" (change)="selectImage($event)">
+              <input type="file"  class="form-control" accept="" (change)="selectImage($event)" accept="image/*">
                 
-                <button class="btn btn-outline-primary" type="submit" (click)="onSubmit()" [disabled]="desact =='1'">Subir Imagen</button>
+                <button class="btn btn-outline-primary" type="submit" (click)="onSubmit()" [disabled]="desact =='1'">Modificar imagen</button>
         
             </div>
           </div>
